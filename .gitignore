@@ -1,0 +1,21 @@
+# Dependencies and build outputs
+**/node_modules/
+**/dist/
+**/.vite/
+
+# Python cache
+**/__pycache__/
+**/*.pyc
+
+# Local env and logs
+**/.env
+**/.env.*
+!frontend/.env.example
+**/*.log
+
+# Local virtualenv
+.venv/
+
+# Nested repo metadata
+frontend/.git/
+

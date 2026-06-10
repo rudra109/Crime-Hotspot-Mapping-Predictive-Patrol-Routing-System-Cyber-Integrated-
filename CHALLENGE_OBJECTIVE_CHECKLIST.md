@@ -1,0 +1,18 @@
+# Challenge Objective Checklist
+
+| Objective | Status | Implemented in |
+|---|---:|---|
+| Crime ingestion and retrieval | Done | [backend/src/api/controllers/crimeController.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/api/controllers/crimeController.ts), [backend/src/services/crime-service/ingestion.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/services/crime-service/ingestion.ts) |
+| Real-time updates | Done | [backend/src/index.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/index.ts), [backend/src/services/realtime.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/services/realtime.ts), [frontend/src/api/apiClient.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/api/apiClient.ts) |
+| Patrol route optimization | Done | [backend/src/services/routing-service/index.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/services/routing-service/index.ts), [ml-engine/main.py](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/ml-engine/main.py), [frontend/src/App.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/App.tsx) |
+| Live analytics and summary stats | Done | [backend/src/api/controllers/statsController.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/api/controllers/statsController.ts), [frontend/src/components/IntelligenceAnalytics.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/components/IntelligenceAnalytics.tsx) |
+| Audit logging | Done | [backend/src/models/audit.model.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/models/audit.model.ts), [backend/src/services/audit-service.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/services/audit-service.ts), [backend/src/api/controllers/auditController.ts](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/backend/src/api/controllers/auditController.ts), [frontend/src/components/AuditLogView.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/components/AuditLogView.tsx) |
+| Map-based command view | Done | [frontend/src/components/CommandDashboard.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/components/CommandDashboard.tsx), [frontend/src/components/SurveillanceHeatmap.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/components/SurveillanceHeatmap.tsx) |
+| Mobile officer workflow | Done | [frontend/src/components/MobileOfficerSimulator.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/components/MobileOfficerSimulator.tsx) |
+| ML forecast and anomaly endpoints | Done | [ml-engine/main.py](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/ml-engine/main.py), [ml-engine/ml_service/temporal_forecasting.py](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/ml-engine/ml_service/temporal_forecasting.py) |
+| Secure comms / drone / tactical modules | Done | [frontend/src/components/SecureComms.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/components/SecureComms.tsx), [frontend/src/components/DroneControl.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/components/DroneControl.tsx), [frontend/src/components/TacticalPlanning.tsx](C:/Users/mkuma/OneDrive/Desktop/New%20folder%20(2)/aixcs/frontend/src/components/TacticalPlanning.tsx) |
+
+## Notes
+
+- The project is now backed by live backend endpoints for crime data, stats, routing, audit logs, and ML forecasting.
+- The mobile officer screen is still a web app, but the UI has been reshaped to read like a real field app instead of a simulator.

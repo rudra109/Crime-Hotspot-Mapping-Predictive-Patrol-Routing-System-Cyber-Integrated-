@@ -1,0 +1,6 @@
+{
+  "name": "Aegis Tactical Control",
+  "description": "Tactical Operations Dashboard, surveillance map, route optimization planning, and mobile officer simulation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

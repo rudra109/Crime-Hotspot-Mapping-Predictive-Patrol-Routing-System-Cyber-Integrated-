@@ -1,0 +1,36 @@
+name: CI Test Pipeline
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'backend/package-lock.json'
+          
+      - name: Install dependencies
+        run: cd backend && npm install
+        
+      - name: Run Build
+        run: cd backend && npm run build
+        
+      # ML Engine Tests
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install ML dependencies
+        run: |
+          cd ml-engine
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
