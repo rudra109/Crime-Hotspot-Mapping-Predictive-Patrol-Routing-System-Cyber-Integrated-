@@ -310,7 +310,7 @@ export default function DroneControl() {
                 className="flex-1 accent-cyan-400 opacity-80 cursor-pointer"
               />
             </div>
-            <p className="text-[10px] text-slate-505 font-mono">Governs frequency of sweeping thermal laser emitters.</p>
+            <p className="text-[10px] text-slate-500 font-mono">Governs frequency of sweeping thermal laser emitters.</p>
           </div>
 
           <div className="space-y-2 border-t md:border-t-0 md:border-l border-slate-800 md:pl-4 pt-4 md:pt-0">

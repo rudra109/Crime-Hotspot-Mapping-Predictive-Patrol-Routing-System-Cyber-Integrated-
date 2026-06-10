@@ -1,18 +1,51 @@
-@import "tailwindcss";
-
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
-/* Custom Fade entrance animations */
+body {
+  margin: 0;
+  background: #020617;
+  color: #e2e8f0;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-sans {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.font-display {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.font-mono {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace !important;
+}
+
+/* Leaflet map container fix */
+.leaflet-container {
+  background: #1e293b !important;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
   animation: fadeIn 0.25s ease-out forwards;
+}
+
+::selection {
+  background: #14b8a6;
+  color: #020617;
 }
 
