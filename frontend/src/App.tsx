@@ -242,36 +242,36 @@ export default function App() {
   }
 
   return (
-    <div id="application-container" className="min-h-screen bg-[#050B14] text-slate-200 flex flex-col md:flex-row font-sans selection:bg-cyan-500/30 selection:text-white">
+    <div id="application-container" className="min-h-screen bg-[#07111f] text-slate-100 flex flex-col md:flex-row font-sans selection:bg-blue-500/30 selection:text-white">
       
       {/* ── Sidebar ── */}
-      <aside className="w-full md:w-64 bg-[#0B1220]/80 backdrop-blur-xl border-b md:border-b-0 md:border-r border-slate-800/80 flex flex-col justify-between shrink-0 z-50 shadow-[4px_0_24px_rgba(0,0,0,0.5)]">
+      <aside className="w-full md:w-64 bg-[#0b1320]/90 backdrop-blur-xl border-b md:border-b-0 md:border-r border-slate-700/80 flex flex-col justify-between shrink-0 z-50 shadow-[4px_0_24px_rgba(0,0,0,0.35)]">
         <div className="flex flex-col gap-2 p-6">
           <div className="flex items-center gap-3 border-b border-slate-800/80 pb-6 mb-6">
-            <div className="h-10 w-10 rounded-xl bg-[#00E5FF]/10 border border-[#00E5FF]/20 flex items-center justify-center text-[#00E5FF] shadow-[0_0_15px_rgba(0,229,255,0.15)]">
+            <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-300 shadow-[0_0_15px_rgba(37,99,235,0.15)]">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[10px] font-mono tracking-widest text-cyan-500 font-bold uppercase leading-none mb-1">
+              <div className="text-[10px] font-mono tracking-widest text-blue-300 font-bold uppercase leading-none mb-1">
                 Ahmedabad Police
               </div>
               <h2 className="text-sm font-bold tracking-tight text-white font-sans">
-                AEGIS COMMAND
+                COMMAND CENTER
               </h2>
             </div>
           </div>
 
           <div className="space-y-1">
-            <span className="text-[10px] uppercase font-mono text-slate-500 tracking-widest font-bold block px-3 mb-3">
-              Command Modules
+            <span className="text-[10px] uppercase font-mono text-slate-400 tracking-widest font-bold block px-3 mb-3">
+              Operations Menu
             </span>
 
             {[
-              { id: "OPERATIONS", icon: Layers, label: "Operations Console" },
-              { id: "SURVEILLANCE", icon: Cpu, label: "Surveillance Mesh" },
-              { id: "TACTICAL_PLAN", icon: Navigation, label: "Optimal Routing" },
-              { id: "INTELLIGENCE", icon: BarChart3, label: "Intelligence Matrix" },
-              { id: "MOBILE_OFFICER", icon: Users, label: "Field Officer Sync" },
+              { id: "OPERATIONS", icon: Layers, label: "Operations" },
+              { id: "SURVEILLANCE", icon: Cpu, label: "Live Map" },
+              { id: "TACTICAL_PLAN", icon: Navigation, label: "Patrol Routing" },
+              { id: "INTELLIGENCE", icon: BarChart3, label: "Analytics" },
+              { id: "MOBILE_OFFICER", icon: Users, label: "Field Units" },
               { id: "AUDIT_LOGS", icon: ShieldAlert, label: "Audit Logs" }
             ].map((navItem) => {
               const Icon = navItem.icon;
@@ -282,11 +282,11 @@ export default function App() {
                   onClick={() => setViewState(navItem.id as ViewState)}
                   className={`w-full text-left px-4 py-2.5 rounded-xl flex items-center gap-3 text-sm font-medium transition-all duration-300 cursor-pointer ${
                     isActive 
-                      ? 'bg-[#00E5FF]/10 border border-[#00E5FF]/30 text-[#00E5FF] shadow-[0_0_15px_rgba(0,229,255,0.1)] translate-x-1' 
-                      : 'text-slate-400 hover:text-cyan-100 hover:bg-slate-800/50 border border-transparent'
+                      ? 'bg-blue-500/10 border border-blue-400/30 text-blue-200 shadow-[0_0_15px_rgba(37,99,235,0.1)] translate-x-1' 
+                      : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 border border-transparent'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 transition-colors ${isActive ? "text-[#00E5FF]" : "text-slate-500"}`} />
+                  <Icon className={`w-4 h-4 transition-colors ${isActive ? "text-blue-300" : "text-slate-500"}`} />
                   <span className={isActive ? "font-bold tracking-wide" : ""}>{navItem.label}</span>
                 </button>
               );
@@ -294,7 +294,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="p-6 border-t border-slate-800/80 bg-[#0B1220]/30 flex flex-col gap-4">
+        <div className="p-6 border-t border-slate-700/80 bg-[#0b1320]/35 flex flex-col gap-4">
           <div className="flex items-center justify-between text-xs font-mono">
             <span className="text-slate-500">SEC:</span>
             <span className="text-slate-300 font-bold tracking-wider">GUJ-POLICE-2026</span>
@@ -302,10 +302,10 @@ export default function App() {
 
           <button
             onClick={handleResetStorage}
-            className="w-full text-left px-4 py-2.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 rounded-xl flex items-center gap-3 text-sm font-medium cursor-pointer transition-all duration-200"
+            className="w-full text-left px-4 py-2.5 text-amber-300 hover:text-amber-200 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 rounded-xl flex items-center gap-3 text-sm font-medium cursor-pointer transition-all duration-200"
           >
             <LogOut className="w-4 h-4" />
-            <span>Reset Demo Data</span>
+            <span>Reset Session</span>
           </button>
         </div>
       </aside>
@@ -315,36 +315,36 @@ export default function App() {
         {/* Subtle background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-900/20 blur-[120px] rounded-full pointer-events-none" />
 
-        <header className="px-8 py-5 border-b border-slate-800/80 bg-[#050B14]/80 backdrop-blur-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 z-40 sticky top-0 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+        <header className="px-8 py-5 border-b border-slate-700/80 bg-[#07111f]/90 backdrop-blur-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 z-40 sticky top-0 shadow-[0_4px_30px_rgba(0,0,0,0.35)]">
           <div className="flex items-center gap-4">
             <div className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FFA3] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00FFA3]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
             </div>
             <div>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-[#00E5FF]/70 block mb-0.5 font-bold">System Connection Status</span>
+              <span className="text-[10px] uppercase font-mono tracking-widest text-blue-300/80 block mb-0.5 font-bold">Command Link Status</span>
               <h1 className="text-xs font-mono text-slate-300 flex items-center gap-2">
                 AHMEDABAD POLICE ACTIVE <span className="opacity-40">|</span> PORT <b className="text-white">3000</b>
               </h1>
             </div>
           </div>
 
-          <div id="perspective-selector" className="flex items-center bg-[#0B1220]/60 border border-slate-800/80 p-1 rounded-xl text-xs font-medium shadow-inner backdrop-blur-md">
+          <div id="perspective-selector" className="flex items-center bg-[#0b1320]/70 border border-slate-700/80 p-1 rounded-xl text-xs font-medium shadow-inner backdrop-blur-md">
             <button
               onClick={() => setViewState("OPERATIONS")}
               className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
-                viewState !== 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-cyan-600 to-[#00E5FF] text-[#050B14] shadow-[0_0_15px_rgba(0,229,255,0.3)]' : 'text-slate-400 hover:text-cyan-100 hover:bg-slate-800'
+                viewState !== 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
               }`}
             >
-              Commander Console
+              Command View
             </button>
             <button
               onClick={() => setViewState("MOBILE_OFFICER")}
               className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
-                viewState === 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-cyan-600 to-[#00E5FF] text-[#050B14] shadow-[0_0_15px_rgba(0,229,255,0.3)]' : 'text-slate-400 hover:text-cyan-100 hover:bg-slate-800'
+                viewState === 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
               }`}
             >
-              Field Officer Unit
+              Field Officer View
             </button>
           </div>
         </header>

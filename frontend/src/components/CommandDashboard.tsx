@@ -71,7 +71,7 @@ export default function CommandDashboard({
   const [mapClickMode, setMapClickMode] = useState(false);
 
   const [aiResponse, setAiResponse] = useState<string>(
-    "Ahmedabad Police AI Advisor online. Enter a query or tap a Quick Directive below."
+    "Ahmedabad Police operations assistant online. Enter a query or choose a quick directive below."
   );
   const [userQuery, setUserQuery] = useState("");
   const [isAiLoading, setIsAiLoading] = useState(false);
@@ -401,8 +401,8 @@ export default function CommandDashboard({
                   <AlertTriangle className="w-5 h-5 text-red-400" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white tracking-wide">Log New Incident</h3>
-                  <p className="text-xs text-slate-400 font-mono mt-0.5">MANUAL_ENTRY_CONSOLE</p>
+                  <h3 className="text-base font-bold text-white tracking-wide">Register Incident</h3>
+                  <p className="text-xs text-slate-400 font-mono mt-0.5">INCIDENT_ENTRY</p>
                 </div>
               </div>
               <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors">
@@ -648,7 +648,7 @@ export default function CommandDashboard({
           <div className="absolute top-4 left-4 z-[400] bg-[#0B1220]/80 backdrop-blur-md border border-slate-700 rounded-xl p-2.5 flex items-center gap-4 shadow-lg">
             <div className="flex items-center gap-2 pl-2">
               <span className="w-2 h-2 rounded-full bg-[#FF4D4F] shadow-[0_0_8px_#FF4D4F] animate-pulse" />
-              <span className="text-[11px] font-bold text-white tracking-widest uppercase">Live Sector Map</span>
+              <span className="text-[11px] font-bold text-white tracking-widest uppercase">Live Map</span>
             </div>
             <div className="h-4 w-[1px] bg-slate-700" />
             <div className="flex gap-1 pr-1">
@@ -663,7 +663,7 @@ export default function CommandDashboard({
           <div className="absolute bottom-4 left-4 right-4 z-[400] bg-[#0B1220]/85 backdrop-blur-md border border-slate-700 rounded-xl p-3.5 flex justify-between items-center shadow-xl">
             <div className="text-[11px] text-slate-300 font-mono tracking-wide flex items-center gap-2">
               <Eye className="w-4 h-4 text-[#00E5FF]" />
-              {selectedIncident ? `TGT_LOCK: ${selectedIncident.id} // ${selectedIncident.category}` : "Awaiting telemetry selection..."}
+              {selectedIncident ? `Selected case: ${selectedIncident.id} // ${selectedIncident.category}` : "Awaiting case selection..."}
             </div>
             <div className="flex gap-3">
               <button onClick={() => setShowAddModal(true)} className="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white shadow-[0_0_15px_rgba(0,229,255,0.2)] font-bold text-[11px] uppercase tracking-wider rounded-lg transition-all border border-cyan-400/50">
@@ -681,7 +681,7 @@ export default function CommandDashboard({
                 </button>
               )}
               <button onClick={onSimulateAlarm} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 font-bold text-[11px] uppercase tracking-wider rounded-lg transition-all">
-                Simulate
+                Test Alert
               </button>
             </div>
           </div>
@@ -695,7 +695,7 @@ export default function CommandDashboard({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF4D4F] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF4D4F]"></span>
               </span>
-              Live Intel Feed
+              Incident Feed
             </h3>
           </div>
           <div className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar">
@@ -740,7 +740,7 @@ export default function CommandDashboard({
           <div className="absolute -top-20 -right-20 w-48 h-48 bg-[#00E5FF]/10 blur-[70px] rounded-full pointer-events-none group-hover:bg-[#00E5FF]/20 transition-colors duration-700" />
           <h3 className="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-2 mb-6 relative z-10">
             <Cpu className="w-5 h-5 text-[#00E5FF]" />
-            Copilot Core
+            Operations Briefing
           </h3>
 
           <div className="flex-1 bg-[#050B14]/50 border border-slate-800/80 rounded-2xl p-5 mb-5 min-h-[160px] max-h-[200px] overflow-y-auto text-[13px] leading-relaxed text-slate-300 custom-scrollbar relative shadow-inner">
@@ -790,7 +790,7 @@ export default function CommandDashboard({
         <div className="lg:col-span-7 bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/60 rounded-3xl p-6 shadow-xl">
           <h3 className="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-2 mb-6">
             <Flame className="w-5 h-5 text-[#FFB020]" />
-            Hotspot Diagnostics
+            Risk Hotspots
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {crimeHotspots.slice(0, 4).map((hs, idx) => (
@@ -819,7 +819,7 @@ export default function CommandDashboard({
         {/* Crime Trends */}
         <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/60 hover:border-slate-700 transition-colors duration-300 rounded-3xl p-6 flex flex-col justify-between shadow-xl group hover:-translate-y-1">
           <h3 className="font-bold mb-4 text-[11px] uppercase tracking-widest text-[#00E5FF] flex items-center gap-2">
-            Crime Trend Analytics
+            Incident Trend Analytics
           </h3>
           <div className="flex items-end gap-3 h-32 mb-6 mt-2">
             {[40, 70, 45, 90, 65, 85, 60].map((h, i) => (
@@ -841,7 +841,7 @@ export default function CommandDashboard({
             <Cpu className="w-48 h-48 text-[#00FFA3]" />
           </div>
           <div className="relative z-10">
-            <h3 className="font-bold mb-5 text-[11px] uppercase tracking-widest text-[#00FFA3]">Predictive Intel</h3>
+            <h3 className="font-bold mb-5 text-[11px] uppercase tracking-widest text-[#00FFA3]">Risk Forecast</h3>
             <div className="text-5xl font-extrabold text-white mb-4 tracking-tighter">84% <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase ml-1 block mt-1">Confidence Score</span></div>
             <p className="text-[11px] leading-relaxed text-slate-400 font-mono bg-[#050B14]/50 p-4 rounded-xl border border-slate-800/80">High probability of traffic anomalies in SG Highway sector between 18:00 - 20:00.</p>
           </div>
@@ -850,7 +850,7 @@ export default function CommandDashboard({
 
         {/* Patrol Optimization */}
         <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/60 hover:border-slate-700 transition-colors duration-300 rounded-3xl p-6 flex flex-col justify-between shadow-xl group hover:-translate-y-1">
-          <h3 className="font-bold mb-6 text-[11px] uppercase tracking-widest text-[#FFB020]">Patrol Efficiency</h3>
+          <h3 className="font-bold mb-6 text-[11px] uppercase tracking-widest text-[#FFB020]">Resource Planning</h3>
           <div className="space-y-6">
             <div>
               <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-3"><span className="text-slate-400">Route Optimization</span><span className="text-[#FFB020]">92%</span></div>
