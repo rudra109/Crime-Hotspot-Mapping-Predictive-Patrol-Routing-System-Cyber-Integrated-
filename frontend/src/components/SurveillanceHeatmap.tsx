@@ -42,14 +42,14 @@ const STATUS_FILL: Record<string, string> = {
 const STATUS_TEXT: Record<string, string> = {
   CRITICAL: "text-red-400",
   ELEVATED: "text-amber-400",
-  MODERATE: "text-blue-400",
+  MODERATE: "text-cyan-300",
   STABLE: "text-green-400",
 };
 
 const STATUS_BADGE: Record<string, string> = {
   CRITICAL: "bg-red-900/40 text-red-400 border border-red-500/20",
   ELEVATED: "bg-amber-900/40 text-amber-400 border border-amber-500/20",
-  MODERATE: "bg-blue-900/40 text-blue-400 border border-blue-500/20",
+  MODERATE: "bg-blue-900/40 text-cyan-300 border border-blue-500/20",
   STABLE: "bg-green-900/40 text-green-400 border border-green-500/20",
 };
 
@@ -181,11 +181,11 @@ export default function SurveillanceHeatmap({
       {/* Header */}
       <div className="lg:col-span-12 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-4 gap-3">
         <div>
-          <div className="text-xs uppercase tracking-widest font-mono text-blue-500 font-semibold mb-1">Surveillance Overview</div>
+          <div className="text-xs uppercase tracking-widest font-mono text-cyan-400 font-semibold mb-1">Surveillance Overview</div>
           <h2 className="text-2xl font-bold text-white tracking-tight leading-none">ZONE THREAT HEATMAP</h2>
         </div>
-        <div className="flex items-center gap-1.5 font-mono text-xs text-slate-400 bg-slate-900 border border-slate-800 rounded-lg py-1 px-3">
-          <Eye className="w-3.5 h-3.5 text-blue-500" />
+        <div className="flex items-center gap-1.5 font-mono text-xs text-slate-400 bg-[#0B1220] border border-slate-800 rounded-lg py-1 px-3">
+          <Eye className="w-3.5 h-3.5 text-cyan-400" />
           <span>{sectors.length}/5 sectors synced</span>
         </div>
       </div>
@@ -193,7 +193,7 @@ export default function SurveillanceHeatmap({
       {/* Left: Map + Sector Cards */}
       <div className="lg:col-span-7 flex flex-col gap-6">
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col gap-4">
+        <div className="bg-[#0B1220] border border-slate-800 rounded-xl p-5 flex flex-col gap-4">
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-sm font-bold text-white uppercase tracking-wider">Ahmedabad Sectors</h3>
@@ -228,7 +228,7 @@ export default function SurveillanceHeatmap({
               <div
                 key={sec.sector}
                 onClick={() => setSelectedSector(sec.sector)}
-                className={`bg-slate-950 p-3 border rounded-lg cursor-pointer transition-all ${
+                className={`bg-[#050B14] p-3 border rounded-lg cursor-pointer transition-all ${
                   selectedSector === sec.sector
                     ? "border-blue-500 bg-blue-900/20 shadow"
                     : "border-slate-800 hover:border-slate-700"
@@ -243,7 +243,7 @@ export default function SurveillanceHeatmap({
         </div>
 
         {/* Selected sector detail */}
-        <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl">
+        <div className="bg-[#0B1220] border border-slate-800 p-5 rounded-xl">
           <div className="flex justify-between items-start gap-4 flex-wrap">
             <div>
               <span className="text-[10px] text-slate-500 font-mono uppercase font-bold">Currently Analysing</span>
@@ -257,7 +257,7 @@ export default function SurveillanceHeatmap({
               {selectedSecObj.status !== "STABLE" && (
                 <button
                   onClick={() => handleMuteZone(selectedSecObj.sector)}
-                  className="px-3 py-1 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 text-[11px] font-mono text-slate-300 rounded cursor-pointer transition-colors"
+                  className="px-3 py-1 bg-[#050B14] hover:bg-[#0B1220] border border-slate-800 hover:border-slate-700 text-[11px] font-mono text-slate-300 rounded cursor-pointer transition-colors"
                 >
                   Mute Alert
                 </button>
@@ -269,7 +269,7 @@ export default function SurveillanceHeatmap({
 
       {/* Right: Alert Stream */}
       <div className="lg:col-span-5 flex flex-col gap-6">
-        <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl flex flex-col gap-4">
+        <div className="bg-[#0B1220] border border-slate-800 p-5 rounded-xl flex flex-col gap-4">
           <div className="border-b border-slate-800 pb-3">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">ACTIVE ALERT STREAM</h3>
             <span className="text-[11px] font-mono text-slate-400">DISPATCH UNITS DIRECTLY</span>
@@ -283,7 +283,7 @@ export default function SurveillanceHeatmap({
                 className={`py-1 rounded text-center border font-bold cursor-pointer transition-colors ${
                   filterMode === mode
                     ? "bg-blue-600 text-white border-blue-500"
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
+                    : "bg-[#050B14] text-slate-400 border-slate-800 hover:text-white"
                 }`}
               >
                 {mode}
@@ -301,7 +301,7 @@ export default function SurveillanceHeatmap({
                 return (
                   <div
                     key={alert.id}
-                    className={`bg-slate-950 border p-3.5 rounded-lg flex flex-col gap-3 font-mono text-xs transition-all ${
+                    className={`bg-[#050B14] border p-3.5 rounded-lg flex flex-col gap-3 font-mono text-xs transition-all ${
                       isCritical ? "border-red-500/25 bg-red-900/10" : "border-slate-800 hover:border-slate-700"
                     }`}
                   >
@@ -320,7 +320,7 @@ export default function SurveillanceHeatmap({
                             <button onClick={() => onAckAlert(alert.id)} className="px-2 py-1 bg-slate-800 border border-slate-700 text-slate-300 rounded hover:text-white hover:bg-slate-700 text-[10px] font-bold cursor-pointer transition-colors">
                               Ack
                             </button>
-                            <button onClick={() => onDispatchAlertUnit(alert.id, alert.sector)} className="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-[10px] font-bold cursor-pointer transition-colors">
+                            <button onClick={() => onDispatchAlertUnit(alert.id, alert.sector)} className="px-2.5 py-1 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-lg shadow-cyan-500/20 border border-cyan-400/50 rounded text-[10px] font-bold cursor-pointer transition-colors">
                               Dispatch Unit
                             </button>
                           </>

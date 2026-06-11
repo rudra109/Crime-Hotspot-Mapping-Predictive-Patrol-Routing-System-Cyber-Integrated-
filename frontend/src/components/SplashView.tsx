@@ -51,19 +51,19 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
   return (
     <div
       id="splash-screen"
-      className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between p-6 md:p-12 font-sans overflow-y-auto"
+      className="min-h-screen bg-[#050B14] text-slate-100 flex flex-col justify-between p-6 md:p-12 font-sans overflow-y-auto"
     >
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2 py-0.5 text-[10px] uppercase tracking-widest font-mono text-blue-400 border border-blue-500/30 bg-blue-950/40 rounded">
+            <span className="px-2 py-0.5 text-[10px] uppercase tracking-widest font-mono text-cyan-300 border border-blue-500/30 bg-blue-950/40 rounded">
               Gujarat Police
             </span>
             <span className="text-[10px] font-mono text-slate-500">GUJ-POLICE-2026</span>
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-white">
-            AHMEDABAD <span className="text-blue-400 font-medium">COMMAND CENTER</span>
+            AHMEDABAD <span className="text-cyan-300 font-medium">COMMAND CENTER</span>
           </h1>
         </div>
         <div className="flex items-center gap-3">
@@ -71,7 +71,7 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
             <div className="text-xs uppercase tracking-wider font-mono text-slate-500">Operational Status</div>
             <div className="text-sm font-semibold font-mono text-green-400">● SYSTEMS ONLINE</div>
           </div>
-          <div className="h-10 w-10 rounded-lg bg-blue-950/50 border border-blue-500/30 flex items-center justify-center text-blue-400">
+          <div className="h-10 w-10 rounded-lg bg-blue-950/50 border border-blue-500/30 flex items-center justify-center text-cyan-300">
             <Shield className="w-5 h-5" />
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
               <button
                 id="btn-initialize-system"
                 onClick={() => setIsInitializing(true)}
-                className="group relative px-8 py-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold tracking-wider rounded-lg flex items-center gap-3 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:scale-[1.02] cursor-pointer"
+                className="group relative px-8 py-4 bg-blue-600 hover:bg-cyan-500 active:bg-blue-700 text-white font-bold tracking-wider rounded-lg flex items-center gap-3 transition-all duration-300 shadow-lg shadow-blue-500/20 hover:scale-[1.02] cursor-pointer"
               >
                 <Activity className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                 <span>INITIALIZE COMMAND CONSOLE</span>
@@ -109,13 +109,13 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
             </div>
           ) : (
             <div className="space-y-4 pt-2 max-w-md">
-              <div className="flex justify-between items-center text-xs font-mono text-blue-400">
+              <div className="flex justify-between items-center text-xs font-mono text-cyan-300">
                 <span className="font-semibold uppercase tracking-wider">{initStage}</span>
                 <span>{loadingProgress}%</span>
               </div>
-              <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+              <div className="w-full h-2 bg-[#0B1220] rounded-full overflow-hidden border border-slate-800">
                 <div
-                  className="h-full bg-blue-500 transition-all duration-75 shadow-lg shadow-blue-400/50"
+                  className="h-full bg-cyan-500 transition-all duration-75 shadow-lg shadow-blue-400/50"
                   style={{ width: `${loadingProgress}%` }}
                 />
               </div>
@@ -128,7 +128,7 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
           {/* Capability badges */}
           <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-800">
             <div className="flex gap-2.5">
-              <div className="mt-1 text-blue-400"><Radio className="w-4 h-4" /></div>
+              <div className="mt-1 text-cyan-300"><Radio className="w-4 h-4" /></div>
               <div>
                 <h4 className="text-xs font-semibold text-slate-200">Real-Time Dispatch</h4>
                 <p className="text-[11px] text-slate-400">Live incident tracking and unit deployment.</p>
@@ -145,13 +145,13 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
         </div>
 
         {/* Right: Architecture Nodes */}
-        <div id="architecture-nodes" className="md:col-span-5 bg-slate-900 border border-slate-800 rounded-xl p-6 relative">
-          <div className="absolute top-3 right-3 text-[9px] font-mono text-blue-500/60 border border-blue-500/20 bg-blue-900/10 px-2 py-0.5 rounded">
+        <div id="architecture-nodes" className="md:col-span-5 bg-[#0B1220] border border-slate-800 rounded-xl p-6 relative">
+          <div className="absolute top-3 right-3 text-[9px] font-mono text-cyan-400/60 border border-blue-500/20 bg-blue-900/10 px-2 py-0.5 rounded">
             Live Network
           </div>
 
           {/* City image */}
-          <div className="relative h-44 rounded-lg overflow-hidden border border-slate-800 mb-5 bg-slate-950">
+          <div className="relative h-44 rounded-lg overflow-hidden border border-slate-800 mb-5 bg-[#050B14]">
             <img
               src="https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=800&q=80"
               alt="Ahmedabad City"
@@ -161,7 +161,7 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
             <div className="absolute bottom-2.5 left-3 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
-              <span className="text-[9px] font-mono font-bold text-blue-300 uppercase tracking-widest bg-slate-950/80 px-2 py-0.5 rounded border border-slate-800">
+              <span className="text-[9px] font-mono font-bold text-blue-300 uppercase tracking-widest bg-[#050B14]/80 px-2 py-0.5 rounded border border-slate-800">
                 AHMEDABAD · GUJARAT · INDIA
               </span>
             </div>
@@ -174,9 +174,9 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
 
           <div className="space-y-3 font-mono text-xs">
             {[
-              { icon: Shield, label: "Operations Command", color: "text-blue-400", status: "Online", statusColor: "text-green-400" },
+              { icon: Shield, label: "Operations Command", color: "text-cyan-300", status: "Online", statusColor: "text-green-400" },
               { icon: BarChart3, label: "Intelligence Analytics", color: "text-indigo-400", status: "Recharts Active", statusColor: "text-green-400" },
-              { icon: Cpu, label: "Surveillance & Heatmap", color: "text-blue-400", status: "98% Ready", statusColor: "text-blue-400" },
+              { icon: Cpu, label: "Surveillance & Heatmap", color: "text-cyan-300", status: "98% Ready", statusColor: "text-cyan-300" },
               { icon: Users, label: "Field Officer Sync", color: "text-amber-500", status: "Mobile Ready", statusColor: "text-green-400" },
             ].map((node, idx) => (
               <div key={idx}>
@@ -185,7 +185,7 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
                     <div className="w-0.5 h-full bg-slate-800 border-l border-slate-700"></div>
                   </div>
                 )}
-                <div className="flex items-center justify-between p-2.5 bg-slate-950 border border-slate-800 rounded hover:border-slate-700 transition-colors">
+                <div className="flex items-center justify-between p-2.5 bg-[#050B14] border border-slate-800 rounded hover:border-slate-700 transition-colors">
                   <div className="flex items-center gap-2">
                     <node.icon className={`w-3.5 h-3.5 ${node.color}`} />
                     <span className="text-slate-300">{node.label}</span>
@@ -208,9 +208,9 @@ export default function SplashView({ onInitialize }: SplashViewProps) {
           <span>© 2026 Ahmedabad Police Department. All Rights Reserved.</span>
         </div>
         <div className="flex items-center gap-4">
-          <span>PORT: <span className="text-blue-400 font-bold">3000</span></span>
+          <span>PORT: <span className="text-cyan-300 font-bold">3000</span></span>
           <span className="text-slate-700">|</span>
-          <span>LATENCY: <span className="text-blue-400">12ms</span></span>
+          <span>LATENCY: <span className="text-cyan-300">12ms</span></span>
           <span className="text-slate-700">|</span>
           <span>REGION: GUJARAT, IND</span>
         </div>

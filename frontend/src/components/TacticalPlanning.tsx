@@ -364,10 +364,10 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
       <div className="lg:col-span-8 flex flex-col gap-5">
 
         {/* Map Card */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex flex-col">
+        <div className="bg-[#0B1220] border border-slate-800 rounded-xl overflow-hidden flex flex-col">
 
           {/* Map Toolbar */}
-          <div className="p-4 border-b border-slate-800 bg-slate-950/60 flex flex-wrap gap-3 items-center justify-between">
+          <div className="p-4 border-b border-slate-800 bg-[#050B14]/60 flex flex-wrap gap-3 items-center justify-between">
             <div className="flex items-center gap-2">
               <Route className="w-4 h-4 text-violet-400" />
               <div>
@@ -393,7 +393,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
                     className={`px-3 py-1.5 text-[10px] font-mono font-bold rounded border transition-all cursor-pointer flex items-center gap-1.5 ${
                       isActive
                         ? "border-violet-400 text-violet-300 bg-violet-900/30"
-                        : "border-slate-700 text-slate-400 bg-slate-950 hover:border-slate-500 hover:text-slate-200"
+                        : "border-slate-700 text-slate-400 bg-[#050B14] hover:border-slate-500 hover:text-slate-200"
                     } disabled:opacity-40 disabled:cursor-not-allowed`}
                   >
                     <span className="w-2 h-2 rounded-full inline-block" style={{ background: p.color }} />
@@ -406,7 +406,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
                 className={`px-3 py-1.5 text-[10px] font-mono font-bold rounded border transition-all cursor-pointer ${
                   customMode
                     ? "border-emerald-400 text-emerald-300 bg-emerald-900/20"
-                    : "border-slate-700 text-slate-400 bg-slate-950 hover:border-slate-500"
+                    : "border-slate-700 text-slate-400 bg-[#050B14] hover:border-slate-500"
                 }`}
               >
                 <Plus className="w-3 h-3 inline mr-1" />
@@ -447,7 +447,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
 
             {/* Loading overlay */}
             {isRouting && (
-              <div className="absolute inset-0 bg-slate-950/70 flex flex-col items-center justify-center gap-3 z-10">
+              <div className="absolute inset-0 bg-[#050B14]/70 flex flex-col items-center justify-center gap-3 z-10">
                 <RefreshCw className="w-7 h-7 text-violet-400 animate-spin" />
                 <div className="text-center">
                   <div className="text-sm font-bold text-white font-mono">CALCULATING ROAD ROUTE</div>
@@ -459,7 +459,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
 
           {/* Route Stats Bar */}
           {routeResult && !isRouting && (
-            <div className="p-3 bg-slate-950/60 border-t border-slate-800 flex flex-wrap items-center gap-4">
+            <div className="p-3 bg-[#050B14]/60 border-t border-slate-800 flex flex-wrap items-center gap-4">
               <div className="flex items-center gap-2 text-xs font-mono">
                 <div className="w-2.5 h-2.5 rounded-full" style={{ background: ROUTE_PRESETS[routeResult.presetKey]?.color || "#a78bfa" }} />
                 <span className="text-slate-400">{customMode ? "Custom Route" : ROUTE_PRESETS[routeResult.presetKey]?.label}</span>
@@ -491,7 +491,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
 
         {/* Route Description Card */}
         {!customMode && (
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+          <div className="bg-[#0B1220] border border-slate-800 rounded-xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <Navigation className="w-4 h-4 text-violet-400" />
               <h4 className="text-xs font-bold text-white uppercase tracking-wider">Selected Route Details</h4>
@@ -549,7 +549,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
 
         {/* Custom Waypoints Manager */}
         {customMode && (
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+          <div className="bg-[#0B1220] border border-slate-800 rounded-xl p-5">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
               <MapPin className="w-4 h-4 text-emerald-400" />
               Custom Waypoints
@@ -582,7 +582,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
                 placeholder="Waypoint name"
                 value={newWpName}
                 onChange={e => setNewWpName(e.target.value)}
-                className="col-span-4 bg-slate-950 border border-slate-700 text-white text-xs font-mono rounded-lg px-3 py-2 outline-none focus:border-emerald-400 placeholder-slate-600"
+                className="col-span-4 bg-[#050B14] border border-slate-700 text-white text-xs font-mono rounded-lg px-3 py-2 outline-none focus:border-emerald-400 placeholder-slate-600"
               />
               <input
                 type="number"
@@ -590,7 +590,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
                 value={newWpLat}
                 onChange={e => setNewWpLat(e.target.value)}
                 step="0.0001"
-                className="col-span-3 bg-slate-950 border border-slate-700 text-white text-xs font-mono rounded-lg px-3 py-2 outline-none focus:border-emerald-400"
+                className="col-span-3 bg-[#050B14] border border-slate-700 text-white text-xs font-mono rounded-lg px-3 py-2 outline-none focus:border-emerald-400"
               />
               <input
                 type="number"
@@ -598,7 +598,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
                 value={newWpLng}
                 onChange={e => setNewWpLng(e.target.value)}
                 step="0.0001"
-                className="col-span-3 bg-slate-950 border border-slate-700 text-white text-xs font-mono rounded-lg px-3 py-2 outline-none focus:border-emerald-400"
+                className="col-span-3 bg-[#050B14] border border-slate-700 text-white text-xs font-mono rounded-lg px-3 py-2 outline-none focus:border-emerald-400"
               />
               <button
                 onClick={() => {
@@ -621,7 +621,7 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
       <div className="lg:col-span-4 flex flex-col gap-5">
 
         {/* Crime Hotspot Priority List */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-[#0B1220] border border-slate-800 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
             <Flame className="w-4 h-4 text-red-400" />
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">Hotspot Priority Queue</h4>
@@ -660,9 +660,9 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
         </div>
 
         {/* Quick Dispatch to Route */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
+        <div className="bg-[#0B1220] border border-slate-800 rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
-            <ShieldAlert className="w-4 h-4 text-blue-400" />
+            <ShieldAlert className="w-4 h-4 text-cyan-300" />
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">Assign Unit to Route</h4>
           </div>
           <div className="space-y-2 mb-4">
@@ -707,25 +707,25 @@ export default function TacticalPlanning({ units, onOptimizeRoute }: TacticalPla
 
         {/* Route Stats Summary */}
         {routeResult && !isRouting && (
-          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
+          <div className="bg-[#0B1220] border border-slate-800 rounded-xl p-5 space-y-4">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
               <Activity className="w-4 h-4 text-violet-400" />
               Route Analytics
             </h4>
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+              <div className="bg-[#050B14] rounded-lg p-3 border border-slate-800">
                 <div className="text-[9px] font-mono text-slate-500 uppercase">Distance</div>
                 <div className="text-xl font-bold font-mono text-violet-400">{routeResult.distanceKm.toFixed(1)}<span className="text-xs text-slate-500 ml-1">km</span></div>
               </div>
-              <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+              <div className="bg-[#050B14] rounded-lg p-3 border border-slate-800">
                 <div className="text-[9px] font-mono text-slate-500 uppercase">Patrol Time</div>
                 <div className="text-xl font-bold font-mono text-amber-400">{Math.round(routeResult.durationMin)}<span className="text-xs text-slate-500 ml-1">min</span></div>
               </div>
-              <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+              <div className="bg-[#050B14] rounded-lg p-3 border border-slate-800">
                 <div className="text-[9px] font-mono text-slate-500 uppercase">Hotspots</div>
                 <div className="text-xl font-bold font-mono text-red-400">{routeResult.hotspotsCount}<span className="text-xs text-slate-500 ml-1">zones</span></div>
               </div>
-              <div className="bg-slate-950 rounded-lg p-3 border border-slate-800">
+              <div className="bg-[#050B14] rounded-lg p-3 border border-slate-800">
                 <div className="text-[9px] font-mono text-slate-500 uppercase">Coverage</div>
                 <div className="text-xl font-bold font-mono text-green-400">{Math.min(95, 70 + routeResult.hotspotsCount * 6)}<span className="text-xs text-slate-500 ml-1">%</span></div>
               </div>

@@ -6,8 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { 
   ShieldAlert, Radio, ShieldCheck, Activity, Map, 
-  BarChart3, Cpu, Users, Layers, ExternalLink, LogOut, Navigation,
-  Compass, Lock
+  BarChart3, Cpu, Users, Layers, ExternalLink, LogOut, Navigation
 } from "lucide-react";
 import { ViewState, Incident, Alert, PatrolUnit } from "./types";
 import { initialIncidents, initialAlerts, initialUnits } from "./data";
@@ -22,8 +21,6 @@ import IntelligenceAnalytics from "./components/IntelligenceAnalytics";
 import TacticalPlanning from "./components/TacticalPlanning";
 import SurveillanceHeatmap from "./components/SurveillanceHeatmap";
 import MobileOfficerSimulator from "./components/MobileOfficerSimulator";
-import DroneControl from "./components/DroneControl";
-import SecureComms from "./components/SecureComms";
 import AuditLogView from "./components/AuditLogView";
 
 export default function App() {
@@ -230,7 +227,7 @@ export default function App() {
     setIncidents(initialIncidents);
     setAlerts(initialAlerts);
     setUnits(initialUnits);
-    setViewState("SPLASH");
+    setViewState("LANDING");
   };
 
   if (viewState === "LANDING") {
@@ -242,135 +239,67 @@ export default function App() {
   }
 
   return (
-    <div id="application-container" className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row font-sans selection:bg-blue-500 selection:text-slate-950">
+    <div id="application-container" className="min-h-screen bg-[#050B14] text-slate-200 flex flex-col md:flex-row font-sans selection:bg-cyan-500/30 selection:text-white">
       
-      <aside className="w-full md:w-64 bg-slate-900 border-b md:border-b-0 md:border-r border-slate-800 flex flex-col justify-between shrink-0">
-        <div className="flex flex-col gap-1.5 p-5">
-          <div className="flex items-center gap-2 border-b border-slate-800 pb-4 mb-4">
-            <div className="h-8 w-8 rounded bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+      {/* ── Sidebar ── */}
+      <aside className="w-full md:w-64 bg-[#0B1220]/80 backdrop-blur-xl border-b md:border-b-0 md:border-r border-slate-800/80 flex flex-col justify-between shrink-0 z-50 shadow-[4px_0_24px_rgba(0,0,0,0.5)]">
+        <div className="flex flex-col gap-2 p-6">
+          <div className="flex items-center gap-3 border-b border-slate-800/80 pb-6 mb-6">
+            <div className="h-10 w-10 rounded-xl bg-[#00E5FF]/10 border border-[#00E5FF]/20 flex items-center justify-center text-[#00E5FF] shadow-[0_0_15px_rgba(0,229,255,0.15)]">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[9px] font-mono tracking-widest text-blue-400 font-bold uppercase leading-none">
+              <div className="text-[10px] font-mono tracking-widest text-cyan-500 font-bold uppercase leading-none mb-1">
                 Ahmedabad Police
               </div>
-              <h2 className="text-sm font-extrabold tracking-tight text-white font-display mt-0.5">
-                COMMAND CENTER
+              <h2 className="text-sm font-bold tracking-tight text-white font-sans">
+                AEGIS COMMAND
               </h2>
             </div>
           </div>
 
           <div className="space-y-1">
-            <span className="text-[9px] uppercase font-mono text-slate-500 tracking-wider font-semibold block px-2.5 mb-2">
-              Command Screens
+            <span className="text-[10px] uppercase font-mono text-slate-500 tracking-widest font-bold block px-3 mb-3">
+              Command Modules
             </span>
 
-            <button
-              onClick={() => setViewState("OPERATIONS")}
-              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-xs font-mono transition-all cursor-pointer ${
-                viewState === "OPERATIONS" 
-                  ? 'bg-slate-950 border border-blue-500/30 text-blue-400 font-semibold' 
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-950'
-              }`}
-            >
-              <Layers className="w-4 h-4 text-blue-500" />
-              <span>Operations Console</span>
-            </button>
-
-            <button
-              onClick={() => setViewState("SURVEILLANCE")}
-              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-xs font-mono transition-all cursor-pointer ${
-                viewState === "SURVEILLANCE" 
-                  ? 'bg-slate-950 border border-blue-500/30 text-blue-400 font-semibold' 
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-950'
-              }`}
-            >
-              <Cpu className="w-4 h-4 text-blue-400" />
-              <span>Surveillance Mesh</span>
-            </button>
-
-            <button
-              onClick={() => setViewState("TACTICAL_PLAN")}
-              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-xs font-mono transition-all cursor-pointer ${
-                viewState === "TACTICAL_PLAN" 
-                  ? 'bg-slate-950 border border-blue-500/30 text-blue-400 font-bold' 
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-950'
-              }`}
-            >
-              <Navigation className="w-4 h-4 text-blue-400" />
-              <span>Optimal Routing</span>
-            </button>
-
-            <button
-              onClick={() => setViewState("INTELLIGENCE")}
-              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-xs font-mono transition-all cursor-pointer ${
-                viewState === "INTELLIGENCE" 
-                  ? 'bg-slate-950 border border-blue-500/30 text-blue-400 font-bold' 
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-950'
-              }`}
-            >
-              <BarChart3 className="w-4 h-4 text-blue-400" />
-              <span>Intelligence Matrix</span>
-            </button>
-
-            <button
-              onClick={() => setViewState("MOBILE_OFFICER")}
-              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-xs font-mono transition-all cursor-pointer ${
-                viewState === "MOBILE_OFFICER" 
-                  ? 'bg-slate-950 border border-blue-500/30 text-blue-500 font-semibold' 
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-950'
-              }`}
-            >
-              <Users className="w-4 h-4 text-blue-500" />
-              <span>Field Officer Sync</span>
-            </button>
-
-            <button
-              onClick={() => setViewState("DRONE_CONTROL")}
-              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-xs font-mono transition-all cursor-pointer ${
-                viewState === "DRONE_CONTROL" 
-                  ? 'bg-slate-950 border border-blue-500/30 text-blue-400 font-semibold' 
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-950'
-              }`}
-            >
-              <Compass className="w-4 h-4 text-blue-400" />
-              <span>Drone Fleet Core</span>
-            </button>
-
-            <button
-              onClick={() => setViewState("SECURE_COMMS")}
-              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-xs font-mono transition-all cursor-pointer ${
-                viewState === "SECURE_COMMS" 
-                  ? 'bg-slate-950 border border-blue-500/30 text-blue-400 font-semibold' 
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-950'
-              }`}
-            >
-              <Lock className="w-4 h-4 text-blue-400" />
-              <span>Secure Comms</span>
-            </button>
-
-            <button
-              onClick={() => setViewState("AUDIT_LOGS")}
-              className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-3 text-xs font-mono transition-all cursor-pointer ${
-                viewState === "AUDIT_LOGS"
-                  ? 'bg-slate-950 border border-blue-500/30 text-blue-400 font-semibold'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-950'
-              }`}
-            >
-              <ShieldAlert className="w-4 h-4 text-blue-400" />
-              <span>Audit Logs</span>
-            </button>
+            {[
+              { id: "OPERATIONS", icon: Layers, label: "Operations Console" },
+              { id: "SURVEILLANCE", icon: Cpu, label: "Surveillance Mesh" },
+              { id: "TACTICAL_PLAN", icon: Navigation, label: "Optimal Routing" },
+              { id: "INTELLIGENCE", icon: BarChart3, label: "Intelligence Matrix" },
+              { id: "MOBILE_OFFICER", icon: Users, label: "Field Officer Sync" },
+              { id: "AUDIT_LOGS", icon: ShieldAlert, label: "Audit Logs" }
+            ].map((navItem) => {
+              const Icon = navItem.icon;
+              const isActive = viewState === navItem.id;
+              return (
+                <button
+                  key={navItem.id}
+                  onClick={() => setViewState(navItem.id as ViewState)}
+                  className={`w-full text-left px-4 py-2.5 rounded-xl flex items-center gap-3 text-sm font-medium transition-all duration-300 cursor-pointer ${
+                    isActive 
+                      ? 'bg-[#00E5FF]/10 border border-[#00E5FF]/30 text-[#00E5FF] shadow-[0_0_15px_rgba(0,229,255,0.1)] translate-x-1' 
+                      : 'text-slate-400 hover:text-cyan-100 hover:bg-slate-800/50 border border-transparent'
+                  }`}
+                >
+                  <Icon className={`w-4 h-4 transition-colors ${isActive ? "text-[#00E5FF]" : "text-slate-500"}`} />
+                  <span className={isActive ? "font-bold tracking-wide" : ""}>{navItem.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        <div className="p-4 border-t border-slate-800 bg-slate-900 flex flex-col gap-3 font-mono text-xs">
-          <div className="truncate text-slate-500">
-            SEC: <b className="text-slate-400 font-semibold">GUJ-POLICE-2026</b>
+        <div className="p-6 border-t border-slate-800/80 bg-[#0B1220]/30 flex flex-col gap-4">
+          <div className="flex items-center justify-between text-xs font-mono">
+            <span className="text-slate-500">SEC:</span>
+            <span className="text-slate-300 font-bold tracking-wider">GUJ-POLICE-2026</span>
           </div>
 
           <button
             onClick={handleResetStorage}
-            className="w-full text-left px-3 py-2.5 text-red-400 hover:bg-red-900/20 hover:text-red-300 rounded-lg flex items-center gap-2.5 cursor-pointer transition-colors"
+            className="w-full text-left px-4 py-2.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 rounded-xl flex items-center gap-3 text-sm font-medium cursor-pointer transition-all duration-200"
           >
             <LogOut className="w-4 h-4" />
             <span>Reset Demo Data</span>
@@ -378,43 +307,49 @@ export default function App() {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col max-w-full overflow-hidden">
-        
-        <header className="p-5 border-b border-slate-800 bg-slate-900 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="flex items-center gap-2.5">
-            <span className="inline-block w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+      {/* ── Main Stage ── */}
+      <main className="flex-1 flex flex-col max-w-full overflow-hidden relative">
+        {/* Subtle background glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-900/20 blur-[120px] rounded-full pointer-events-none" />
+
+        <header className="px-8 py-5 border-b border-slate-800/80 bg-[#050B14]/80 backdrop-blur-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 z-40 sticky top-0 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+          <div className="flex items-center gap-4">
+            <div className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FFA3] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00FFA3]"></span>
+            </div>
             <div>
-              <span className="text-[10px] uppercase font-mono tracking-wider text-slate-500 block">System Connection Status</span>
-              <h1 className="text-xs font-mono text-slate-200">
-                AHMEDABAD POLICE ACTIVE · PORT <b className="text-blue-400">3000</b>
+              <span className="text-[10px] uppercase font-mono tracking-widest text-[#00E5FF]/70 block mb-0.5 font-bold">System Connection Status</span>
+              <h1 className="text-xs font-mono text-slate-300 flex items-center gap-2">
+                AHMEDABAD POLICE ACTIVE <span className="opacity-40">|</span> PORT <b className="text-white">3000</b>
               </h1>
             </div>
           </div>
 
-          <div id="perspective-selector" className="flex items-center gap-2 bg-slate-950 border border-slate-800 p-0.5 rounded-lg text-[10px] font-mono">
+          <div id="perspective-selector" className="flex items-center bg-[#0B1220]/60 border border-slate-800/80 p-1 rounded-xl text-xs font-medium shadow-inner backdrop-blur-md">
             <button
               onClick={() => setViewState("OPERATIONS")}
-              className={`px-3 py-1.5 rounded-md font-bold transition-colors ${
-                viewState !== 'MOBILE_OFFICER' ? 'bg-blue-600 text-white font-extrabold' : 'text-slate-400 hover:text-white'
+              className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
+                viewState !== 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-cyan-600 to-[#00E5FF] text-[#050B14] shadow-[0_0_15px_rgba(0,229,255,0.3)]' : 'text-slate-400 hover:text-cyan-100 hover:bg-slate-800'
               }`}
             >
-              COMMANDER CONSOLE (DESKTOP)
+              Commander Console
             </button>
             <button
               onClick={() => setViewState("MOBILE_OFFICER")}
-              className={`px-3 py-1.5 rounded-md font-bold transition-colors ${
-                viewState === 'MOBILE_OFFICER' ? 'bg-blue-600 text-white font-extrabold' : 'text-slate-400 hover:text-white'
+              className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
+                viewState === 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-cyan-600 to-[#00E5FF] text-[#050B14] shadow-[0_0_15px_rgba(0,229,255,0.3)]' : 'text-slate-400 hover:text-cyan-100 hover:bg-slate-800'
               }`}
             >
-              FIELD OFFICER UNIT (MOBILE APP)
+              Field Officer Unit
             </button>
           </div>
         </header>
 
-        <div className="p-6 md:p-8 flex-1 overflow-y-auto max-w-7xl w-full mx-auto bg-slate-950">
+        <div className="p-6 md:p-8 flex-1 overflow-y-auto w-full mx-auto custom-scrollbar relative z-10">
           
           {viewState === "OPERATIONS" && (
-            <div className="animate-fade-in">
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
               <CommandDashboard
                 incidents={incidents}
                 alerts={alerts}
@@ -428,7 +363,7 @@ export default function App() {
           )}
 
           {viewState === "SURVEILLANCE" && (
-            <div className="animate-fade-in">
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
               <SurveillanceHeatmap
                 alerts={alerts}
                 onAckAlert={handleAckAlert}
@@ -438,7 +373,7 @@ export default function App() {
           )}
 
           {viewState === "TACTICAL_PLAN" && (
-            <div className="animate-fade-in">
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
               <TacticalPlanning
                 units={units}
                 onOptimizeRoute={handleOptimizeRoute}
@@ -447,7 +382,7 @@ export default function App() {
           )}
 
           {viewState === "INTELLIGENCE" && (
-            <div className="animate-fade-in">
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
               <IntelligenceAnalytics
                 incidents={incidents}
                 onDeployUnitFromHotspot={(sec) => {
@@ -478,7 +413,7 @@ export default function App() {
           )}
 
           {viewState === "MOBILE_OFFICER" && (
-            <div className="animate-fade-in">
+            <div className="animate-fade-in w-full h-full max-w-4xl mx-auto">
               <MobileOfficerSimulator
                 onAddIncident={handleAddIncident}
                 onAddAlert={handleAddAlert}
@@ -487,20 +422,10 @@ export default function App() {
             </div>
           )}
 
-          {viewState === "DRONE_CONTROL" && (
-            <div className="animate-fade-in">
-              <DroneControl />
-            </div>
-          )}
 
-          {viewState === "SECURE_COMMS" && (
-            <div className="animate-fade-in">
-              <SecureComms />
-            </div>
-          )}
 
           {viewState === "AUDIT_LOGS" && (
-            <div className="animate-fade-in">
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
               <AuditLogView />
             </div>
           )}
@@ -512,3 +437,4 @@ export default function App() {
     </div>
   );
 }
+

@@ -144,7 +144,7 @@ export default function SecureComms() {
             SECURE DECRYPTION &amp; COMMS MONITOR
           </h2>
         </div>
-        <div className="flex items-center gap-1.5 font-mono text-xs text-slate-400 bg-slate-900 border border-slate-800 rounded-lg py-1 px-3">
+        <div className="flex items-center gap-1.5 font-mono text-xs text-slate-400 bg-[#0B1220] border border-slate-800 rounded-lg py-1 px-3">
           <Key className="w-3.5 h-3.5 text-emerald-400" />
           <span>FIPS-140-3 Cryptographic Integrity: <strong>VERIFIED SECURE</strong></span>
         </div>
@@ -154,7 +154,7 @@ export default function SecureComms() {
       <div className="lg:col-span-7 flex flex-col gap-6">
         
         {/* Spectral Analyzer Visual Block */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 relative overflow-hidden flex flex-col gap-4">
+        <div className="bg-[#0B1220]/60 border border-slate-800 rounded-xl p-5 relative overflow-hidden flex flex-col gap-4">
           <div>
             <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
               <Radio className="w-4 h-4 text-emerald-400 animate-pulse" />
@@ -164,7 +164,7 @@ export default function SecureComms() {
           </div>
 
           {/* Animated Frequency Bars Container */}
-          <div className="h-[200px] bg-slate-950 border border-slate-850 rounded-lg p-5 flex items-end justify-between gap-[3px] relative overflow-hidden">
+          <div className="h-[200px] bg-[#050B14] border border-slate-850 rounded-lg p-5 flex items-end justify-between gap-[3px] relative overflow-hidden">
             {/* Horizontal Threshold alert line */}
             <div className="absolute top-[35%] inset-x-0 h-0.5 border-t border-dashed border-red-500/25 pointer-events-none">
               <span className="absolute right-3 -top-2 text-[8px] font-mono text-red-500 font-semibold">JAM LEVEL THRESHOLD</span>
@@ -196,7 +196,7 @@ export default function SecureComms() {
             })}
           </div>
 
-          <div className="text-[10px] font-mono text-slate-400 flex justify-between bg-slate-950 p-2.5 rounded-lg border border-slate-850">
+          <div className="text-[10px] font-mono text-slate-400 flex justify-between bg-[#050B14] p-2.5 rounded-lg border border-slate-850">
             <span>SPAN: 400MHz - 950MHz</span>
             <span>CURRENT TUNED FREQUENCY: <strong className="text-emerald-400 font-bold">{activeChannel.frequency}</strong></span>
             <span>NOISE COEFFICIENT: <strong className={activeChannel.packetQuality < 60 ? "text-red-400" : "text-emerald-400"}>{(100 - activeChannel.packetQuality).toFixed(0)}%</strong></span>
@@ -204,7 +204,7 @@ export default function SecureComms() {
         </div>
 
         {/* Channels Table Roster log */}
-        <div className="bg-slate-900/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-3">
+        <div className="bg-[#0B1220]/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-3">
           <div className="flex justify-between items-center pb-2 border-b border-slate-800">
             <h4 className="text-xs uppercase tracking-wider font-mono text-slate-300 font-bold">TACTICAL RF CHANNEL CALIBRATION</h4>
             <span className="text-[10px] font-mono text-slate-500">SELECT FREQUENCY STAGES</span>
@@ -233,7 +233,7 @@ export default function SecureComms() {
                     <tr 
                       key={chan.id} 
                       onClick={() => setActiveChannelId(chan.id)}
-                      className={`hover:bg-slate-900/30 transition-colors cursor-pointer ${isActive ? "bg-slate-950/80" : ""}`}
+                      className={`hover:bg-[#0B1220]/30 transition-colors cursor-pointer ${isActive ? "bg-[#050B14]/80" : ""}`}
                     >
                       <td className="py-2.5 font-bold text-slate-100 flex items-center gap-1.5">
                         <span className={`inline-block w-2 h-2 rounded-full ${isActive ? 'bg-emerald-400' : 'bg-slate-800'}`}></span>
@@ -277,7 +277,7 @@ export default function SecureComms() {
       <div className="lg:col-span-5 flex flex-col gap-6">
         
         {/* Cryptographic Cipher Decryptor module */}
-        <div id="crypto-decryptor" className="bg-slate-900/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-4 relative overflow-hidden">
+        <div id="crypto-decryptor" className="bg-[#0B1220]/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-4 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-48 h-24 bg-emerald-500/5 blur-[50px] pointer-events-none rounded-full"></div>
           
           <div className="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -306,7 +306,7 @@ export default function SecureComms() {
                     setCrypticInput(preset.payload);
                     handleDecryptPayload(preset.payload);
                   }}
-                  className="w-full text-left p-2 border border-slate-800 hover:border-emerald-500/40 bg-slate-950 hover:bg-slate-950/80 text-[10px] text-slate-350 hover:text-white rounded cursor-pointer transition-colors flex justify-between items-center whitespace-nowrap overflow-hidden"
+                  className="w-full text-left p-2 border border-slate-800 hover:border-emerald-500/40 bg-[#050B14] hover:bg-[#050B14]/80 text-[10px] text-slate-350 hover:text-white rounded cursor-pointer transition-colors flex justify-between items-center whitespace-nowrap overflow-hidden"
                 >
                   <span className="truncate">{preset.label}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-slate-500 shrink-0" />
@@ -324,7 +324,7 @@ export default function SecureComms() {
                 placeholder="0x4A65706572735F53656374..." 
                 value={crypticInput}
                 onChange={(e) => setCrypticInput(e.target.value)}
-                className="flex-1 bg-slate-950 border border-slate-800 focus:border-emerald-400 text-xs rounded-lg px-2.5 py-2 text-white font-mono outline-none"
+                className="flex-1 bg-[#050B14] border border-slate-800 focus:border-emerald-400 text-xs rounded-lg px-2.5 py-2 text-white font-mono outline-none"
               />
               <button
                 onClick={() => handleDecryptPayload(crypticInput)}
@@ -336,12 +336,12 @@ export default function SecureComms() {
           </div>
 
           {/* Decryption cleartext output terminal block */}
-          <div className="bg-slate-950 border border-slate-850 p-4 rounded-xl min-h-[140px] max-h-[220px] overflow-y-auto font-mono text-[11px] leading-relaxed relative">
+          <div className="bg-[#050B14] border border-slate-850 p-4 rounded-xl min-h-[140px] max-h-[220px] overflow-y-auto font-mono text-[11px] leading-relaxed relative">
             {isDecrypting && (
-              <div className="absolute inset-0 bg-slate-950/85 flex flex-col items-center justify-center gap-2 rounded-xl">
+              <div className="absolute inset-0 bg-[#050B14]/85 flex flex-col items-center justify-center gap-2 rounded-xl">
                 <RefreshCw className="w-5 h-5 text-emerald-400 animate-spin" />
                 <span className="text-[10px] text-slate-450 tracking-wider">UNPACKING CYPHER MATRIX... {decryptionRate}%</span>
-                <div className="w-40 h-1 bg-slate-900 rounded overflow-hidden">
+                <div className="w-40 h-1 bg-[#0B1220] rounded overflow-hidden">
                   <div className="bg-emerald-400 h-full transition-all" style={{ width: `${decryptionRate}%` }}></div>
                 </div>
               </div>
@@ -360,7 +360,7 @@ export default function SecureComms() {
         </div>
 
         {/* Instruction guidelines panel */}
-        <div className="bg-slate-900/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-2 font-mono text-[11px] leading-relaxed text-slate-400 relative">
+        <div className="bg-[#0B1220]/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-2 font-mono text-[11px] leading-relaxed text-slate-400 relative">
           <h4 className="text-xs uppercase text-slate-300 font-bold mb-1">
             Standard Operating Protocol (SOP-84)
           </h4>

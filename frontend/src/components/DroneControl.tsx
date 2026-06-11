@@ -123,7 +123,7 @@ export default function DroneControl() {
             DRONE FLEET MONITOR &amp; TACTICAL COMMAND
           </h2>
         </div>
-        <div className="flex items-center gap-1.5 font-mono text-xs text-slate-400 bg-slate-900 border border-slate-800 rounded-lg py-1 px-3">
+        <div className="flex items-center gap-1.5 font-mono text-xs text-slate-400 bg-[#0B1220] border border-slate-800 rounded-lg py-1 px-3">
           <Cloud className="w-3.5 h-3.5 text-cyan-400" />
           <span>Weather Status: <strong>STABLE CAPTURE (CLEAR)</strong></span>
         </div>
@@ -133,7 +133,7 @@ export default function DroneControl() {
       <div className="lg:col-span-7 flex flex-col gap-6">
         
         {/* Visual Drone Camera Viewfinder */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 relative overflow-hidden flex flex-col gap-4">
+        <div className="bg-[#0B1220]/60 border border-slate-800 rounded-xl p-5 relative overflow-hidden flex flex-col gap-4">
           <div className="flex justify-between items-center flex-wrap gap-2">
             <div>
               <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
@@ -144,7 +144,7 @@ export default function DroneControl() {
             </div>
 
             {/* Camera feed filters selectors */}
-            <div className="flex gap-1 text-[10px] font-mono bg-slate-950 p-0.5 rounded border border-slate-800">
+            <div className="flex gap-1 text-[10px] font-mono bg-[#050B14] p-0.5 rounded border border-slate-800">
               {(["OPTICAL", "THERMAL", "INFRARED", "NIGHT_VISION"] as const).map((feed) => (
                 <button
                   key={feed}
@@ -162,7 +162,7 @@ export default function DroneControl() {
           </div>
 
           {/* Interactive Screen Viewfinder */}
-          <div className="h-[320px] bg-slate-950 border border-slate-850 rounded-lg relative overflow-hidden flex items-center justify-center">
+          <div className="h-[320px] bg-[#050B14] border border-slate-850 rounded-lg relative overflow-hidden flex items-center justify-center">
             
             {/* Grid overlay */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#0c111d_1px,transparent_1px),linear-gradient(to_bottom,#0c111d_1px,transparent_1px)] bg-[size:25px_25px] opacity-80"></div>
@@ -209,33 +209,33 @@ export default function DroneControl() {
 
             {/* Top telemetry variables overlay */}
             <div className="absolute top-3 left-4 right-4 font-mono text-[9px] text-slate-400 flex justify-between uppercase pointer-events-none select-none">
-              <div className="bg-slate-950/80 px-2 py-1 rounded border border-slate-800">
+              <div className="bg-[#050B14]/80 px-2 py-1 rounded border border-slate-800">
                 LENS LATENCY: <span className="text-cyan-400">14ms</span>
               </div>
               <div className="bg-slate-955/80 px-2 py-1 rounded border border-slate-800">
                 GPS COORDS: <span className="text-cyan-400">45.3E, 12.9N</span>
               </div>
-              <div className="bg-slate-950/80 px-2 py-1 rounded border border-slate-800">
+              <div className="bg-[#050B14]/80 px-2 py-1 rounded border border-slate-800">
                 ALT: <span className="text-cyan-400">{activeDrone.altitude}m</span>
               </div>
             </div>
 
             {/* Bottom telemetry overlay */}
             <div className="absolute bottom-3 left-4 right-4 font-mono text-[9px] text-slate-400 flex justify-between pointer-events-none select-none">
-              <div className="bg-slate-950/80 px-2 py-1 rounded border border-slate-850">
+              <div className="bg-[#050B14]/80 px-2 py-1 rounded border border-slate-850">
                 BATTERY: <span className={activeDrone.battery < 40 ? "text-red-400 font-bold" : "text-emerald-400"}>{activeDrone.battery}%</span>
               </div>
               <div className="bg-slate-955/80 px-2 py-1 rounded border border-slate-850">
                 UAV SYS REF: <span className="text-white font-bold">{activeDrone.id}</span>
               </div>
-              <div className="bg-slate-950/80 px-2 py-1 rounded border border-slate-850">
+              <div className="bg-[#050B14]/80 px-2 py-1 rounded border border-slate-850">
                 SPEED: <span className="text-cyan-400 font-bold">{activeDrone.speed} km/h</span>
               </div>
             </div>
           </div>
 
           {/* Core manual parameters slider tuning */}
-          <div className="bg-slate-950 p-4 border border-slate-850 rounded-lg space-y-4">
+          <div className="bg-[#050B14] p-4 border border-slate-850 rounded-lg space-y-4">
             <h4 className="text-xs uppercase font-mono tracking-wider text-slate-400 font-bold">Tune Flight Vectors (Realtime Alignment)</h4>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -248,17 +248,17 @@ export default function DroneControl() {
                   <button 
                     disabled={activeDrone.altitude === 0}
                     onClick={() => handleScaleAttribute(activeDrone.id, "altitude", -25)}
-                    className="px-2 py-1 bg-slate-900 border border-slate-800 text-[10px] font-mono rounded text-slate-300 hover:text-white"
+                    className="px-2 py-1 bg-[#0B1220] border border-slate-800 text-[10px] font-mono rounded text-slate-300 hover:text-white"
                   >
                     -25m
                   </button>
-                  <div className="flex-1 bg-slate-900 h-2 rounded overflow-hidden">
+                  <div className="flex-1 bg-[#0B1220] h-2 rounded overflow-hidden">
                     <div className="h-full bg-cyan-400 transition-all" style={{ width: `${(activeDrone.altitude / 500) * 100}%` }}></div>
                   </div>
                   <button 
                     disabled={activeDrone.altitude === 0}
                     onClick={() => handleScaleAttribute(activeDrone.id, "altitude", 25)}
-                    className="px-2 py-1 bg-slate-900 border border-slate-800 text-[10px] font-mono rounded text-slate-300 hover:text-white"
+                    className="px-2 py-1 bg-[#0B1220] border border-slate-800 text-[10px] font-mono rounded text-slate-300 hover:text-white"
                   >
                     +25m
                   </button>
@@ -274,17 +274,17 @@ export default function DroneControl() {
                   <button 
                     disabled={activeDrone.speed === 0}
                     onClick={() => handleScaleAttribute(activeDrone.id, "speed", -10)}
-                    className="px-2.5 py-1 bg-slate-900 border border-slate-800 text-[10px] font-mono rounded text-slate-300 hover:text-white"
+                    className="px-2.5 py-1 bg-[#0B1220] border border-slate-800 text-[10px] font-mono rounded text-slate-300 hover:text-white"
                   >
                     -10
                   </button>
-                  <div className="flex-1 bg-slate-900 h-2 rounded overflow-hidden">
+                  <div className="flex-1 bg-[#0B1220] h-2 rounded overflow-hidden">
                     <div className="h-full bg-cyan-400 transition-all" style={{ width: `${(activeDrone.speed / 120) * 100}%` }}></div>
                   </div>
                   <button 
                     disabled={activeDrone.speed === 0}
                     onClick={() => handleScaleAttribute(activeDrone.id, "speed", 10)}
-                    className="px-2.5 py-1 bg-slate-900 border border-slate-800 text-[10px] font-mono rounded text-slate-300 hover:text-white"
+                    className="px-2.5 py-1 bg-[#0B1220] border border-slate-800 text-[10px] font-mono rounded text-slate-300 hover:text-white"
                   >
                     +10
                   </button>
@@ -296,7 +296,7 @@ export default function DroneControl() {
         </div>
 
         {/* Global sweep diagnostics metrics controller */}
-        <div className="bg-slate-900/40 border border-slate-800 p-5 rounded-xl block grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-[#0B1220]/40 border border-slate-800 p-5 rounded-xl block grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <h4 className="text-xs uppercase tracking-wider font-mono text-slate-300 font-bold">Scanning Duration Controller</h4>
             <div className="flex items-center gap-3">
@@ -336,7 +336,7 @@ export default function DroneControl() {
       <div className="lg:col-span-5 flex flex-col gap-6">
         
         {/* Fleet Roster list module */}
-        <div id="drone-fleet-list" className="bg-slate-900/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-3">
+        <div id="drone-fleet-list" className="bg-[#0B1220]/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-3">
           <div className="border-b border-slate-800 pb-3">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">SECURE UAV FLEET UNIT ROSTER</h3>
             <span className="text-[11px] font-mono text-slate-400">MONITOR ENERGY CELLS &amp; GEO LOC CONSTRAINTS</span>
@@ -350,10 +350,10 @@ export default function DroneControl() {
               if (drone.battery < 40) batteryColor = "text-red-400 font-bold";
               else if (drone.battery < 70) batteryColor = "text-amber-400";
 
-              let statusColor = "bg-slate-950 text-slate-400 border-slate-800";
+              let statusColor = "bg-[#050B14] text-slate-400 border-slate-800";
               if (drone.status === "ACTIVE") statusColor = "bg-cyan-950/40 text-cyan-300 border-cyan-500/20";
               if (drone.status === "CHARGING") statusColor = "bg-emerald-950/30 text-emerald-400 border-emerald-500/10 animate-pulse";
-              if (drone.status === "STANDBY") statusColor = "bg-slate-950 text-amber-500 border-slate-800";
+              if (drone.status === "STANDBY") statusColor = "bg-[#050B14] text-amber-500 border-slate-800";
 
               return (
                 <div 
@@ -362,7 +362,7 @@ export default function DroneControl() {
                   className={`p-3 rounded-lg border font-mono text-xs cursor-pointer transition-all ${
                     isActiveObj 
                       ? "border-cyan-500 bg-cyan-950/10" 
-                      : "border-slate-850 bg-slate-950/40 hover:border-slate-800"
+                      : "border-slate-850 bg-[#050B14]/40 hover:border-slate-800"
                   }`}
                 >
                   <div className="flex justify-between items-center mb-2">
@@ -411,7 +411,7 @@ export default function DroneControl() {
         </div>
 
         {/* Live Diagnostics Log console */}
-        <div className="bg-slate-900/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-3">
+        <div className="bg-[#0B1220]/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-3">
           <div className="border-b border-slate-800 pb-2">
             <h4 className="text-xs uppercase font-mono text-slate-400 flex items-center gap-1.5">
               <Gauge className="w-3.5 h-3.5 text-cyan-400" />
@@ -420,7 +420,7 @@ export default function DroneControl() {
           </div>
 
           {/* Interactive Console logs */}
-          <div className="bg-slate-950 border border-slate-850 p-3 rounded-lg max-h-[160px] overflow-y-auto font-mono text-[10px] leading-relaxed text-slate-400 space-y-1.5">
+          <div className="bg-[#050B14] border border-slate-850 p-3 rounded-lg max-h-[160px] overflow-y-auto font-mono text-[10px] leading-relaxed text-slate-400 space-y-1.5">
             {diagnosticLog.map((log, idx) => (
               <div key={idx} className="hover:text-cyan-300 transition-colors">
                 {log}
@@ -434,7 +434,7 @@ export default function DroneControl() {
               placeholder="Inject tactical log command..." 
               value={newLogMsg}
               onChange={(e) => setNewLogMsg(e.target.value)}
-              className="flex-1 bg-slate-950 border border-slate-850 rounded-lg px-2 py-1 text-xs font-mono text-white outline-none"
+              className="flex-1 bg-[#050B14] border border-slate-850 rounded-lg px-2 py-1 text-xs font-mono text-white outline-none"
             />
             <button 
               type="submit"

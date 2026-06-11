@@ -154,7 +154,7 @@ export default function MobileOfficerSimulator({
       <div className="w-[380px] h-[780px] bg-black border-[8px] border-slate-900 rounded-[44px] shadow-[0_24px_48px_-16px_rgba(0,0,0,0.85)] relative flex flex-col justify-between overflow-hidden outline outline-1 outline-slate-800">
         <div className="absolute top-0 inset-x-0 h-11 bg-black flex items-center justify-between px-5 z-40 text-[10px] font-mono text-slate-300">
           <span className="font-bold">09:41</span>
-          <div className="w-28 h-5 bg-slate-900 rounded-b-2xl -mt-2" />
+          <div className="w-28 h-5 bg-[#0B1220] rounded-b-2xl -mt-2" />
           <div className="flex items-center gap-1.5">
             <Signal className="w-3.5 h-3.5 text-teal-400" />
             <Wifi className="w-3.5 h-3.5 text-teal-400" />
@@ -162,13 +162,13 @@ export default function MobileOfficerSimulator({
           </div>
         </div>
 
-        <div className="flex-1 mt-11 mb-14 bg-slate-950 flex flex-col overflow-y-auto px-4 py-3 relative">
+        <div className="flex-1 mt-11 mb-14 bg-[#050B14] flex flex-col overflow-y-auto px-4 py-3 relative">
           <div className="flex items-center justify-between mb-3 px-1">
             <div>
               <div className="text-[10px] uppercase tracking-widest text-slate-500 font-mono">AHMEDABAD POLICE</div>
               <div className="text-sm font-semibold text-white">Field Officer App</div>
             </div>
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400 bg-slate-900 border border-slate-800 rounded-full px-2.5 py-1">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400 bg-[#0B1220] border border-slate-800 rounded-full px-2.5 py-1">
               <Navigation2 className="w-3.5 h-3.5 text-teal-400" />
               Live GPS
             </div>
@@ -180,13 +180,13 @@ export default function MobileOfficerSimulator({
                 <input
                   type="text"
                   placeholder="Search patrol sector..."
-                  className="w-full bg-slate-900 text-[11px] placeholder-slate-500 border border-slate-800 focus:border-teal-400 rounded-lg py-2 pl-3 pr-8 outline-none font-mono text-white"
+                  className="w-full bg-[#0B1220] text-[11px] placeholder-slate-500 border border-slate-800 focus:border-teal-400 rounded-lg py-2 pl-3 pr-8 outline-none font-mono text-white"
                 />
                 <MapPin className="w-3.5 h-3.5 text-slate-500 absolute right-3 top-2.5" />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-slate-900 p-3 border border-slate-800/60 rounded-2xl flex flex-col gap-2">
+                <div className="bg-[#0B1220] p-3 border border-slate-800/60 rounded-2xl flex flex-col gap-2">
                   <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider block">Duty Status</span>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -204,18 +204,18 @@ export default function MobileOfficerSimulator({
                 </button>
               </div>
 
-              <div className="bg-slate-900 p-4 border border-slate-800/60 rounded-3xl flex flex-col gap-3">
+              <div className="bg-[#0B1220] p-4 border border-slate-800/60 rounded-3xl flex flex-col gap-3">
                 <div className="flex justify-between items-center pb-2 border-b border-slate-800/60">
                   <div>
                     <h4 className="text-[11px] text-white uppercase font-bold tracking-wider">Assigned Route</h4>
                     <span className="text-[9px] font-mono text-teal-400">Sector 7G</span>
                   </div>
-                  <span className="text-[9px] font-mono text-slate-500 border border-slate-800 bg-slate-950 px-1.5 rounded-full">
+                  <span className="text-[9px] font-mono text-slate-500 border border-slate-800 bg-[#050B14] px-1.5 rounded-full">
                     GPS synced
                   </span>
                 </div>
 
-                <div className="h-28 bg-slate-950 rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-850">
+                <div className="h-28 bg-[#050B14] rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-850">
                   <div className="absolute inset-0 bg-[linear-gradient(to_right,#0c111d_1px,transparent_1px),linear-gradient(to_bottom,#0c111d_1px,transparent_1px)] bg-[size:15px_15px] opacity-70"></div>
                   <div className="absolute top-[20%] left-[25%] flex flex-col items-center">
                     <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
@@ -230,7 +230,7 @@ export default function MobileOfficerSimulator({
                   </svg>
                 </div>
 
-                <div className="bg-slate-950 p-3 border border-slate-850 rounded-2xl text-[10px] font-mono">
+                <div className="bg-[#050B14] p-3 border border-slate-850 rounded-2xl text-[10px] font-mono">
                   <span className="text-slate-500 block text-[8px] uppercase font-bold">Next Instruction</span>
                   <span className="text-slate-300">Check perimeter fence B near East Gate.</span>
                 </div>
@@ -254,7 +254,7 @@ export default function MobileOfficerSimulator({
                       className={`p-3 rounded-xl border text-[11px] ${
                         isCritical
                           ? "bg-red-950/20 border-red-500/20 text-red-200"
-                          : "bg-slate-900 border-slate-800 text-slate-300"
+                          : "bg-[#0B1220] border-slate-800 text-slate-300"
                       }`}
                     >
                       <div className="flex justify-between items-center mb-1">
@@ -293,7 +293,7 @@ export default function MobileOfficerSimulator({
                     <select
                       value={reportCategory}
                       onChange={(e) => setReportCategory(e.target.value as IncomingIncidentCategory)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2 py-2 text-xs text-white outline-none cursor-pointer"
+                      className="w-full bg-[#0B1220] border border-slate-800 rounded-lg px-2 py-2 text-xs text-white outline-none cursor-pointer"
                     >
                       <option value="Intrusion">Fence Intrusion</option>
                       <option value="System Sabotage">System Sabotage</option>
@@ -305,13 +305,13 @@ export default function MobileOfficerSimulator({
 
                   <div className="flex flex-col gap-1.5">
                     <label className="text-slate-400 block text-[9px] uppercase font-bold tracking-wider">Captured Location</label>
-                    <div className="bg-slate-900 border border-slate-800 rounded-lg p-2 flex items-center justify-between text-slate-200 text-xs">
+                    <div className="bg-[#0B1220] border border-slate-800 rounded-lg p-2 flex items-center justify-between text-slate-200 text-xs">
                       <span>{reportLocation}</span>
                       <span className="text-[10px] text-slate-500 italic">GPS</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between bg-slate-900 p-2.5 border border-slate-800 rounded-xl">
+                  <div className="flex items-center justify-between bg-[#0B1220] p-2.5 border border-slate-800 rounded-xl">
                     <span className="text-slate-200">High Priority Incident</span>
                     <input
                       type="checkbox"
@@ -328,11 +328,11 @@ export default function MobileOfficerSimulator({
                       rows={2}
                       value={reportDetails}
                       onChange={(e) => setReportDetails(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 focus:border-teal-400 text-xs rounded-lg px-2.5 py-1.5 text-white placeholder-slate-700 outline-none"
+                      className="w-full bg-[#0B1220] border border-slate-800 focus:border-teal-400 text-xs rounded-lg px-2.5 py-1.5 text-white placeholder-slate-700 outline-none"
                     />
                   </div>
 
-                  <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3">
+                  <div className="bg-[#0B1220] border border-slate-800 rounded-2xl p-3">
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="text-[9px] uppercase tracking-wider text-slate-500 font-bold">Photo Attachment</div>
@@ -356,7 +356,7 @@ export default function MobileOfficerSimulator({
                     </span>
                     <div className="space-y-1 max-h-[80px] overflow-y-auto mb-1">
                       {reportFiles.map((file, idx) => (
-                        <div key={idx} className="bg-slate-950 p-1.5 border border-slate-850 rounded flex justify-between items-center text-[10px]">
+                        <div key={idx} className="bg-[#050B14] p-1.5 border border-slate-850 rounded flex justify-between items-center text-[10px]">
                           <span className="text-slate-300 truncate">{file}</span>
                           <button
                             type="button"
@@ -374,7 +374,7 @@ export default function MobileOfficerSimulator({
                         placeholder="Attach filename..."
                         value={newFileName}
                         onChange={(e) => setNewFileName(e.target.value)}
-                        className="flex-1 bg-slate-900 border border-slate-800 rounded px-2 py-1 text-[10px]"
+                        className="flex-1 bg-[#0B1220] border border-slate-800 rounded px-2 py-1 text-[10px]"
                       />
                       <button
                         type="button"
@@ -400,8 +400,8 @@ export default function MobileOfficerSimulator({
 
           {activeTab === "STATUS" && (
             <div className="flex flex-col gap-4 animate-fade-in text-[11px] font-mono">
-              <div className="bg-slate-900/60 p-3.5 border border-slate-800/60 rounded-2xl flex items-center gap-3">
-                <div className="h-11 w-11 bg-slate-950 border border-slate-800 rounded-full flex items-center justify-center text-teal-400">
+              <div className="bg-[#0B1220]/60 p-3.5 border border-slate-800/60 rounded-2xl flex items-center gap-3">
+                <div className="h-11 w-11 bg-[#050B14] border border-slate-800 rounded-full flex items-center justify-center text-teal-400">
                   <User className="w-5 h-5" />
                 </div>
                 <div>
@@ -411,15 +411,15 @@ export default function MobileOfficerSimulator({
               </div>
 
               <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="bg-slate-900 p-2 border border-slate-800/50 rounded-xl">
+                <div className="bg-[#0B1220] p-2 border border-slate-800/50 rounded-xl">
                   <span className="block text-[8px] text-slate-500 uppercase font-semibold">Active Time</span>
                   <span className="text-[11px] font-bold text-white block mt-0.5">{formatSeconds(timeActive)}</span>
                 </div>
-                <div className="bg-slate-900 p-2 border border-slate-800/50 rounded-xl">
+                <div className="bg-[#0B1220] p-2 border border-slate-800/50 rounded-xl">
                   <span className="block text-[8px] text-slate-500 uppercase font-semibold">Patrolled</span>
                   <span className="text-xs font-bold text-white block mt-0.5">{distancePatrolled} km</span>
                 </div>
-                <div className="bg-slate-900 p-2 border border-slate-800/50 rounded-xl">
+                <div className="bg-[#0B1220] p-2 border border-slate-800/50 rounded-xl">
                   <span className="block text-[8px] text-slate-500 uppercase font-semibold">Logs Filed</span>
                   <span className="text-xs font-bold text-teal-400 block mt-0.5">{String(incidentsLoggedCount).padStart(2, "0")}</span>
                 </div>
@@ -432,7 +432,7 @@ export default function MobileOfficerSimulator({
                   className={`py-1.5 text-[9px] uppercase font-bold rounded-lg border transition-all cursor-pointer ${
                     dutyState === "ON_DUTY"
                       ? "bg-emerald-500 text-slate-950 border-emerald-400"
-                      : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
+                      : "bg-[#050B14] text-slate-400 border-slate-800 hover:text-white"
                   }`}
                 >
                   On Duty
@@ -443,7 +443,7 @@ export default function MobileOfficerSimulator({
                   className={`py-1.5 text-[9px] uppercase font-bold rounded-lg border transition-all cursor-pointer ${
                     dutyState === "BREAK"
                       ? "bg-amber-500 text-slate-950 border-amber-400"
-                      : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
+                      : "bg-[#050B14] text-slate-400 border-slate-800 hover:text-white"
                   }`}
                 >
                   Break
@@ -457,7 +457,7 @@ export default function MobileOfficerSimulator({
                   className={`py-1.5 text-[9px] uppercase font-bold rounded-lg border transition-all cursor-pointer ${
                     dutyState === "END_SHIFT"
                       ? "bg-red-500 text-slate-950 border-red-400"
-                      : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white"
+                      : "bg-[#050B14] text-slate-400 border-slate-800 hover:text-white"
                   }`}
                 >
                   End Shift
@@ -466,7 +466,7 @@ export default function MobileOfficerSimulator({
 
               <div className="space-y-1.5 mt-2">
                 <span className="text-[9px] text-slate-500 block uppercase font-bold">Shift Activity Record</span>
-                <div className="space-y-1 max-h-[140px] overflow-y-auto bg-slate-950 p-2 border border-slate-850 rounded-lg">
+                <div className="space-y-1 max-h-[140px] overflow-y-auto bg-[#050B14] p-2 border border-slate-850 rounded-lg">
                   <div className="text-[10px] text-slate-400 border-b border-slate-900 pb-1">
                     [04:12 UTC] Reported intrusion at Sector 7G Drone Gate B.
                   </div>
@@ -482,7 +482,7 @@ export default function MobileOfficerSimulator({
           )}
         </div>
 
-        <div className="absolute bottom-0 inset-x-0 h-14 bg-slate-950 border-t border-slate-900 flex items-center justify-around px-2 z-40">
+        <div className="absolute bottom-0 inset-x-0 h-14 bg-[#050B14] border-t border-slate-900 flex items-center justify-around px-2 z-40">
           <button
             onClick={() => setActiveTab("MAP")}
             className={`flex flex-col items-center justify-center gap-1 flex-1 h-full cursor-pointer transition-colors ${
@@ -526,7 +526,7 @@ export default function MobileOfficerSimulator({
       </div>
 
       <div className="max-w-xs space-y-4">
-        <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+        <div className="bg-[#0B1220] border border-slate-800 p-5 rounded-2xl">
           <h4 className="text-xs uppercase tracking-wider font-mono text-slate-400 mb-2">Field Officer App Notes</h4>
           <p className="text-xs text-slate-300 leading-relaxed font-mono">
             This screen mirrors the mobile app used by field officers. It keeps the same workflow, but reads like a real device interface.

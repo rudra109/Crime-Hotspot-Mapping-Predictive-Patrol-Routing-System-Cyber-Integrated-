@@ -177,65 +177,65 @@ export default function IntelligenceAnalytics({
           </div>
           <h2 className="text-2xl font-bold text-white tracking-wide">INTELLIGENCE & ANALYTICS MATRIX</h2>
         </div>
-        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400 bg-slate-900 border border-slate-800 rounded-lg p-1.5">
+        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400 bg-[#0B1220] border border-slate-800 rounded-lg p-1.5">
           <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
           <span>COMPUTATION ENGINE: LIVE BACKEND SYNCHRONIZED</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
-          <div className="flex justify-between items-start text-slate-400">
-            <span className="text-[10px] tracking-wider uppercase font-mono">Total Incidents</span>
-            <span className="text-[10px] bg-slate-800 px-1 py-0.5 font-mono rounded">LIVE</span>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 hover:border-cyan-500/40 transition-colors duration-300 p-6 rounded-3xl flex flex-col justify-between shadow-xl group hover:-translate-y-1">
+          <div className="flex justify-between items-start text-slate-400 mb-4">
+            <span className="text-[10px] tracking-widest uppercase font-bold text-cyan-400">Total Incidents</span>
+            <span className="text-[10px] bg-cyan-500/10 text-cyan-400 px-2 py-0.5 font-bold rounded shadow-sm border border-cyan-500/20">LIVE</span>
           </div>
-          <div className="mt-2.5">
-            <div className="text-2xl font-extrabold font-mono text-white">{summary.total_crimes.toLocaleString()}</div>
-            <div className="text-[10px] text-emerald-400 font-mono mt-0.5">Backend `/stats/summary`</div>
+          <div>
+            <div className="text-4xl font-extrabold text-white tracking-tight">{summary.total_crimes.toLocaleString()}</div>
+            <div className="text-[10px] text-slate-500 font-mono mt-2">Backend `/stats/summary`</div>
           </div>
         </div>
 
-        <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
-          <div className="flex justify-between items-start text-slate-400">
-            <span className="text-[10px] tracking-wider uppercase font-mono">Avg Severity</span>
-            <span className="text-[10px] bg-slate-800 px-1 py-0.5 font-mono rounded font-semibold text-violet-400">
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 hover:border-violet-500/40 transition-colors duration-300 p-6 rounded-3xl flex flex-col justify-between shadow-xl group hover:-translate-y-1">
+          <div className="flex justify-between items-start text-slate-400 mb-4">
+            <span className="text-[10px] tracking-widest uppercase font-bold text-violet-400">Avg Severity</span>
+            <span className="text-[10px] bg-violet-500/10 text-violet-400 px-2 py-0.5 font-bold rounded shadow-sm border border-violet-500/20">
               {threatLabel.toUpperCase()}
             </span>
           </div>
-          <div className="mt-2.5">
-            <div className="text-2xl font-extrabold font-mono text-white">{summary.average_severity.toFixed(1)}</div>
-            <div className="text-[10px] text-violet-400 font-mono mt-0.5">Derived from stored incidents</div>
+          <div>
+            <div className="text-4xl font-extrabold text-white tracking-tight">{summary.average_severity.toFixed(1)}</div>
+            <div className="text-[10px] text-slate-500 font-mono mt-2">Derived from stored incidents</div>
           </div>
         </div>
 
-        <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
-          <div className="flex justify-between items-start text-slate-400">
-            <span className="text-[10px] tracking-wider uppercase font-mono">Hotspots Active</span>
-            <span className="text-[10px] bg-emerald-950 text-emerald-400 px-1 py-0.5 font-mono rounded text-[8px] font-bold">
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 hover:border-emerald-500/40 transition-colors duration-300 p-6 rounded-3xl flex flex-col justify-between shadow-xl group hover:-translate-y-1">
+          <div className="flex justify-between items-start text-slate-400 mb-4">
+            <span className="text-[10px] tracking-widest uppercase font-bold text-emerald-400">Hotspots Active</span>
+            <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 font-bold rounded shadow-sm border border-emerald-500/20">
               LIVE
             </span>
           </div>
-          <div className="mt-2.5">
-            <div className="text-2xl font-extrabold font-mono text-white">{summary.hotspots_active}</div>
-            <div className="text-[10px] text-emerald-400 font-mono mt-0.5">Active high-severity incidents</div>
+          <div>
+            <div className="text-4xl font-extrabold text-white tracking-tight">{summary.hotspots_active}</div>
+            <div className="text-[10px] text-slate-500 font-mono mt-2">Active high-severity incidents</div>
           </div>
         </div>
 
-        <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
-          <div className="flex justify-between items-start text-slate-400">
-            <span className="text-[10px] tracking-wider uppercase font-mono">Officers Deployed</span>
-            <span className="text-[10px] bg-slate-800 px-1 py-0.5 font-mono rounded">SYNCED</span>
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 hover:border-amber-500/40 transition-colors duration-300 p-6 rounded-3xl flex flex-col justify-between shadow-xl group hover:-translate-y-1">
+          <div className="flex justify-between items-start text-slate-400 mb-4">
+            <span className="text-[10px] tracking-widest uppercase font-bold text-amber-400">Officers Deployed</span>
+            <span className="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 font-bold rounded shadow-sm border border-amber-500/20">SYNCED</span>
           </div>
-          <div className="mt-2.5">
-            <div className="text-2xl font-extrabold font-mono text-slate-200">{summary.officers_deployed}</div>
-            <div className="text-[10px] text-amber-500 font-mono mt-0.5">{summary.by_type ? Object.keys(summary.by_type).length : 0} crime types tracked</div>
+          <div>
+            <div className="text-4xl font-extrabold text-white tracking-tight">{summary.officers_deployed}</div>
+            <div className="text-[10px] text-slate-500 font-mono mt-2">{summary.by_type ? Object.keys(summary.by_type).length : 0} crime types tracked</div>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7 bg-slate-900/40 border border-slate-800 p-5 rounded-xl">
-          <div>
+        <div className="lg:col-span-7 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl">
+          <div className="mb-4">
             <h3 className="text-sm font-bold text-white tracking-wide uppercase">24-HOUR ADAPTIVE RISK GRADIENT</h3>
             <span className="text-[11px] font-mono text-slate-400">Backend hourly aggregation</span>
           </div>
@@ -252,7 +252,7 @@ export default function IntelligenceAnalytics({
                 <XAxis dataKey="time" stroke="#64748b" fontSize={10} fontFamily="monospace" />
                 <YAxis stroke="#64748b" fontSize={10} fontFamily="monospace" domain={[0, 100]} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155" }}
+                  contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155", borderRadius: "8px" }}
                   labelStyle={{ color: "#ffffff", fontFamily: "monospace", fontSize: "11px" }}
                   itemStyle={{ color: "#a78bfa", fontFamily: "monospace", fontSize: "11px" }}
                 />
@@ -260,14 +260,14 @@ export default function IntelligenceAnalytics({
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="text-[10px] font-mono text-slate-500 mt-1 flex justify-between items-center bg-slate-950 p-2 border border-slate-850 rounded">
+          <div className="text-[10px] font-mono text-slate-400 mt-3 flex justify-between items-center bg-slate-950/50 p-3 border border-slate-800/60 rounded-xl shadow-inner">
             <span>TIMESTAMP LOG: LIVE FROM BACKEND</span>
-            <span className="text-violet-400 font-bold">{hourlyStats.length} HOURLY BUCKETS</span>
+            <span className="text-violet-400 font-bold bg-violet-500/10 px-2 py-0.5 rounded border border-violet-500/20">{hourlyStats.length} HOURLY BUCKETS</span>
           </div>
         </div>
 
-        <div className="lg:col-span-5 bg-slate-900/40 border border-slate-800 p-5 rounded-xl">
-          <div>
+        <div className="lg:col-span-5 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl">
+          <div className="mb-4">
             <h3 className="text-sm font-bold text-white tracking-wide uppercase">OPERATIONAL VECTOR STRENGTH</h3>
             <span className="text-[11px] font-mono text-slate-400">Alignment metrics across sectors</span>
           </div>
@@ -281,12 +281,12 @@ export default function IntelligenceAnalytics({
               </RadarChart>
             </ResponsiveContainer>
           </div>
-          <div className="text-[10px] font-mono text-slate-400 mt-1 text-center bg-slate-950/60 p-2 border border-slate-800/60 rounded">
-            Overall command index evaluates to <b className="text-sky-400 font-semibold">{Math.min(99.9, 85 + totalCategories).toFixed(1)}% Coverage Rate</b>.
+          <div className="text-[10px] font-mono text-slate-400 mt-3 text-center bg-slate-950/50 p-3 border border-slate-800/60 rounded-xl shadow-inner">
+            Overall command index evaluates to <b className="text-cyan-400 font-semibold">{Math.min(99.9, 85 + totalCategories).toFixed(1)}% Coverage Rate</b>.
           </div>
         </div>
 
-        <div className="lg:col-span-4 bg-slate-900/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-4">
+        <div className="lg:col-span-4 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl flex flex-col gap-4 shadow-xl">
           <div>
             <h3 className="text-sm font-bold text-white tracking-wide uppercase">CATEGORY CONSTELLATION</h3>
             <span className="text-[11px] font-mono text-slate-400">Proportional incident mix</span>
@@ -303,88 +303,89 @@ export default function IntelligenceAnalytics({
                   outerRadius={70}
                   paddingAngle={5}
                   dataKey="value"
+                  stroke="none"
                 >
                   {currentPieData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={categoryColorMap[entry.name] || "#a78bfa"} />
                   ))}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155" }}
+                  contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155", borderRadius: "8px" }}
                   itemStyle={{ fontFamily: "monospace", fontSize: "11px" }}
                 />
               </PieChart>
             </ResponsiveContainer>
 
             <div className="absolute flex flex-col items-center">
-              <span className="text-xl font-bold font-mono text-white">{currentPieData.length}</span>
-              <span className="text-[9px] font-mono text-slate-500 uppercase">Types Active</span>
+              <span className="text-3xl font-extrabold text-white">{currentPieData.length}</span>
+              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-1">Types Active</span>
             </div>
           </div>
 
-          <div className="space-y-1.5 pt-2 border-t border-slate-800/40">
+          <div className="space-y-2 pt-4 border-t border-slate-800/80">
             {currentPieData.map((entry, idx) => {
               const color = categoryColorMap[entry.name] || "#a78bfa";
               return (
-                <div key={idx} className="flex justify-between items-center text-xs font-mono">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ backgroundColor: color }}></span>
-                    <span className="text-slate-300">{entry.name}</span>
+                <div key={idx} className="flex justify-between items-center text-xs font-mono bg-slate-950/50 p-2.5 rounded-lg border border-slate-800/40 hover:border-slate-700/80 transition-colors">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-3 h-3 rounded shadow-sm inline-block" style={{ backgroundColor: color }}></span>
+                    <span className="text-slate-300 font-bold">{entry.name}</span>
                   </div>
-                  <span className="text-slate-400 font-bold">{entry.value} Logged</span>
+                  <span className="text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">{entry.value}</span>
                 </div>
               );
             })}
           </div>
         </div>
 
-        <div className="lg:col-span-8 bg-slate-900/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-3">
-          <div className="flex justify-between items-center pb-2 border-b border-slate-800">
+        <div className="lg:col-span-8 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl flex flex-col gap-4 shadow-xl">
+          <div className="flex justify-between items-center pb-4 border-b border-slate-800/80">
             <div>
               <h3 className="text-sm font-bold text-white tracking-wide uppercase">HIGH-INTENSITY HOTSPOT GRID</h3>
               <span className="text-[11px] font-mono text-slate-400">Prioritized geo-locational emergency sensors</span>
             </div>
-            <span className="text-[10px] font-mono text-slate-500">LIVE COORDS</span>
+            <span className="text-[10px] font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded border border-cyan-500/20 shadow-sm">LIVE COORDS</span>
           </div>
 
-          <div className="overflow-x-auto min-h-[220px]">
+          <div className="overflow-x-auto min-h-[220px] custom-scrollbar">
             <table className="w-full text-left font-mono text-xs text-slate-300">
               <thead>
-                <tr className="border-b border-slate-800 text-[10px] text-slate-500 uppercase font-semibold">
-                  <th className="py-2.5">Sector</th>
-                  <th className="py-2.5">Coordinate Ref</th>
-                  <th className="py-2.5">Threat %</th>
-                  <th className="py-2.5">Roster Protocol</th>
-                  <th className="py-2.5 text-right">Deployment Sweep</th>
+                <tr className="border-b border-slate-800/80 text-[10px] text-slate-500 uppercase font-semibold">
+                  <th className="py-3 px-2">Sector</th>
+                  <th className="py-3">Coordinate Ref</th>
+                  <th className="py-3">Threat %</th>
+                  <th className="py-3">Roster Protocol</th>
+                  <th className="py-3 text-right px-2">Deployment Sweep</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/40">
                 {hotspots.map((hot, idx) => {
-                  let badgeColor = "text-emerald-400 border-emerald-500/20 bg-emerald-950/20";
-                  if (hot.status === "CRITICAL") badgeColor = "text-red-400 border-red-500/20 bg-red-950/20";
-                  if (hot.status === "ELEVATED") badgeColor = "text-amber-400 border-amber-500/20 bg-amber-950/20";
-                  if (hot.status === "MODERATE") badgeColor = "text-yellow-400 border-yellow-500/20 bg-yellow-950/20";
+                  let badgeColor = "text-emerald-400 border-emerald-500/30 bg-emerald-500/10 shadow-sm";
+                  if (hot.status === "CRITICAL") badgeColor = "text-rose-400 border-rose-500/30 bg-rose-500/10 shadow-sm";
+                  if (hot.status === "ELEVATED") badgeColor = "text-amber-400 border-amber-500/30 bg-amber-500/10 shadow-sm";
+                  if (hot.status === "MODERATE") badgeColor = "text-yellow-400 border-yellow-500/30 bg-yellow-500/10 shadow-sm";
 
                   return (
-                    <tr key={hot.id} className="hover:bg-slate-900/30 transition-colors">
-                      <td className="py-3 font-bold text-slate-100 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-violet-400" />
+                    <tr key={hot.id} className="hover:bg-slate-800/30 transition-colors group">
+                      <td className="py-3.5 px-2 font-bold text-slate-100 flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-violet-400 group-hover:scale-110 transition-transform" />
                         {hot.sector}
                       </td>
-                      <td className="py-3 text-[11px] text-slate-400">{hot.coordinate}</td>
-                      <td className="py-3 font-semibold text-white">
-                        <span className={`px-1.5 py-0.5 border text-[10px] rounded ${badgeColor}`}>{hot.threatVal}%</span>
+                      <td className="py-3.5 text-[11px] text-slate-400">{hot.coordinate}</td>
+                      <td className="py-3.5 font-semibold text-white">
+                        <span className={`px-2 py-1 border text-[10px] rounded ${badgeColor}`}>{hot.threatVal}%</span>
                       </td>
-                      <td className="py-3 text-[11px] text-slate-300 italic">{hot.protocol}</td>
-                      <td className="py-3 text-right">
+                      <td className="py-3.5 text-[11px] text-slate-300 italic">{hot.protocol}</td>
+                      <td className="py-3.5 text-right px-2">
                         {hot.status !== "STABLE" && hot.status !== "MODERATE" ? (
                           <button
                             onClick={() => handleHotspotDeploy(idx, hot.sector)}
-                            className="px-2.5 py-1 bg-violet-500 hover:bg-violet-400 text-slate-950 font-bold rounded text-[10px] uppercase cursor-pointer tracking-wider transition-all"
+                            className="px-4 py-1.5 bg-violet-600 hover:bg-violet-500 text-white font-bold rounded-lg text-[10px] uppercase cursor-pointer tracking-wider transition-all shadow-[0_0_15px_rgba(139,92,246,0.2)] hover:shadow-[0_0_20px_rgba(139,92,246,0.4)]"
                           >
                             Deploy Unit
                           </button>
                         ) : (
-                          <span className="text-[10px] text-emerald-400 border border-emerald-500/20 bg-emerald-950/10 px-2 py-0.5 rounded font-bold">
+                          <span className="text-[10px] text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 rounded-lg font-bold shadow-sm">
                             REINFORCED
                           </span>
                         )}
@@ -397,26 +398,26 @@ export default function IntelligenceAnalytics({
           </div>
         </div>
 
-        <div className="lg:col-span-4 bg-slate-900/60 border border-slate-800 p-5 rounded-xl flex flex-col gap-3">
-          <div className="border-b border-slate-800 pb-2">
+        <div className="lg:col-span-4 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl flex flex-col gap-4 shadow-xl">
+          <div className="border-b border-slate-800/80 pb-4">
             <h3 className="text-sm font-bold text-white tracking-wide uppercase">DEPLOYMENT PRIORITY SIGNALS</h3>
-            <span className="text-[11px] font-mono text-slate-400">live handoff targets</span>
+            <span className="text-[11px] font-mono text-slate-400">Live handoff targets</span>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-4">
             {hotspots.slice(0, 3).map((hot) => (
-              <div key={hot.id} className="bg-slate-950 border border-slate-800 rounded-lg p-3">
+              <div key={hot.id} className="bg-slate-950/50 border border-slate-800/60 rounded-xl p-4 hover:border-violet-500/30 transition-colors group">
                 <div className="flex justify-between items-start gap-2">
                   <div>
-                    <div className="text-sm font-bold text-white font-mono">{hot.sector}</div>
-                    <div className="text-[11px] text-slate-400 font-mono">{hot.coordinate}</div>
+                    <div className="text-sm font-bold text-white font-mono group-hover:text-violet-300 transition-colors">{hot.sector}</div>
+                    <div className="text-[11px] text-slate-400 font-mono mt-0.5">{hot.coordinate}</div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-500" />
+                  <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-violet-400 transition-colors" />
                 </div>
-                <div className="mt-2 text-[11px] text-slate-300">{hot.recentActivity}</div>
+                <div className="mt-3 text-[11px] text-slate-300 bg-slate-900 px-3 py-2 rounded-lg border border-slate-800/50">{hot.recentActivity}</div>
               </div>
             ))}
           </div>
-          <div className="text-[10px] font-mono text-slate-500 border-t border-slate-800 pt-2">
+          <div className="text-[10px] font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-auto">
             Live summary pulled from backend stats and local incident stream.
           </div>
         </div>

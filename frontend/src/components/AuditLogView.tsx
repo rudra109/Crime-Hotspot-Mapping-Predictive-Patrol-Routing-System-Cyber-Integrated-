@@ -54,12 +54,12 @@ export default function AuditLogView() {
     <div className="space-y-6 font-sans">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
         <div>
-          <div className="text-xs uppercase tracking-widest font-mono text-blue-500 font-semibold mb-1">Operations History</div>
+          <div className="text-xs uppercase tracking-widest font-mono text-cyan-400 font-semibold mb-1">Operations History</div>
           <h2 className="text-2xl font-bold text-white tracking-tight">AUDIT LOGS</h2>
         </div>
         <button
           onClick={loadLogs}
-          className="px-3 py-2 rounded-lg border border-slate-800 bg-slate-900 text-xs font-mono text-slate-200 hover:border-blue-500/40 hover:text-white transition-colors flex items-center gap-2"
+          className="px-3 py-2 rounded-lg border border-slate-800 bg-[#0B1220] text-xs font-mono text-slate-200 hover:border-blue-500/40 hover:text-white transition-colors flex items-center gap-2"
         >
           <RefreshCw className={`w-4 h-4 ${isLoading ? "animate-spin" : ""}`} />
           Refresh
@@ -67,28 +67,28 @@ export default function AuditLogView() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+        <div className="bg-[#0B1220]/60 border border-slate-800 p-4 rounded-xl">
           <div className="text-[10px] uppercase tracking-wider font-mono text-slate-500">Total Entries</div>
           <div className="text-2xl font-bold font-mono text-white mt-2">{metrics.total}</div>
         </div>
-        <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+        <div className="bg-[#0B1220]/60 border border-slate-800 p-4 rounded-xl">
           <div className="text-[10px] uppercase tracking-wider font-mono text-slate-500">Crime Events</div>
           <div className="text-2xl font-bold font-mono text-white mt-2">{metrics.crime}</div>
         </div>
-        <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+        <div className="bg-[#0B1220]/60 border border-slate-800 p-4 rounded-xl">
           <div className="text-[10px] uppercase tracking-wider font-mono text-slate-500">Route Events</div>
           <div className="text-2xl font-bold font-mono text-white mt-2">{metrics.route}</div>
         </div>
-        <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
+        <div className="bg-[#0B1220]/60 border border-slate-800 p-4 rounded-xl">
           <div className="text-[10px] uppercase tracking-wider font-mono text-slate-500">Other</div>
           <div className="text-2xl font-bold font-mono text-white mt-2">{metrics.other}</div>
         </div>
       </div>
 
-      <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+      <div className="bg-[#0B1220]/60 border border-slate-800 rounded-xl p-5">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2">
-            <Filter className="w-4 h-4 text-blue-400" />
+            <Filter className="w-4 h-4 text-cyan-300" />
             <span className="text-xs uppercase tracking-widest font-mono text-slate-400">Filter Stream</span>
           </div>
           <div className="flex gap-2 flex-wrap">
@@ -99,7 +99,7 @@ export default function AuditLogView() {
                 className={`px-3 py-1.5 rounded-lg text-[10px] font-mono uppercase tracking-wider border transition-colors ${
                   filter === item
                     ? "bg-blue-600 border-blue-500 text-white"
-                    : "bg-slate-950 border-slate-800 text-slate-400 hover:text-white"
+                    : "bg-[#050B14] border-slate-800 text-slate-400 hover:text-white"
                 }`}
               >
                 {item}
@@ -115,10 +115,10 @@ export default function AuditLogView() {
             </div>
           ) : (
             visibleLogs.map((log) => (
-              <div key={log.id} className="bg-slate-950 border border-slate-800 rounded-xl p-4">
+              <div key={log.id} className="bg-[#050B14] border border-slate-800 rounded-xl p-4">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
                   <div className="flex items-start gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-blue-900/30 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                    <div className="h-10 w-10 rounded-lg bg-blue-900/30 border border-blue-500/20 flex items-center justify-center text-cyan-300 shrink-0">
                       <FileClock className="w-5 h-5" />
                     </div>
                     <div>
@@ -143,7 +143,7 @@ export default function AuditLogView() {
                 </div>
 
                 {log.changes && (
-                  <pre className="mt-4 text-[11px] font-mono text-slate-300 bg-slate-900 border border-slate-800 rounded-lg p-3 overflow-x-auto">
+                  <pre className="mt-4 text-[11px] font-mono text-slate-300 bg-[#0B1220] border border-slate-800 rounded-lg p-3 overflow-x-auto">
                     {JSON.stringify(log.changes, null, 2)}
                   </pre>
                 )}

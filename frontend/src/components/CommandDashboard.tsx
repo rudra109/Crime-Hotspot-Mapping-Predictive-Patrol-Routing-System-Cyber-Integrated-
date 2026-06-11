@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   ShieldAlert, Radio, Activity, Navigation,
   MapPin, CheckCircle, RefreshCw, Send, Plus, X, AlertTriangle,
-  Eye, Flame
+  Eye, Flame, Cpu, ChevronRight
 } from "lucide-react";
 import { Incident, Alert, PatrolUnit } from "../types";
 import { crimeHotspots, compulsoryPatrolRoutes } from "../data";
@@ -104,6 +104,7 @@ export default function CommandDashboard({
         {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           maxZoom: 19,
+          className: 'map-tiles-dark-filter', // Assuming you might have a dark filter CSS class, otherwise standard tiles
         }
       ).addTo(map);
 
@@ -200,16 +201,17 @@ export default function CommandDashboard({
           html: `<div style="
             background:${isCritical ? "#7f1d1d" : "#78350f"};
             color:${color};
-            border:1.5px solid ${color};
-            border-radius:4px;
-            padding:2px 7px;
-            font-size:9px;
-            font-family:monospace;
-            font-weight:bold;
+            border:1px solid ${color};
+            border-radius:6px;
+            padding:4px 8px;
+            font-size:10px;
+            font-family:ui-monospace, monospace;
+            font-weight:700;
             white-space:nowrap;
             pointer-events:none;
-            box-shadow:0 2px 6px rgba(0,0,0,.5);
-          ">⚠ ${hs.name.toUpperCase()} (${hs.crimeCount} CRIMES)</div>`,
+            box-shadow:0 4px 12px rgba(0,0,0,.6);
+            backdrop-filter: blur(4px);
+          ">⚠ ${hs.name.toUpperCase()} (${hs.crimeCount})</div>`,
           iconAnchor: [0, 0],
         }),
         interactive: false,
@@ -236,8 +238,8 @@ export default function CommandDashboard({
       const line = L.polyline(latlngs, {
         color: route.color,
         weight: 3,
-        opacity: 0.75,
-        dashArray: "10 6",
+        opacity: 0.8,
+        dashArray: "10 8",
       }).addTo(mapRef.current);
 
       // Waypoint dots + markers
@@ -246,11 +248,11 @@ export default function CommandDashboard({
         const dot = L.circleMarker([wp.lat, wp.lng], {
           radius: 5,
           fillColor: route.color,
-          color: "#fff",
-          weight: 1.5,
-          fillOpacity: 0.9,
+          color: "#050B14",
+          weight: 2,
+          fillOpacity: 1,
         }).addTo(mapRef.current);
-        dot.bindTooltip(`<span style="font-family:monospace;font-size:10px;">${route.name}: ${wp.name}</span>`, { direction: "top" });
+        dot.bindTooltip(`<span style="font-family:monospace;font-size:11px;font-weight:600;">${route.name}: ${wp.name}</span>`, { direction: "top", className: "custom-tooltip" });
         patrolLayersRef.current.push(dot);
       });
 
@@ -277,8 +279,8 @@ export default function CommandDashboard({
           incident.threatIndex >= 80
             ? "#ef4444"
             : incident.threatIndex >= 50
-            ? "#f59e0b"
-            : "#8b5cf6";
+              ? "#f59e0b"
+              : "#00E5FF";
 
         // Larger pulsing marker for very high threat
         const radius = incident.threatIndex >= 90 ? 14 : incident.isHighPriority ? 11 : 8;
@@ -290,15 +292,16 @@ export default function CommandDashboard({
           weight: 2,
           opacity: 1,
           fillOpacity: 0.9,
+          className: incident.threatIndex >= 90 ? 'pulse-marker' : ''
         }).addTo(mapRef.current);
 
         circleMarker.bindPopup(`
-          <div style="font-family: monospace; font-size: 12px; min-width: 180px;">
-            <div style="font-weight: bold; color: #1e293b; margin-bottom: 4px; font-size:13px;">${incident.category}</div>
-            <div style="color: #475569; margin-bottom: 2px;">📍 ${incident.location}</div>
-            <div style="color: #475569; margin-bottom: 2px;">⚠️ Threat: <b style="color:${color}">${incident.threatIndex}/100</b></div>
-            <div style="color: #475569; margin-bottom: 2px;">📋 ${incident.status}</div>
-            <div style="color: #475569;">🕐 ${incident.timestamp}</div>
+          <div style="font-family: ui-sans-serif, system-ui; font-size: 13px; min-width: 200px; padding: 4px;">
+            <div style="font-weight: 700; color: #0f172a; margin-bottom: 6px; font-size:14px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">${incident.category}</div>
+            <div style="color: #475569; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;"><span>📍</span> ${incident.location}</div>
+            <div style="color: #475569; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;"><span>⚠️</span> Threat: <b style="color:${color}">${incident.threatIndex}/100</b></div>
+            <div style="color: #475569; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;"><span>📋</span> ${incident.status}</div>
+            <div style="color: #64748b; font-size: 11px; margin-top: 6px;">🕐 ${incident.timestamp}</div>
           </div>
         `);
 
@@ -313,7 +316,7 @@ export default function CommandDashboard({
   const handleQuerySubmit = async (queryText: string) => {
     if (!queryText.trim()) return;
     setIsAiLoading(true);
-    setAiResponse("Query sent. Analysing data...");
+    setAiResponse("Query sent. Analysing databanks...");
 
     try {
       const response = await fetch("/api/ai/briefing", {
@@ -346,7 +349,7 @@ export default function CommandDashboard({
     if (!addForm.reportedBy.trim()) { setAddFormError("Reported By field is required."); return; }
 
     const now = new Date();
-    const timeStr = `${now.getHours().toString().padStart(2,"0")}:${now.getMinutes().toString().padStart(2,"0")} IST`;
+    const timeStr = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")} IST`;
     const threatVal = Math.min(100, Math.max(0, parseInt(addForm.threatIndex) || 50));
 
     const newIncident: Incident = {
@@ -378,172 +381,155 @@ export default function CommandDashboard({
     activeIncidentCount > 5 ? "CRITICAL" : activeIncidentCount > 3 ? "HIGH" : activeIncidentCount > 1 ? "MODERATE" : "NORMAL";
 
   const riskColor =
-    overallRiskLevel === "CRITICAL" ? "text-red-400" :
-    overallRiskLevel === "HIGH" ? "text-orange-400" :
-    overallRiskLevel === "MODERATE" ? "text-amber-400" : "text-green-400";
+    overallRiskLevel === "CRITICAL" ? "text-[#FF4D4F]" :
+      overallRiskLevel === "HIGH" ? "text-[#FFB020]" :
+        overallRiskLevel === "MODERATE" ? "text-amber-400" : "text-[#00FFA3]";
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-8 animate-fade-in text-slate-200 font-sans selection:bg-cyan-500/30">
 
       {/* ── Add Incident Modal ── */}
       {showAddModal && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm" onClick={() => setShowAddModal(false)}>
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#050B14]/60 backdrop-blur-md animate-fade-in" onClick={() => setShowAddModal(false)}>
           <div
-            className="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden"
+            className="bg-[#0B1220] border border-slate-700/60 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.5)] w-full max-w-lg mx-4 overflow-hidden transform transition-all"
             onClick={e => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-slate-950/60">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-red-900/40 border border-red-500/30 flex items-center justify-center">
+            <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-white/[0.02]">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center shadow-inner">
                   <AlertTriangle className="w-5 h-5 text-red-400" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white tracking-wide">ADD CRIME INCIDENT</h3>
-                  <p className="text-[10px] font-mono text-slate-500">Manual incident entry — Command Console</p>
+                  <h3 className="text-base font-bold text-white tracking-wide">Log New Incident</h3>
+                  <p className="text-xs text-slate-400 font-mono mt-0.5">MANUAL_ENTRY_CONSOLE</p>
                 </div>
               </div>
-              <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-white p-1 rounded cursor-pointer transition-colors">
+              <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-white p-2 rounded-full hover:bg-slate-800 transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Modal Body */}
-            <div className="p-5 space-y-4 max-h-[70vh] overflow-y-auto">
-
-              {/* Category + Priority Row */}
-              <div className="grid grid-cols-2 gap-3">
+            <div className="p-6 space-y-5 max-h-[70vh] overflow-y-auto custom-scrollbar">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Crime Category *</label>
+                  <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-2">Category *</label>
                   <select
                     value={addForm.category}
                     onChange={e => setAddForm(p => ({ ...p, category: e.target.value }))}
-                    className="w-full bg-slate-950 border border-slate-700 focus:border-blue-400 text-white text-xs font-mono rounded-lg px-3 py-2 outline-none cursor-pointer"
+                    className="w-full bg-[#050B14] border border-slate-700 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-slate-200 text-sm rounded-lg px-4 py-2.5 outline-none transition-all shadow-inner"
                   >
                     {CRIME_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Priority Level *</label>
+                  <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-2">Priority *</label>
                   <select
                     value={addForm.priority}
                     onChange={e => setAddForm(p => ({ ...p, priority: e.target.value }))}
-                    className="w-full bg-slate-950 border border-slate-700 focus:border-blue-400 text-white text-xs font-mono rounded-lg px-3 py-2 outline-none cursor-pointer"
+                    className="w-full bg-[#050B14] border border-slate-700 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-slate-200 text-sm rounded-lg px-4 py-2.5 outline-none transition-all shadow-inner"
                   >
-                    <option value="false">🟡 Routine</option>
-                    <option value="true">🔴 High Priority</option>
+                    <option value="false">Routine Response</option>
+                    <option value="true">High Priority / Urgent</option>
                   </select>
                 </div>
               </div>
 
-              {/* Location Name */}
               <div>
-                <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Location / Area Name *</label>
+                <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-2">Location Name *</label>
                 <input
                   type="text"
                   placeholder="e.g. Vastrapur Lake Road"
                   value={addForm.location}
                   onChange={e => setAddForm(p => ({ ...p, location: e.target.value }))}
-                  className="w-full bg-slate-950 border border-slate-700 focus:border-blue-400 text-white placeholder-slate-600 text-xs font-mono rounded-lg px-3 py-2 outline-none"
+                  className="w-full bg-[#050B14] border border-slate-700 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-slate-200 placeholder-slate-600 text-sm rounded-lg px-4 py-2.5 outline-none transition-all shadow-inner"
                 />
               </div>
 
-              {/* Coordinates Row */}
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-[10px] uppercase font-mono text-slate-400">Coordinates (Lat, Lng) *</label>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Coordinates (Lat, Lng) *</label>
                   <button
                     onClick={() => { setShowAddModal(false); setMapClickMode(true); }}
-                    className="text-[10px] font-mono text-blue-400 hover:text-blue-300 flex items-center gap-1 cursor-pointer transition-colors"
+                    className="text-xs text-[#00E5FF] hover:text-cyan-300 flex items-center gap-1.5 transition-colors font-medium bg-[#00E5FF]/10 px-2.5 py-1 rounded-md border border-[#00E5FF]/20"
                   >
-                    <MapPin className="w-3 h-3" /> Click on Map
+                    <MapPin className="w-3.5 h-3.5" /> Pick on Map
                   </button>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <input
                     type="number"
-                    placeholder="Latitude (23.xxxx)"
+                    placeholder="Lat (23.xxxx)"
                     value={addForm.lat}
                     onChange={e => setAddForm(p => ({ ...p, lat: e.target.value }))}
-                    className="w-full bg-slate-950 border border-slate-700 focus:border-blue-400 text-white placeholder-slate-600 text-xs font-mono rounded-lg px-3 py-2 outline-none"
-                    step="0.0001"
+                    className="w-full bg-[#050B14] border border-slate-700 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-slate-200 placeholder-slate-600 text-sm rounded-lg px-4 py-2.5 outline-none transition-all shadow-inner font-mono"
                   />
                   <input
                     type="number"
-                    placeholder="Longitude (72.xxxx)"
+                    placeholder="Lng (72.xxxx)"
                     value={addForm.lng}
                     onChange={e => setAddForm(p => ({ ...p, lng: e.target.value }))}
-                    className="w-full bg-slate-950 border border-slate-700 focus:border-blue-400 text-white placeholder-slate-600 text-xs font-mono rounded-lg px-3 py-2 outline-none"
-                    step="0.0001"
+                    className="w-full bg-[#050B14] border border-slate-700 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-slate-200 placeholder-slate-600 text-sm rounded-lg px-4 py-2.5 outline-none transition-all shadow-inner font-mono"
                   />
                 </div>
-                <p className="text-[9px] font-mono text-slate-600 mt-1">Ahmedabad region: Lat 22.9–23.2, Lng 72.4–72.7</p>
               </div>
 
-              {/* Threat Index */}
-              <div>
-                <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1">
-                  Threat Index: <span className={`font-bold ${
-                    parseInt(addForm.threatIndex) >= 80 ? "text-red-400" :
-                    parseInt(addForm.threatIndex) >= 50 ? "text-amber-400" : "text-blue-400"
-                  }`}>{addForm.threatIndex}/100</span>
-                </label>
+              <div className="bg-[#050B14] p-4 rounded-xl border border-slate-800">
+                <div className="flex items-center justify-between mb-3">
+                  <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">Threat Index</label>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${parseInt(addForm.threatIndex) >= 80 ? 'bg-red-500/20 text-red-400' : parseInt(addForm.threatIndex) >= 50 ? 'bg-orange-500/20 text-orange-400' : 'bg-cyan-500/20 text-cyan-400'}`}>
+                    {addForm.threatIndex} / 100
+                  </span>
+                </div>
                 <input
                   type="range" min="0" max="100" step="1"
                   value={addForm.threatIndex}
                   onChange={e => setAddForm(p => ({ ...p, threatIndex: e.target.value }))}
-                  className="w-full accent-red-500 cursor-pointer"
+                  className="w-full accent-cyan-400 h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer"
                 />
-                <div className="flex justify-between text-[9px] font-mono text-slate-600 mt-0.5">
-                  <span>0 – Low</span><span>50 – Medium</span><span>100 – Critical</span>
-                </div>
               </div>
 
-              {/* Description */}
               <div>
-                <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Description</label>
+                <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-2">Description</label>
                 <textarea
                   rows={3}
-                  placeholder="Describe the incident..."
+                  placeholder="Enter detailed intelligence here..."
                   value={addForm.description}
                   onChange={e => setAddForm(p => ({ ...p, description: e.target.value }))}
-                  className="w-full bg-slate-950 border border-slate-700 focus:border-blue-400 text-white placeholder-slate-600 text-xs font-mono rounded-lg px-3 py-2 outline-none resize-none"
+                  className="w-full bg-[#050B14] border border-slate-700 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-slate-200 placeholder-slate-600 text-sm rounded-lg px-4 py-2.5 outline-none resize-none transition-all shadow-inner"
                 />
               </div>
 
-              {/* Reported By */}
               <div>
-                <label className="text-[10px] uppercase font-mono text-slate-400 block mb-1">Reported By *</label>
+                <label className="text-[11px] font-bold tracking-wider text-slate-400 uppercase block mb-2">Reported By *</label>
                 <input
                   type="text"
-                  placeholder="e.g. PCR Van 3 / Constable Name"
+                  placeholder="e.g. Officer Badge # / Name"
                   value={addForm.reportedBy}
                   onChange={e => setAddForm(p => ({ ...p, reportedBy: e.target.value }))}
-                  className="w-full bg-slate-950 border border-slate-700 focus:border-blue-400 text-white placeholder-slate-600 text-xs font-mono rounded-lg px-3 py-2 outline-none"
+                  className="w-full bg-[#050B14] border border-slate-700 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 text-slate-200 placeholder-slate-600 text-sm rounded-lg px-4 py-2.5 outline-none transition-all shadow-inner"
                 />
               </div>
 
-              {/* Error */}
               {addFormError && (
-                <div className="text-xs font-mono text-red-400 bg-red-900/20 border border-red-500/30 rounded-lg px-3 py-2 flex items-center gap-2">
-                  <AlertTriangle className="w-3.5 h-3.5 shrink-0" /> {addFormError}
+                <div className="text-xs text-red-300 bg-red-950/40 border border-red-500/30 rounded-lg px-4 py-3 flex items-center gap-2.5 shadow-sm">
+                  <AlertTriangle className="w-4 h-4 shrink-0 text-red-400" /> {addFormError}
                 </div>
               )}
             </div>
 
-            {/* Modal Footer */}
-            <div className="flex gap-3 p-5 border-t border-slate-800 bg-slate-950/40">
+            <div className="flex gap-3 p-5 border-t border-slate-800 bg-white/[0.02]">
               <button
                 onClick={() => { setShowAddModal(false); setAddFormError(""); }}
-                className="flex-1 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-mono text-slate-300 rounded-lg cursor-pointer transition-all"
+                className="flex-1 py-2.5 bg-transparent hover:bg-slate-800 text-sm text-slate-300 font-medium rounded-lg border border-slate-700 transition-colors"
               >
-                CANCEL
+                Cancel
               </button>
               <button
                 onClick={handleAddIncidentSubmit}
-                className="flex-1 py-2 bg-red-600 hover:bg-red-500 text-white text-xs font-mono font-bold rounded-lg cursor-pointer transition-all flex items-center justify-center gap-2"
+                className="flex-1 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-[0_0_15px_rgba(0,229,255,0.3)] border border-cyan-400/30 text-sm font-semibold rounded-lg transition-all flex items-center justify-center gap-2"
               >
-                <Plus className="w-4 h-4" /> LOG INCIDENT
+                <Plus className="w-4 h-4" /> Submit Protocol
               </button>
             </div>
           </div>
@@ -552,397 +538,336 @@ export default function CommandDashboard({
 
       {/* ── Map Click Mode Banner ── */}
       {mapClickMode && (
-        <div className="lg:col-span-12 bg-blue-900/40 border border-blue-500/50 rounded-xl p-3 flex items-center justify-between gap-3 animate-pulse">
-          <div className="flex items-center gap-2 text-xs font-mono text-blue-300">
-            <MapPin className="w-4 h-4" />
-            <span>📍 Click anywhere on the map to pin the crime location. Press ESC or Cancel to abort.</span>
+        <div className="lg:col-span-12 bg-cyan-950/40 border border-cyan-500/40 rounded-xl p-4 flex items-center justify-between gap-4 shadow-[0_0_20px_rgba(0,229,255,0.1)]">
+          <div className="flex items-center gap-3 text-sm text-cyan-100 font-medium tracking-wide">
+            <span className="relative flex h-4 w-4">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-cyan-500"></span>
+            </span>
+            <span>Target Acquisition Mode Active: Click anywhere on the tactical map to log coordinates.</span>
           </div>
           <button
             onClick={() => setMapClickMode(false)}
-            className="text-xs font-mono text-blue-400 hover:text-white border border-blue-500/30 px-3 py-1 rounded-lg cursor-pointer transition-colors"
+            className="text-sm text-slate-300 hover:text-white border border-slate-600 hover:bg-slate-800 px-5 py-1.5 rounded-lg transition-colors font-medium"
           >
-            CANCEL
+            Abort
           </button>
         </div>
       )}
 
-      {/* ── Telemetry Banner ── */}
-      <div className="lg:col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-4 bg-slate-900 p-4 border border-slate-800 rounded-xl">
-        <div className="flex items-center gap-3.5 border-r border-slate-800 pr-2">
-          <div className="h-11 w-11 rounded-lg bg-blue-900/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
-            <ShieldAlert className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="text-[10px] tracking-wider uppercase font-mono text-slate-400">Active Incidents</div>
-            <div className="text-2xl font-bold font-mono text-white">{activeIncidentCount}</div>
-          </div>
-        </div>
 
-        <div className="flex items-center gap-3.5 md:border-r border-slate-800 pr-2">
-          <div className="h-11 w-11 rounded-lg bg-blue-900/40 border border-blue-500/30 flex items-center justify-center text-blue-400">
-            <Navigation className="w-5 h-5" />
+      {/* ── Dynamic KPI Grid ── */}
+      <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* KPI 1 */}
+        <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/80 hover:border-[#00E5FF]/40 rounded-3xl p-6 relative overflow-hidden group transition-all duration-500 transform hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,229,255,0.15)] flex flex-col justify-between shadow-xl">
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#00E5FF]/10 blur-[50px] rounded-full group-hover:bg-[#00E5FF]/20 transition-all duration-700" />
+          <div className="flex justify-between items-start mb-6 relative z-10">
+            <div className="w-12 h-12 rounded-2xl bg-[#00E5FF]/10 flex items-center justify-center border border-[#00E5FF]/20 text-[#00E5FF] group-hover:scale-110 transition-transform duration-300 shadow-inner">
+              <ShieldAlert className="w-6 h-6" />
+            </div>
+            <span className="flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase text-[#FF4D4F] bg-[#FF4D4F]/10 border border-[#FF4D4F]/20 px-3 py-1.5 rounded-full shadow-sm">
+              ↑ 12% Spike
+            </span>
           </div>
-          <div>
-            <div className="text-[10px] tracking-wider uppercase font-mono text-slate-400">Patrol Units</div>
-            <div className="text-2xl font-bold font-mono text-white">
-              {patrolCount} <span className="text-xs text-slate-500 font-normal">Active</span>
+          <div className="relative z-10 mt-auto">
+            <div className="text-4xl font-extrabold text-white mb-1 tracking-tight">{activeIncidentCount}</div>
+            <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-3">Active Incidents</div>
+            <div className="text-[11px] text-slate-400 border-t border-slate-800/80 pt-3 flex items-center gap-2">
+              <span className="text-[#00E5FF] font-semibold">AI DEPLOY:</span> High probability near SG Highway
             </div>
           </div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00E5FF]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
 
-        <div className="flex items-center gap-3.5 border-r border-slate-800 pr-2">
-          <div className={`h-11 w-11 rounded-lg flex items-center justify-center border ${
-            overallRiskLevel === "CRITICAL" || overallRiskLevel === "HIGH"
-              ? "bg-red-900/40 border-red-500/30 text-red-400"
-              : "bg-amber-900/40 border-amber-500/30 text-amber-400"
-          }`}>
-            <Activity className="w-5 h-5" />
+        {/* KPI 2 */}
+        <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/80 hover:border-[#00FFA3]/40 rounded-3xl p-6 relative overflow-hidden group transition-all duration-500 transform hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,255,163,0.15)] flex flex-col justify-between shadow-xl">
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#00FFA3]/10 blur-[50px] rounded-full group-hover:bg-[#00FFA3]/20 transition-all duration-700" />
+          <div className="flex justify-between items-start mb-6 relative z-10">
+            <div className="w-12 h-12 rounded-2xl bg-[#00FFA3]/10 flex items-center justify-center border border-[#00FFA3]/20 text-[#00FFA3] group-hover:scale-110 transition-transform duration-300 shadow-inner">
+              <Navigation className="w-6 h-6" />
+            </div>
+            <span className="flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase text-[#00FFA3] bg-[#00FFA3]/10 border border-[#00FFA3]/20 px-3 py-1.5 rounded-full shadow-sm">
+              Optimal
+            </span>
           </div>
-          <div>
-            <div className="text-[10px] tracking-wider uppercase font-mono text-slate-400">Risk Matrix</div>
-            <div className={`text-2xl font-bold font-mono ${riskColor}`}>
-              {overallRiskLevel}
+          <div className="relative z-10 mt-auto">
+            <div className="text-4xl font-extrabold text-white mb-1 tracking-tight">{patrolCount}</div>
+            <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-3">Patrol Units</div>
+            <div className="text-[11px] text-slate-400 border-t border-slate-800/80 pt-3 flex items-center gap-2">
+              <span className="text-[#00E5FF] font-semibold">AI DEPLOY:</span> All high-risk sectors covered
             </div>
           </div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00FFA3]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
 
-        <div className="flex items-center gap-3.5">
-          <div className="h-11 w-11 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300">
-            <Radio className="w-5 h-5" />
+        {/* KPI 3 */}
+        <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/80 hover:border-[#FFB020]/40 rounded-3xl p-6 relative overflow-hidden group transition-all duration-500 transform hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(255,176,32,0.15)] flex flex-col justify-between shadow-xl">
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#FFB020]/10 blur-[50px] rounded-full group-hover:bg-[#FFB020]/20 transition-all duration-700" />
+          <div className="flex justify-between items-start mb-6 relative z-10">
+            <div className="w-12 h-12 rounded-2xl bg-[#FFB020]/10 flex items-center justify-center border border-[#FFB020]/20 text-[#FFB020] group-hover:scale-110 transition-transform duration-300 shadow-inner">
+              <Activity className="w-6 h-6" />
+            </div>
           </div>
-          <div>
-            <div className="text-[10px] tracking-wider uppercase font-mono text-slate-400">Avg Response Time</div>
-            <div className="text-2xl font-bold font-mono text-white">{avgResponseTime}</div>
+          <div className="relative z-10 mt-auto">
+            <div className={`text-4xl font-extrabold mb-1 tracking-tight ${riskColor}`}>{overallRiskLevel}</div>
+            <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-3">Risk Matrix</div>
+            <div className="text-[11px] text-slate-400 border-t border-slate-800/80 pt-3 flex items-center gap-2">
+              <span className="text-[#00E5FF] font-semibold">AI DEPLOY:</span> Escalation predicted in 2 hrs
+            </div>
           </div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FFB020]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        </div>
+
+        {/* KPI 4 */}
+        <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/80 hover:border-indigo-500/40 rounded-3xl p-6 relative overflow-hidden group transition-all duration-500 transform hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(99,102,241,0.15)] flex flex-col justify-between shadow-xl">
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/10 blur-[50px] rounded-full group-hover:bg-indigo-500/20 transition-all duration-700" />
+          <div className="flex justify-between items-start mb-6 relative z-10">
+            <div className="w-12 h-12 rounded-2xl bg-slate-800/50 flex items-center justify-center border border-slate-700 text-slate-300 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+              <Radio className="w-6 h-6" />
+            </div>
+            <span className="flex items-center gap-1 text-[10px] font-bold tracking-widest uppercase text-[#00FFA3] bg-[#00FFA3]/10 border border-[#00FFA3]/20 px-3 py-1.5 rounded-full shadow-sm">
+              ↓ 0.5m Fast
+            </span>
+          </div>
+          <div className="relative z-10 mt-auto">
+            <div className="text-4xl font-extrabold text-white mb-1 tracking-tight">{avgResponseTime}</div>
+            <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-3">Response Time</div>
+            <div className="text-[11px] text-slate-400 border-t border-slate-800/80 pt-3 flex items-center gap-2">
+              <span className="text-[#00E5FF] font-semibold">AI DEPLOY:</span> Routing efficiency at peak
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
       </div>
 
-      {/* ── Left Column: Map + Incident Detail ── */}
-      <div className="lg:col-span-7 flex flex-col gap-6">
+      {/* ── Command Map Section (70/30) ── */}
+      <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-10 gap-6">
 
-        <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl flex flex-col">
-          {/* Map Header */}
-          <div className="p-4 border-b border-slate-800 bg-slate-950/50 flex flex-wrap justify-between items-center gap-3">
-            <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-blue-400" />
-              <div>
-                <h3 className="text-sm font-bold text-white tracking-wide">AHMEDABAD LIVE MAP</h3>
-                <span className="text-[10px] font-mono text-slate-400">
-                  {incidents.filter(i => i.status !== "Resolved").length} ACTIVE · {crimeHotspots.length} HOTSPOTS IDENTIFIED
-                </span>
-              </div>
+        {/* Map Container (70%) */}
+        <div className="lg:col-span-7 bg-[#0B1220] border border-slate-800 rounded-2xl flex flex-col overflow-hidden relative shadow-xl">
+          <div className="absolute top-4 left-4 z-[400] bg-[#0B1220]/80 backdrop-blur-md border border-slate-700 rounded-xl p-2.5 flex items-center gap-4 shadow-lg">
+            <div className="flex items-center gap-2 pl-2">
+              <span className="w-2 h-2 rounded-full bg-[#FF4D4F] shadow-[0_0_8px_#FF4D4F] animate-pulse" />
+              <span className="text-[11px] font-bold text-white tracking-widest uppercase">Live Sector Map</span>
             </div>
-            <div className="flex items-center gap-3 flex-wrap">
-              {/* Legend */}
-              <div className="flex items-center gap-3 text-[10px] font-mono text-slate-400">
-                <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-red-500 inline-block"></span> Critical</span>
-                <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Warning</span>
-                <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-violet-500 inline-block"></span> Info</span>
-              </div>
-              {/* Layer toggles */}
-              <div className="flex gap-1.5">
-                <button
-                  onClick={() => setShowHotspots(h => !h)}
-                  className={`px-2 py-1 text-[9px] font-mono font-bold rounded flex items-center gap-1 cursor-pointer border transition-all ${
-                    showHotspots
-                      ? "bg-red-900/30 border-red-500/40 text-red-400"
-                      : "bg-slate-800 border-slate-700 text-slate-500"
-                  }`}
-                >
-                  <Flame className="w-3 h-3" /> HOTSPOTS
-                </button>
-                <button
-                  onClick={() => setShowPatrolRoutes(r => !r)}
-                  className={`px-2 py-1 text-[9px] font-mono font-bold rounded flex items-center gap-1 cursor-pointer border transition-all ${
-                    showPatrolRoutes
-                      ? "bg-amber-900/30 border-amber-500/40 text-amber-400"
-                      : "bg-slate-800 border-slate-700 text-slate-500"
-                  }`}
-                >
-                  <Navigation className="w-3 h-3" /> PATROL ROUTES
-                </button>
-              </div>
+            <div className="h-4 w-[1px] bg-slate-700" />
+            <div className="flex gap-1 pr-1">
+              <button onClick={() => setShowHotspots(!showHotspots)} className={`text-[10px] px-2.5 py-1.5 rounded-lg uppercase font-bold tracking-wider transition-colors ${showHotspots ? 'bg-[#FF4D4F]/20 text-[#FF4D4F]' : 'text-slate-400 hover:bg-slate-800'}`}>Hotspots</button>
+              <button onClick={() => setShowPatrolRoutes(!showPatrolRoutes)} className={`text-[10px] px-2.5 py-1.5 rounded-lg uppercase font-bold tracking-wider transition-colors ${showPatrolRoutes ? 'bg-[#00E5FF]/20 text-[#00E5FF]' : 'text-slate-400 hover:bg-slate-800'}`}>Routes</button>
             </div>
           </div>
 
-          {/* Leaflet Map Container */}
-          <div ref={mapContainerRef} className="h-[440px] w-full bg-slate-800" style={{ zIndex: 0 }} />
+          <div ref={mapContainerRef} className="h-[550px] w-full bg-[#050B14]" style={{ zIndex: 0 }} />
 
-          {/* Map Footer */}
-          <div className="p-4 bg-slate-950/40 flex flex-wrap justify-between items-center gap-3">
-            <div className="text-xs font-mono text-slate-400">
-              {selectedIncident ? (
-                <div className="flex items-center gap-2">
-                  <span className="inline-block w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
-                  <span>Selected: <strong className="text-white">{selectedIncident.id}</strong> · {selectedIncident.category} · {selectedIncident.location.split(" (")[0]}</span>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <span className="inline-block w-2 h-2 rounded-full bg-blue-400"></span>
-                  <span>Click a marker to select · Red zones = crime hotspots (compulsory patrol)</span>
-                </div>
-              )}
+          {/* Map Controls Glass Bar */}
+          <div className="absolute bottom-4 left-4 right-4 z-[400] bg-[#0B1220]/85 backdrop-blur-md border border-slate-700 rounded-xl p-3.5 flex justify-between items-center shadow-xl">
+            <div className="text-[11px] text-slate-300 font-mono tracking-wide flex items-center gap-2">
+              <Eye className="w-4 h-4 text-[#00E5FF]" />
+              {selectedIncident ? `TGT_LOCK: ${selectedIncident.id} // ${selectedIncident.category}` : "Awaiting telemetry selection..."}
             </div>
-
-            <div className="flex gap-2 text-xs">
-              {/* Add Crime Button */}
-              <button
-                onClick={() => setShowAddModal(true)}
-                className="px-3 py-1.5 bg-red-700 hover:bg-red-600 text-white font-mono font-bold rounded flex items-center gap-1.5 cursor-pointer transition-all"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                ADD CRIME
+            <div className="flex gap-3">
+              <button onClick={() => setShowAddModal(true)} className="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white shadow-[0_0_15px_rgba(0,229,255,0.2)] font-bold text-[11px] uppercase tracking-wider rounded-lg transition-all border border-cyan-400/50">
+                Log Incident
               </button>
-
               {selectedIncident && selectedIncident.status === "Assessing" && (
-                <button
-                  onClick={() => {
-                    const firstUnit = units.find((u) => u.status === "Patrol") || units[0];
-                    if (firstUnit) {
-                      onDispatchUnit(firstUnit.id, selectedIncident.id);
-                      setSelectedIncident((prev) => prev ? { ...prev, status: "Dispatched" } : null);
-                    }
-                  }}
-                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-mono font-bold rounded flex items-center gap-1 cursor-pointer transition-all"
-                >
-                  <Navigation className="w-3.5 h-3.5" />
-                  DISPATCH UNIT
+                <button onClick={() => {
+                  const firstUnit = units.find((u: any) => u.status === "Patrol") || units[0];
+                  if (firstUnit) {
+                    onDispatchUnit(firstUnit.id, selectedIncident.id);
+                    setSelectedIncident(prev => prev ? { ...prev, status: "Dispatched" } : null);
+                  }
+                }} className="px-5 py-2 bg-[#00FFA3]/10 hover:bg-[#00FFA3]/20 border border-[#00FFA3]/40 text-[#00FFA3] font-bold text-[11px] uppercase tracking-wider rounded-lg transition-all shadow-[0_0_15px_rgba(0,255,163,0.1)]">
+                  Dispatch Unit
                 </button>
               )}
-              <button
-                onClick={onSimulateAlarm}
-                className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-mono rounded flex items-center gap-1.5 cursor-pointer transition-all"
-              >
-                <Radio className="w-3.5 h-3.5 text-blue-400" />
-                SIMULATE ALERT
+              <button onClick={onSimulateAlarm} className="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 font-bold text-[11px] uppercase tracking-wider rounded-lg transition-all">
+                Simulate
               </button>
             </div>
           </div>
         </div>
 
-        {/* Hotspot Summary Panel */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
-          <div className="flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
-            <Flame className="w-4 h-4 text-red-400" />
-            <h4 className="text-xs uppercase tracking-wider font-mono text-slate-400">Crime Hotspot Summary</h4>
-            <span className="ml-auto text-[10px] font-mono text-red-400 bg-red-900/20 border border-red-500/20 rounded px-2 py-0.5">COMPULSORY PATROL</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {crimeHotspots.map((hs, idx) => (
-              <div
-                key={idx}
-                className={`p-3 rounded-lg border flex items-center gap-3 ${
-                  hs.severity === "CRITICAL"
-                    ? "bg-red-900/10 border-red-500/20"
-                    : "bg-amber-900/10 border-amber-500/20"
-                }`}
-              >
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold font-mono ${
-                  hs.severity === "CRITICAL" ? "bg-red-900/40 text-red-400" : "bg-amber-900/40 text-amber-400"
-                }`}>
-                  {hs.crimeCount}
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono text-white font-semibold leading-tight">{hs.name}</div>
-                  <div className={`text-[9px] font-mono font-bold mt-0.5 ${hs.severity === "CRITICAL" ? "text-red-400" : "text-amber-400"}`}>
-                    ⚠ {hs.severity} · PATROL MANDATORY
-                  </div>
-                </div>
-                <Navigation className={`w-3.5 h-3.5 ml-auto shrink-0 ${hs.severity === "CRITICAL" ? "text-red-400" : "text-amber-400"}`} />
-              </div>
-            ))}
-          </div>
-
-          {/* Route Legend */}
-          <div className="mt-3 pt-3 border-t border-slate-800 flex flex-wrap gap-3">
-            {compulsoryPatrolRoutes.map(r => (
-              <div key={r.id} className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400">
-                <div className="w-6 h-1 rounded" style={{ background: r.color, opacity: 0.8 }}></div>
-                <span>{r.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Selected Incident Details */}
-        {selectedIncident && (
-          <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl relative">
-            <button
-              onClick={() => setSelectedIncident(null)}
-              className="absolute top-3 right-3 text-xs font-mono text-slate-400 hover:text-white px-2 py-0.5 border border-slate-800 bg-slate-950 rounded cursor-pointer"
-            >
-              CLEAR
-            </button>
-            <div className="flex items-center gap-2 mb-3">
-              <span className={`px-2 py-0.5 text-[9px] uppercase font-mono tracking-widest rounded text-slate-950 font-bold ${selectedIncident.isHighPriority ? "bg-red-500" : "bg-amber-500"}`}>
-                {selectedIncident.isHighPriority ? "HIGH PRIORITY" : "ROUTINE"}
+        {/* Intelligence Sidebar (30%) */}
+        <div className="lg:col-span-3 bg-[#0B1220] border border-slate-800 rounded-2xl flex flex-col shadow-xl h-[550px]">
+          <div className="p-5 border-b border-slate-800/80 bg-[#0B1220]/30 rounded-t-2xl">
+            <h3 className="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-2.5">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF4D4F] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF4D4F]"></span>
               </span>
-              <span className="text-xs font-mono text-slate-400">{selectedIncident.id}</span>
-              <span className="text-xs font-mono text-slate-400">{selectedIncident.timestamp}</span>
-            </div>
-            <h4 className="text-base text-white font-bold">{selectedIncident.category} Report</h4>
-            <p className="text-sm text-slate-300 mt-1">{selectedIncident.description}</p>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 pt-4 border-t border-slate-800 font-mono text-xs">
-              <div>
-                <span className="text-slate-500 block text-[10px]">LOCATION</span>
-                <span className="text-slate-200">{selectedIncident.location.split(" (")[0]}</span>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-[10px]">THREAT LEVEL</span>
-                <span className="text-rose-400 font-bold">{selectedIncident.threatIndex} / 100</span>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-[10px]">STATUS</span>
-                <span className="text-slate-200">{selectedIncident.status}</span>
-              </div>
-              <div>
-                <span className="text-slate-500 block text-[10px]">REPORTED BY</span>
-                <span className="text-slate-200">{selectedIncident.reportedBy}</span>
-              </div>
-            </div>
+              Live Intel Feed
+            </h3>
           </div>
-        )}
-      </div>
-
-      {/* ── Right Column: Alerts + AI Advisor ── */}
-      <div className="lg:col-span-5 flex flex-col gap-6">
-
-        {/* Quick Action: Add Crime + Incidents Count */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center justify-between gap-3">
-          <div>
-            <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Total Incidents Tracked</div>
-            <div className="text-xl font-bold font-mono text-white">{incidents.length} <span className="text-xs text-slate-500 font-normal">incidents</span></div>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => { setMapClickMode(true); }}
-              className="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-mono text-xs rounded-lg flex items-center gap-1.5 cursor-pointer transition-all"
-            >
-              <Eye className="w-3.5 h-3.5 text-blue-400" />
-              PIN ON MAP
-            </button>
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="px-3 py-2 bg-red-700 hover:bg-red-600 text-white font-mono text-xs font-bold rounded-lg flex items-center gap-1.5 cursor-pointer transition-all"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              ADD CRIME
-            </button>
-          </div>
-        </div>
-
-        {/* Live Alert Stream */}
-        <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl flex flex-col gap-4">
-          <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-            <h4 className="text-xs uppercase tracking-wider font-mono text-slate-400 flex items-center gap-2">
-              <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-              Live Alert Ticker
-            </h4>
-            <span className="text-[10px] font-mono text-slate-500">{alerts.length} ALERTS</span>
-          </div>
-
-          <div className="space-y-3 max-h-[280px] overflow-y-auto pr-1">
+          <div className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar">
             {alerts.length === 0 ? (
-              <div className="text-center py-6 text-xs font-mono text-slate-500">No active alerts.</div>
+              <div className="text-xs text-slate-500 font-mono text-center mt-12 flex flex-col items-center gap-2">
+                <Activity className="w-6 h-6 opacity-20" />
+                No active intercepts found.
+              </div>
             ) : (
-              alerts.slice().reverse().map((alert) => {
+              alerts.slice().reverse().map((alert, i) => {
                 const isCritical = alert.type === "Critical";
                 return (
-                  <div
-                    key={alert.id}
-                    className={`p-3 rounded border text-xs font-mono transition-all ${
-                      isCritical
-                        ? "bg-red-900/20 border-red-500/30 text-red-100"
-                        : "bg-slate-800 border-slate-700 text-slate-200"
-                    }`}
-                  >
-                    <div className="flex justify-between items-start mb-1.5 gap-2">
-                      <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase ${
-                        isCritical ? "bg-red-500 text-white" : "bg-blue-600 text-white"
-                      }`}>
-                        {alert.type}
-                      </span>
-                      <span className="text-slate-400 text-[10px]">{alert.time}</span>
+                  <div key={alert.id} className="relative pl-5 border-l-2 border-slate-800 hover:border-[#00E5FF]/40 transition-colors pb-5 last:pb-0 group">
+                    <div className={`absolute -left-[5px] top-0.5 w-2 h-2 rounded-full transition-shadow duration-300 ${isCritical ? 'bg-[#FF4D4F] group-hover:shadow-[0_0_10px_#FF4D4F]' : 'bg-[#00E5FF] group-hover:shadow-[0_0_10px_#00E5FF]'}`} />
+                    <div className="flex justify-between items-start mb-1.5">
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${isCritical ? 'bg-[#FF4D4F]/10 text-[#FF4D4F]' : 'bg-[#00E5FF]/10 text-[#00E5FF]'}`}>{alert.type}</span>
+                      <span className="text-[10px] font-mono text-slate-500">{alert.time}</span>
                     </div>
-                    <p className="leading-relaxed mb-2 text-[11px]">{alert.message}</p>
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-slate-400">Sector: <b className="text-slate-200">{alert.sector}</b></span>
+                    <p className="text-xs text-slate-300 leading-relaxed mb-3">{alert.message}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-slate-500 font-mono bg-[#0B1220] px-2 py-1 rounded">SEC: <span className="text-white">{alert.sector}</span></span>
                       {alert.status === "Pending" ? (
-                        <button
-                          onClick={() => onAckAlert(alert.id)}
-                          className="px-2 py-0.5 bg-slate-700 hover:bg-slate-600 border border-slate-600 text-[10px] text-white font-bold rounded cursor-pointer transition-all"
-                        >
-                          ACKNOWLEDGE
-                        </button>
+                        <button onClick={() => onAckAlert(alert.id)} className="text-[10px] font-bold uppercase tracking-wider text-[#00FFA3] hover:text-[#00FFA3]/70 hover:bg-[#00FFA3]/10 px-2 py-1 rounded transition-colors">Acknowledge</button>
                       ) : (
-                        <span className="text-green-400 font-semibold flex items-center gap-1">
-                          <CheckCircle className="w-3.5 h-3.5" />
-                          {alert.status.toUpperCase()}
-                        </span>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5" /> Acked</span>
                       )}
                     </div>
                   </div>
-                );
+                )
               })
             )}
           </div>
         </div>
 
-        {/* AI Advisor */}
-        <div id="ai-commands-liaison" className="bg-slate-900 border border-slate-800 p-5 rounded-xl flex flex-col gap-4">
-          <div className="flex justify-between items-center border-b border-slate-800 pb-3">
-            <h4 className="text-xs uppercase tracking-wider font-mono text-slate-400 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 bg-blue-400 rounded-full"></span>
-              Police Operations Advisor
-            </h4>
-          </div>
+      </div>
 
-          <div className="space-y-1.5">
-            <div className="text-[10px] uppercase font-mono text-slate-500 font-semibold tracking-wider">Quick Directives</div>
-            <div className="flex flex-col gap-2">
-              {activePresets.map((preset, idx) => (
-                <button
-                  key={idx}
-                  disabled={isAiLoading}
-                  onClick={() => { setUserQuery(preset.query); handleQuerySubmit(preset.query); }}
-                  className="text-left w-full p-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-[11px] text-slate-300 hover:text-white font-mono rounded cursor-pointer transition-all flex items-center justify-between"
-                >
-                  <span>{preset.label}</span>
-                  <Navigation className="w-3 h-3 text-slate-500 rotate-90" />
-                </button>
-              ))}
-            </div>
-          </div>
+      {/* ── AI Copilot & Hotspots Grid ── */}
+      <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-          <div className="bg-slate-950 border border-slate-800 rounded-lg p-3.5 min-h-[120px] max-h-[220px] overflow-y-auto font-mono text-[11px] leading-relaxed relative">
+        {/* AI Copilot Interface */}
+        <div className="lg:col-span-5 bg-[#0B1220]/60 backdrop-blur-xl border border-[#00E5FF]/20 shadow-[0_10px_30px_rgba(0,229,255,0.05)] rounded-3xl p-6 flex flex-col relative overflow-hidden group">
+          <div className="absolute -top-20 -right-20 w-48 h-48 bg-[#00E5FF]/10 blur-[70px] rounded-full pointer-events-none group-hover:bg-[#00E5FF]/20 transition-colors duration-700" />
+          <h3 className="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-2 mb-6 relative z-10">
+            <Cpu className="w-5 h-5 text-[#00E5FF]" />
+            Copilot Core
+          </h3>
+
+          <div className="flex-1 bg-[#050B14]/50 border border-slate-800/80 rounded-2xl p-5 mb-5 min-h-[160px] max-h-[200px] overflow-y-auto text-[13px] leading-relaxed text-slate-300 custom-scrollbar relative shadow-inner">
             {isAiLoading && (
-              <div className="absolute inset-0 bg-slate-950/80 flex flex-col items-center justify-center gap-2 rounded-lg">
-                <RefreshCw className="w-5 h-5 text-blue-400 animate-spin" />
-                <span className="text-[10px] text-slate-400 tracking-wider">ANALYSING...</span>
+              <div className="absolute inset-0 bg-[#050B14]/80 flex items-center justify-center gap-3 backdrop-blur-[2px] z-10 rounded-2xl">
+                <RefreshCw className="w-5 h-5 text-[#00E5FF] animate-spin" />
+                <span className="text-[11px] text-[#00E5FF] font-bold tracking-widest uppercase">Processing Request</span>
               </div>
             )}
-            <b className="text-blue-400 block mb-1">📊 ADVISOR:</b>
-            <div className="text-slate-300 whitespace-pre-line">{aiResponse}</div>
+            <div className="whitespace-pre-line font-mono leading-relaxed">{aiResponse}</div>
           </div>
 
-          <div className="flex gap-2">
+          <div className="grid grid-cols-1 gap-3 mb-5 relative z-10">
+            {activePresets.map((preset, idx) => (
+              <button
+                key={idx}
+                disabled={isAiLoading}
+                onClick={() => { setUserQuery(preset.query); handleQuerySubmit(preset.query); }}
+                className="w-full p-4 bg-slate-800/30 hover:bg-slate-800/80 border border-slate-800 hover:border-[#00E5FF]/30 text-[11px] text-slate-400 hover:text-cyan-300 uppercase font-bold tracking-wider rounded-xl transition-all flex items-center justify-between text-left group disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5 shadow-sm"
+              >
+                <span>{preset.label}</span>
+                <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-[#00E5FF] transition-colors" />
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-3 relative z-10">
             <input
               type="text"
-              placeholder="Ask Advisor..."
+              placeholder="Query strategic databanks..."
               value={userQuery}
               onChange={(e) => setUserQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleQuerySubmit(userQuery)}
-              className="flex-1 bg-slate-950 text-white placeholder-slate-500 border border-slate-800 focus:border-blue-400 rounded-lg px-3 py-2 text-xs font-mono outline-none"
+              className="flex-1 bg-[#050B14]/50 text-white placeholder-slate-500 border border-slate-800 focus:border-[#00E5FF]/50 focus:ring-1 focus:ring-[#00E5FF]/50 rounded-xl px-5 py-3 text-xs outline-none font-mono transition-all shadow-inner"
             />
             <button
               onClick={() => handleQuerySubmit(userQuery)}
-              className="px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg flex items-center justify-center cursor-pointer transition-all"
+              className="px-6 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-[0_0_20px_rgba(0,229,255,0.2)] hover:shadow-[0_0_30px_rgba(0,229,255,0.4)] rounded-xl flex items-center justify-center transition-all disabled:opacity-50 group hover:-translate-y-0.5"
+              disabled={isAiLoading || !userQuery.trim()}
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-5 h-5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
         </div>
+
+        {/* Hotspot Intelligence Grid */}
+        <div className="lg:col-span-7 bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/60 rounded-3xl p-6 shadow-xl">
+          <h3 className="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-2 mb-6">
+            <Flame className="w-5 h-5 text-[#FFB020]" />
+            Hotspot Diagnostics
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {crimeHotspots.slice(0, 4).map((hs, idx) => (
+              <div key={idx} className="bg-[#050B14]/40 border border-slate-800/60 rounded-2xl p-5 flex flex-col justify-between group hover:border-[#FFB020]/30 hover:bg-slate-800/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h4 className="text-[13px] font-bold text-white mb-1.5 group-hover:text-amber-100 transition-colors">{hs.name}</h4>
+                    <span className={`text-[10px] px-2.5 py-1 rounded border uppercase font-bold tracking-wider ${hs.severity === 'CRITICAL' ? 'bg-[#FF4D4F]/10 text-[#FF4D4F] border-[#FF4D4F]/20' : 'bg-[#FFB020]/10 text-[#FFB020] border-[#FFB020]/20'}`}>{hs.severity}</span>
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-[#050B14] border border-slate-800 flex items-center justify-center text-sm font-bold text-white group-hover:border-[#FFB020]/40 group-hover:text-[#FFB020] transition-colors shadow-inner">
+                    {hs.crimeCount}
+                  </div>
+                </div>
+                <div className="text-[11px] text-slate-400 font-mono bg-[#0B1220]/80 p-3 rounded-xl border border-slate-800/80">
+                  <span className="text-[#00E5FF] font-semibold mr-1">AI DEPLOY:</span> Recommended +2 units at 20:00.
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
+
+      {/* ── Additional Enterprise Modules ── */}
+      <div className="lg:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Crime Trends */}
+        <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/60 hover:border-slate-700 transition-colors duration-300 rounded-3xl p-6 flex flex-col justify-between shadow-xl group hover:-translate-y-1">
+          <h3 className="font-bold mb-4 text-[11px] uppercase tracking-widest text-[#00E5FF] flex items-center gap-2">
+            Crime Trend Analytics
+          </h3>
+          <div className="flex items-end gap-3 h-32 mb-6 mt-2">
+            {[40, 70, 45, 90, 65, 85, 60].map((h, i) => (
+              <div key={i} className="flex-1 bg-gradient-to-t from-[#00E5FF]/10 to-[#00E5FF]/50 rounded-t-lg hover:from-[#00E5FF]/30 hover:to-[#00E5FF] transition-all cursor-pointer relative group/bar" style={{ height: `${h}%` }}>
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-[10px] font-mono px-2 py-1 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity pointer-events-none shadow-lg">
+                  {h}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono flex justify-between border-t border-slate-800/80 pt-4">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+        </div>
+
+        {/* Predictive Intelligence */}
+        <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/60 hover:border-slate-700 transition-all duration-300 rounded-3xl p-6 flex flex-col justify-between shadow-xl relative overflow-hidden group hover:-translate-y-1">
+          <div className="absolute -right-6 -bottom-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500">
+            <Cpu className="w-48 h-48 text-[#00FFA3]" />
+          </div>
+          <div className="relative z-10">
+            <h3 className="font-bold mb-5 text-[11px] uppercase tracking-widest text-[#00FFA3]">Predictive Intel</h3>
+            <div className="text-5xl font-extrabold text-white mb-4 tracking-tighter">84% <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase ml-1 block mt-1">Confidence Score</span></div>
+            <p className="text-[11px] leading-relaxed text-slate-400 font-mono bg-[#050B14]/50 p-4 rounded-xl border border-slate-800/80">High probability of traffic anomalies in SG Highway sector between 18:00 - 20:00.</p>
+          </div>
+          <button className="w-full mt-6 py-3 bg-[#00FFA3]/10 hover:bg-[#00FFA3]/20 border border-[#00FFA3]/30 text-[#00FFA3] text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm relative z-10 group-hover:shadow-[0_0_20px_rgba(0,255,163,0.1)]">Execute Pre-Deployment</button>
+        </div>
+
+        {/* Patrol Optimization */}
+        <div className="bg-[#0B1220]/60 backdrop-blur-xl border border-slate-800/60 hover:border-slate-700 transition-colors duration-300 rounded-3xl p-6 flex flex-col justify-between shadow-xl group hover:-translate-y-1">
+          <h3 className="font-bold mb-6 text-[11px] uppercase tracking-widest text-[#FFB020]">Patrol Efficiency</h3>
+          <div className="space-y-6">
+            <div>
+              <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-3"><span className="text-slate-400">Route Optimization</span><span className="text-[#FFB020]">92%</span></div>
+              <div className="h-2 w-full bg-[#050B14] rounded-full overflow-hidden border border-slate-800"><div className="h-full bg-gradient-to-r from-orange-500 to-[#FFB020] w-[92%]" /></div>
+            </div>
+            <div>
+              <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-3"><span className="text-slate-400">Resource Allocation</span><span className="text-[#00FFA3]">Optimal</span></div>
+              <div className="h-2 w-full bg-[#050B14] rounded-full overflow-hidden border border-slate-800"><div className="h-full bg-gradient-to-r from-emerald-500 to-[#00FFA3] w-full" /></div>
+            </div>
+            <div>
+              <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-3"><span className="text-slate-400">Response ETA</span><span className="text-[#00E5FF]">Fast</span></div>
+              <div className="h-2 w-full bg-[#050B14] rounded-full overflow-hidden border border-slate-800"><div className="h-full bg-gradient-to-r from-blue-500 to-[#00E5FF] w-[85%]" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
