@@ -373,12 +373,14 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
       <section id="stats" className="py-20 border-y border-white/5 bg-slate-900/20 backdrop-blur-sm relative z-10">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
           {stats.map((stat, i) => (
-            <FadeIn key={i} delay={i * 0.1}>
-              <div className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-              </div>
-              <div className="text-sm md:text-base font-medium text-slate-400">{stat.label}</div>
-            </FadeIn>
+            <React.Fragment key={i}>
+              <FadeIn delay={i * 0.1}>
+                <div className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
+                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                </div>
+                <div className="text-sm md:text-base font-medium text-slate-400">{stat.label}</div>
+              </FadeIn>
+            </React.Fragment>
           ))}
         </div>
       </section>
@@ -395,18 +397,20 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {features.map((feature, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div className="h-full p-8 rounded-3xl bg-slate-900/40 border border-slate-800 hover:border-cyan-500/30 hover:bg-slate-900/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_-10px_rgba(0,229,255,0.15)] group relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br ${feature.color} bg-opacity-10 shadow-lg relative z-10`}>
-                    <div className="w-full h-full bg-slate-950/80 rounded-2xl flex items-center justify-center m-[2px]">
-                       <feature.icon className="w-6 h-6 text-white" />
+              <React.Fragment key={i}>
+                <FadeIn delay={i * 0.1}>
+                  <div className="h-full p-8 rounded-3xl bg-slate-900/40 border border-slate-800 hover:border-cyan-500/30 hover:bg-slate-900/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_-10px_rgba(0,229,255,0.15)] group relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br ${feature.color} bg-opacity-10 shadow-lg relative z-10`}>
+                      <div className="w-full h-full bg-slate-950/80 rounded-2xl flex items-center justify-center m-[2px]">
+                         <feature.icon className="w-6 h-6 text-white" />
+                      </div>
                     </div>
+                    <h3 className="text-xl font-bold text-white mb-3 relative z-10">{feature.title}</h3>
+                    <p className="text-slate-400 leading-relaxed relative z-10">{feature.description}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3 relative z-10">{feature.title}</h3>
-                  <p className="text-slate-400 leading-relaxed relative z-10">{feature.description}</p>
-                </div>
-              </FadeIn>
+                </FadeIn>
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -422,18 +426,20 @@ export default function LandingPage({ onEnterDashboard }: LandingPageProps) {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {capabilities.map((cap, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div className="p-8 md:p-10 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,229,255,0.05)] group">
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <cap.icon className="w-7 h-7 text-cyan-400" />
+              <React.Fragment key={i}>
+                <FadeIn delay={i * 0.1}>
+                  <div className="p-8 md:p-10 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/40 transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,229,255,0.05)] group">
+                    <div className="flex items-center justify-between mb-8">
+                      <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <cap.icon className="w-7 h-7 text-cyan-400" />
+                      </div>
+                      <span className="px-4 py-2 rounded-full bg-slate-950 border border-slate-800 text-sm font-bold text-cyan-400">{cap.stat}</span>
                     </div>
-                    <span className="px-4 py-2 rounded-full bg-slate-950 border border-slate-800 text-sm font-bold text-cyan-400">{cap.stat}</span>
+                    <h3 className="text-2xl font-bold text-white mb-4">{cap.title}</h3>
+                    <p className="text-slate-400 text-lg leading-relaxed">{cap.description}</p>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{cap.title}</h3>
-                  <p className="text-slate-400 text-lg leading-relaxed">{cap.description}</p>
-                </div>
-              </FadeIn>
+                </FadeIn>
+              </React.Fragment>
             ))}
           </div>
         </div>

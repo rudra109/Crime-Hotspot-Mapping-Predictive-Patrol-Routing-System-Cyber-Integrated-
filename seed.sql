@@ -3,10 +3,15 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 
 -- Create basic schema for Dev A Day 1
 CREATE TYPE crime_type_enum AS ENUM ('theft', 'assault', 'cybercrime', 'traffic', 'burglary', 'fraud');
+CREATE TYPE crime_source_enum AS ENUM ('fir', 'complaint', 'patrol_log', 'cyber_branch');
 
 CREATE TABLE IF NOT EXISTS crime_incidents (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   type crime_type_enum,
+  source crime_source_enum DEFAULT 'fir',
+  source_id TEXT,
+  reconciled_id TEXT,
+  reconciliation_status TEXT DEFAULT 'independent',
   severity INT,
   location GEOMETRY(Point, 4326),
   location_address TEXT,

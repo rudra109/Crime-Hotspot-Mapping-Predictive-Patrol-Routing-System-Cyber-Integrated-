@@ -28,12 +28,12 @@ interface MobileOfficerSimulatorProps {
 }
 
 type IncomingIncidentCategory =
-  | "Intrusion"
-  | "System Sabotage"
-  | "Critical Asset Leak"
-  | "Comms Jamming"
-  | "Biometric Alarm"
-  | "Drill";
+  | "Theft"
+  | "Assault"
+  | "Cybercrime"
+  | "Fraud"
+  | "Robbery"
+  | "Snatching";
 
 export default function MobileOfficerSimulator({
   onAddIncident,
@@ -47,13 +47,13 @@ export default function MobileOfficerSimulator({
   const [incidentsLoggedCount, setIncidentsLoggedCount] = useState(3);
   const [lastSync, setLastSync] = useState("Just now");
 
-  const [reportCategory, setReportCategory] = useState<IncomingIncidentCategory>("Intrusion");
-  const [reportLocation, setReportLocation] = useState("Sector 7G Drone Gate B");
+  const [reportCategory, setReportCategory] = useState<IncomingIncidentCategory>("Theft");
+  const [reportLocation, setReportLocation] = useState("Vastrapur Lake");
   const [reportDetails, setReportDetails] = useState("");
   const [reportHighPriority, setReportHighPriority] = useState(true);
   const [reportFiles, setReportFiles] = useState<string[]>([
-    "thermal_fence_scan_7G.png",
-    "telemetry_logs_bay2.txt",
+    "incident_scene_image.png",
+    "pcr_dispatch_log.txt",
   ]);
   const [newFileName, setNewFileName] = useState("");
   const [recentSubmitMessage, setRecentSubmitMessage] = useState<string | null>(null);
@@ -97,9 +97,9 @@ export default function MobileOfficerSimulator({
     const freshAlert: Alert = {
       id: `ALT-MOB-${Date.now()}`,
       type: "Critical",
-      message: "[OFFICER REPORT] Immediate backup requested at Sector 7G.",
+      message: "[OFFICER REPORT] Immediate backup requested at Vastrapur.",
       time: "Immediate UTC",
-      sector: "Sector 7G",
+      sector: "Vastrapur",
       status: "Pending",
     };
     onAddAlert(freshAlert);
@@ -114,7 +114,7 @@ export default function MobileOfficerSimulator({
       id: incidentId,
       category: reportCategory,
       location: `${reportLocation} (Mobile Input)`,
-      coordinates: [23.0225, 72.5714],
+      coordinates: [23.0398, 72.5281],
       status: "Assessing",
       description:
         reportDetails ||
@@ -133,7 +133,7 @@ export default function MobileOfficerSimulator({
       type: reportHighPriority ? "Critical" : "Warning",
       message: `[MOBILE REPORTED] ${reportCategory} detected in ${reportLocation}`,
       time: "Immediate UTC",
-      sector: "Sector 7G",
+      sector: reportLocation.split(" ")[0],
       status: "Pending",
       incidentId,
     };
@@ -208,7 +208,7 @@ export default function MobileOfficerSimulator({
                 <div className="flex justify-between items-center pb-2 border-b border-slate-800/60">
                   <div>
                     <h4 className="text-[11px] text-white uppercase font-bold tracking-wider">Assigned Route</h4>
-                    <span className="text-[9px] font-mono text-teal-400">Sector 7G</span>
+                    <span className="text-[9px] font-mono text-teal-400">Vastrapur Sector</span>
                   </div>
                   <span className="text-[9px] font-mono text-slate-500 border border-slate-800 bg-[#050B14] px-1.5 rounded-full">
                     GPS synced
@@ -295,11 +295,12 @@ export default function MobileOfficerSimulator({
                       onChange={(e) => setReportCategory(e.target.value as IncomingIncidentCategory)}
                       className="w-full bg-[#0B1220] border border-slate-800 rounded-lg px-2 py-2 text-xs text-white outline-none cursor-pointer"
                     >
-                      <option value="Intrusion">Fence Intrusion</option>
-                      <option value="System Sabotage">System Sabotage</option>
-                      <option value="Critical Asset Leak">Critical Asset Leak</option>
-                      <option value="Comms Jamming">Comms Jamming</option>
-                      <option value="Biometric Alarm">Biometric Alarm</option>
+                      <option value="Theft">Theft / Larceny</option>
+                      <option value="Assault">Physical Assault</option>
+                      <option value="Cybercrime">Cybercrime / Fraud</option>
+                      <option value="Fraud">Financial Fraud</option>
+                      <option value="Robbery">Armed Robbery</option>
+                      <option value="Snatching">Snatching / Theft</option>
                     </select>
                   </div>
 
@@ -468,10 +469,10 @@ export default function MobileOfficerSimulator({
                 <span className="text-[9px] text-slate-500 block uppercase font-bold">Shift Activity Record</span>
                 <div className="space-y-1 max-h-[140px] overflow-y-auto bg-[#050B14] p-2 border border-slate-850 rounded-lg">
                   <div className="text-[10px] text-slate-400 border-b border-slate-900 pb-1">
-                    [04:12 UTC] Reported intrusion at Sector 7G Drone Gate B.
+                    [04:12 UTC] Reported theft incident at Vastrapur Lake.
                   </div>
                   <div className="text-[10px] text-slate-400 border-b border-slate-900 pb-1">
-                    [03:40 UTC] Completed routine patrol loop - Sector 3B clear.
+                    [03:40 UTC] Completed routine patrol loop - SG Highway clear.
                   </div>
                   <div className="text-[10px] text-slate-500">
                     [02:10 UTC] Checked in at central HQ command center.

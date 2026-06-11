@@ -5,12 +5,14 @@ import hashlib
 import pandas as pd
 from ml_service.clustering import CrimeClustering, Crime, Hotspot
 from ml_service.temporal_forecasting import TemporalForecasting
+from ml_service.risk_scoring import RiskScoring, GridCell, RiskScore
 from routing_service.optimizer import PatrolRouteOptimizer, Point, HotspotNode
 
 app = FastAPI(title="Crime Hotspot ML Engine")
 clustering_service = CrimeClustering()
 routing_optimizer = PatrolRouteOptimizer()
 forecasting_service = TemporalForecasting()
+risk_scoring_service = RiskScoring()
 
 class ClusterRequest(BaseModel):
     crimes: List[Crime]
@@ -43,6 +45,29 @@ class ForecastRequest(BaseModel):
 
 class AnomalyRequest(BaseModel):
     history: List[ForecastPoint]
+
+class RiskCellRequest(BaseModel):
+    id: str
+    lat: float
+    lng: float
+    historical_density: float
+    predicted_count: float
+    anomaly_score: float
+    correlation_count: int = 0
+
+class RiskRequest(BaseModel):
+    cells: List[RiskCellRequest]
+
+class RiskCellResponse(BaseModel):
+    id: str
+    lat: float
+    lng: float
+    score: float
+    confidence: float
+    breakdown: Dict[str, float]
+
+class RiskResponse(BaseModel):
+    scores: List[RiskCellResponse]
 
 def _point_from_string(input_value: str) -> Point:
     digest = hashlib.sha256(input_value.encode("utf-8")).digest()
@@ -141,6 +166,67 @@ def detect_anomalies(req: AnomalyRequest):
         return {
             "anomalies": [anomaly.model_dump() for anomaly in anomalies]
         }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/v1/ml/risk-zones", response_model=RiskResponse)
+def score_risk_zones(req: RiskRequest):
+    try:
+        scores = []
+        for cell in req.cells:
+            risk = risk_scoring_service.calculate_grid_risk(
+                GridCell(id=cell.id, lat=cell.lat, lng=cell.lng),
+                historical_density=cell.historical_density,
+                predicted_count=cell.predicted_count,
+                anomaly_score=cell.anomaly_score,
+                correlation_count=cell.correlation_count,
+            )
+            scores.append(
+                RiskCellResponse(
+                    id=cell.id,
+                    lat=cell.lat,
+                    lng=cell.lng,
+                    score=risk.score,
+                    confidence=risk.confidence,
+                    breakdown=risk.breakdown,
+                )
+            )
+        return RiskResponse(scores=scores)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/v1/ml/predict-hotspots")
+def predict_hotspots(req: ClusterRequest):
+    try:
+        hotspots = clustering_service.cluster_crimes(req.crimes)
+        if not hotspots:
+            return {"hotspots": []}
+
+        prediction_rows = []
+        for hotspot in hotspots:
+            risk = risk_scoring_service.calculate_grid_risk(
+                GridCell(
+                    id=f"cluster-{hotspot.cluster_id}",
+                    lat=hotspot.center.lat,
+                    lng=hotspot.center.lng,
+                ),
+                historical_density=float(hotspot.incident_count),
+                predicted_count=float(hotspot.incident_count) * 1.15,
+                anomaly_score=min(max(hotspot.avg_severity / 10.0, 0.0), 1.0),
+                correlation_count=max(1, int(hotspot.avg_severity // 3)),
+            )
+            prediction_rows.append({
+                "cluster_id": hotspot.cluster_id,
+                "center": hotspot.center.model_dump(),
+                "incident_count": hotspot.incident_count,
+                "avg_severity": hotspot.avg_severity,
+                "risk_score": risk.score,
+                "confidence": risk.confidence,
+                "breakdown": risk.breakdown,
+            })
+
+        prediction_rows.sort(key=lambda row: row["risk_score"], reverse=True)
+        return {"hotspots": prediction_rows}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

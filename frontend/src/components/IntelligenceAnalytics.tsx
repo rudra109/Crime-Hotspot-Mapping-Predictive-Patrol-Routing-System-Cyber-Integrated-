@@ -5,14 +5,15 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  BarChart3,
   MapPin,
-  ShieldAlert,
   ChevronRight,
+  BadgeInfo,
 } from "lucide-react";
 import {
   AreaChart,
   Area,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -26,9 +27,18 @@ import {
   PieChart,
   Pie,
   Cell,
+  Legend,
 } from "recharts";
 import { Incident } from "../types";
-import { fetchHourlyStats, fetchStatsSummary } from "../api/apiClient";
+import {
+  fetchDailyTrends,
+  fetchHotspotPredictions,
+  fetchHourlyStats,
+  fetchSeasonalTrends,
+  fetchSourceBreakdown,
+  fetchStatsSummary,
+  fetchZoneRiskScores,
+} from "../api/apiClient";
 
 interface IntelligenceAnalyticsProps {
   incidents: Incident[];
@@ -55,11 +65,22 @@ const sectorMetricsData = [
 ];
 
 const categoryColorMap: Record<string, string> = {
-  Intrusion: "#f87171",
-  "Comms Jamming": "#8b5cf6",
-  "Biometric Alarm": "#fbbf24",
-  "System Sabotage": "#c084fc",
-  Drill: "#a78bfa",
+  Assault: "#f87171",
+  Robbery: "#ef4444",
+  Snatching: "#fb923c",
+  Vandalism: "#facc15",
+  Theft: "#a3e635",
+  "Drug Trafficking": "#4ade80",
+  "Domestic Violence": "#2dd4bf",
+  Cybercrime: "#38bdf8",
+  Fraud: "#60a5fa",
+  "Traffic Violation": "#818cf8",
+  Accident: "#c084fc",
+  Rioting: "#fb7185",
+  "Gang Activity": "#cbd5e1",
+  Arson: "#f97316",
+  Kidnapping: "#ec4899",
+  "Patrol Request": "#64748b",
 };
 
 export default function IntelligenceAnalytics({
@@ -74,13 +95,19 @@ export default function IntelligenceAnalytics({
     by_type: {} as Record<string, number>,
   });
   const [hourlyStats, setHourlyStats] = useState<Array<{ hour: string; incidents: number; severity: number }>>([]);
-  const [hotspots, setHotspots] = useState<Hotspot[]>([
-    { id: "HS-1", sector: "Sector 7G", coordinate: "23.041, 72.529", threatVal: 94, status: "CRITICAL", protocol: "Alpha Lockdown", recentActivity: "Repeated perimeter triggers." },
-    { id: "HS-2", sector: "Sector 3B", coordinate: "23.059, 72.539", threatVal: 65, status: "ELEVATED", protocol: "Encrypted RF Backup", recentActivity: "Signal interference detected." },
-    { id: "HS-3", sector: "Sector 9A", coordinate: "23.005, 72.585", threatVal: 32, status: "MODERATE", protocol: "Standby Drone Patrol", recentActivity: "Badge scan mismatch." },
-    { id: "HS-4", sector: "Sector 4C", coordinate: "23.022, 72.571", threatVal: 82, status: "CRITICAL", protocol: "Heavy Cyber Protocol", recentActivity: "System anomalies logged." },
-    { id: "HS-5", sector: "Sector 1A", coordinate: "23.020, 72.546", threatVal: 15, status: "STABLE", protocol: "Route Scan Override", recentActivity: "Normal sentinel sweeps." }
-  ]);
+  const [deployedSectors, setDeployedSectors] = useState<Record<string, boolean>>({});
+  const [sourceBreakdown, setSourceBreakdown] = useState<{ total: number; bySource: Record<string, number>; bySourceAndType: Record<string, Record<string, number>> }>({
+    total: 0,
+    bySource: {},
+    bySourceAndType: {},
+  });
+  const [dailyTrends, setDailyTrends] = useState<Array<{ date: string; incidents: number; severity: number; cyber: number; average_severity: number }>>([]);
+  const [seasonalTrends, setSeasonalTrends] = useState<{ seasonal: Record<string, number>; weekdayTrend: Array<{ day: string; incidents: number; avgSeverity: number }> }>({
+    seasonal: {},
+    weekdayTrend: [],
+  });
+  const [zoneRisks, setZoneRisks] = useState<Array<{ id: string; zone: string; incidents: number; avg_severity: number; recent_7d: number; previous_7d: number; trend_pct: number; cyber_share: number; critical_share: number; risk_score: number; level: "LOW" | "MODERATE" | "HIGH" | "CRITICAL"; drivers: string[]; center: { lat: number; lng: number } }>>([]);
+  const [hotspotPredictions, setHotspotPredictions] = useState<Array<{ id: string; zone: string; center: { lat: number; lng: number }; risk_score: number; confidence: number; expected_incidents_7d: number; drivers: string[]; model_version: string }>>([]);
 
   useEffect(() => {
     let mounted = true;
@@ -90,6 +117,14 @@ export default function IntelligenceAnalytics({
         const [summaryData, hourlyData] = await Promise.all([
           fetchStatsSummary(),
           fetchHourlyStats(),
+        ]);
+
+        const [sourceData, dailyData, seasonalData, zoneData, hotspotData] = await Promise.all([
+          fetchSourceBreakdown(),
+          fetchDailyTrends(),
+          fetchSeasonalTrends(),
+          fetchZoneRiskScores(),
+          fetchHotspotPredictions(),
         ]);
 
         if (!mounted) return;
@@ -102,6 +137,11 @@ export default function IntelligenceAnalytics({
           by_type: summaryData.by_type ?? {},
         });
         setHourlyStats(hourlyData);
+        setSourceBreakdown(sourceData);
+        setDailyTrends(dailyData);
+        setSeasonalTrends(seasonalData);
+        setZoneRisks(zoneData);
+        setHotspotPredictions(hotspotData);
       } catch {
         if (!mounted) return;
         setSummary((prev) => ({
@@ -109,6 +149,11 @@ export default function IntelligenceAnalytics({
           total_crimes: incidents.length,
         }));
         setHourlyStats([]);
+        setSourceBreakdown({ total: 0, bySource: {}, bySourceAndType: {} });
+        setDailyTrends([]);
+        setSeasonalTrends({ seasonal: {}, weekdayTrend: [] });
+        setZoneRisks([]);
+        setHotspotPredictions([]);
       }
     };
 
@@ -117,6 +162,92 @@ export default function IntelligenceAnalytics({
       mounted = false;
     };
   }, [incidents.length]);
+
+  const hotspots = useMemo(() => {
+    const sectorsMap: Record<string, {
+      sector: string;
+      coordinates: [number, number];
+      threats: number[];
+      recentActivities: string[];
+    }> = {};
+
+    incidents.forEach((inc) => {
+      const parts = inc.location.split("(");
+      const sector = parts[0].trim();
+      
+      let coords: [number, number] = [23.0225, 72.5714];
+      if (inc.coordinates && inc.coordinates.length === 2) {
+        coords = [inc.coordinates[0], inc.coordinates[1]];
+      } else if (parts[1]) {
+        const coordString = parts[1].replace(")", "").trim();
+        const coordParts = coordString.split(",");
+        if (coordParts.length === 2) {
+          const lat = parseFloat(coordParts[0]);
+          const lng = parseFloat(coordParts[1]);
+          if (!isNaN(lat) && !isNaN(lng)) {
+            coords = [lat, lng];
+          }
+        }
+      }
+
+      if (!sectorsMap[sector]) {
+        sectorsMap[sector] = {
+          sector,
+          coordinates: coords,
+          threats: [],
+          recentActivities: [],
+        };
+      }
+
+      sectorsMap[sector].threats.push(inc.threatIndex);
+      sectorsMap[sector].recentActivities.push(`${inc.category}: ${inc.description}`);
+    });
+
+    const derived = Object.entries(sectorsMap).map(([sector, data], idx) => {
+      let maxThreat = data.threats.length > 0 ? Math.max(...data.threats) : 0;
+      const isDeployed = !!deployedSectors[sector];
+      
+      if (isDeployed) {
+        maxThreat = Math.round(maxThreat * 0.4);
+      }
+
+      let status: "CRITICAL" | "ELEVATED" | "MODERATE" | "STABLE" = "STABLE";
+      let protocol = "Routine Beat Patrol";
+      
+      if (isDeployed) {
+        status = "MODERATE";
+        protocol = "Reinforced Unit Deploy Area";
+      } else if (maxThreat >= 85) {
+        status = "CRITICAL";
+        protocol = "QRT Response & Barrier Check";
+      } else if (maxThreat >= 70) {
+        status = "ELEVATED";
+        protocol = "High-Visibility Mobile Patrol";
+      } else if (maxThreat >= 40) {
+        status = "MODERATE";
+        protocol = "Targeted Anti-Crime Sweep";
+      } else {
+        status = "STABLE";
+        protocol = "Routine Beat Patrol";
+      }
+
+      const recentActivity = data.recentActivities.length > 0 
+        ? data.recentActivities[0] 
+        : "No recent incidents reported.";
+
+      return {
+        id: `HS-${idx + 1}`,
+        sector,
+        coordinate: `${data.coordinates[0].toFixed(4)}, ${data.coordinates[1].toFixed(4)}`,
+        threatVal: maxThreat,
+        status,
+        protocol,
+        recentActivity,
+      };
+    });
+
+    return derived.sort((a, b) => b.threatVal - a.threatVal);
+  }, [incidents, deployedSectors]);
 
   const pieData = useMemo(() => {
     const counts = incidents.reduce((acc, inc) => {
@@ -128,12 +259,25 @@ export default function IntelligenceAnalytics({
     return derived.length > 0
       ? derived
       : [
-          { name: "Intrusion", value: 4 },
-          { name: "Comms Jamming", value: 3 },
-          { name: "Biometric Alarm", value: 2 },
-          { name: "System Sabotage", value: 1 },
+          { name: "Theft", value: 8 },
+          { name: "Assault", value: 5 },
+          { name: "Cybercrime", value: 3 },
+          { name: "Fraud", value: 4 },
+          { name: "Robbery", value: 2 },
         ];
   }, [incidents]);
+
+  const sourcePieData = useMemo(() => {
+    const entries = Object.entries(sourceBreakdown.bySource || {}).map(([name, value]) => ({ name, value }));
+    return entries.length > 0
+      ? entries
+      : [
+          { name: "fir", value: 10 },
+          { name: "complaint", value: 4 },
+          { name: "patrol_log", value: 3 },
+          { name: "cyber_branch", value: 2 },
+        ];
+  }, [sourceBreakdown]);
 
   const riskTrendsData = useMemo(() => {
     if (hourlyStats.length > 0) {
@@ -149,19 +293,48 @@ export default function IntelligenceAnalytics({
     }));
   }, [hourlyStats, incidents]);
 
+  const dailyTrendData = useMemo(() => {
+    if (dailyTrends.length > 0) {
+      return dailyTrends.map((row) => ({
+        date: row.date.slice(5),
+        incidents: row.incidents,
+        cyber: row.cyber,
+        avg: row.average_severity,
+      }));
+    }
+
+    return incidents.slice(0, 14).map((incident, idx) => ({
+      date: incident.timestamp ? incident.timestamp.slice(5, 10) : `D${idx + 1}`,
+      incidents: 1,
+      cyber: incident.category === "Cybercrime" ? 1 : 0,
+      avg: incident.threatIndex / 10,
+    }));
+  }, [dailyTrends, incidents]);
+
+  const weekdayTrendData = useMemo(() => {
+    return seasonalTrends.weekdayTrend.length > 0
+      ? seasonalTrends.weekdayTrend
+      : [
+          { day: "Mon", incidents: 9, avgSeverity: 6.2 },
+          { day: "Tue", incidents: 12, avgSeverity: 6.8 },
+          { day: "Wed", incidents: 11, avgSeverity: 6.1 },
+          { day: "Thu", incidents: 14, avgSeverity: 7.0 },
+          { day: "Fri", incidents: 18, avgSeverity: 7.4 },
+          { day: "Sat", incidents: 16, avgSeverity: 6.9 },
+          { day: "Sun", incidents: 8, avgSeverity: 5.9 },
+        ];
+  }, [seasonalTrends]);
+
+  const topZoneRisks = useMemo(() => zoneRisks.slice(0, 5), [zoneRisks]);
+  const topPredictions = useMemo(() => hotspotPredictions.slice(0, 4), [hotspotPredictions]);
+
   const currentPieData = pieData;
   const totalCategories = currentPieData.reduce((sum, entry) => sum + entry.value, 0) || 1;
   const threatLabel =
     summary.average_severity >= 7 ? "High" : summary.average_severity >= 4 ? "Moderate" : "Low";
 
-  const handleHotspotDeploy = (idx: number, sector: string) => {
-    setHotspots((prev) =>
-      prev.map((hot, hotIdx) =>
-        hotIdx === idx
-          ? { ...hot, status: "MODERATE", threatVal: Math.round(hot.threatVal * 0.7) }
-          : hot
-      )
-    );
+  const handleHotspotDeploy = (sector: string) => {
+    setDeployedSectors((prev) => ({ ...prev, [sector]: true }));
     onDeployUnitFromHotspot(sector);
   };
 
@@ -229,6 +402,71 @@ export default function IntelligenceAnalytics({
           <div>
             <div className="text-4xl font-extrabold text-white tracking-tight">{summary.officers_deployed}</div>
             <div className="text-[10px] text-slate-500 font-mono mt-2">{summary.by_type ? Object.keys(summary.by_type).length : 0} crime types tracked</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h3 className="text-sm font-bold text-white tracking-wide uppercase">Source Mix</h3>
+              <span className="text-[11px] font-mono text-slate-400">FIR, complaints, patrol logs, cyber branch</span>
+            </div>
+            <BadgeInfo className="w-4 h-4 text-cyan-400" />
+          </div>
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie data={sourcePieData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={38} outerRadius={62} paddingAngle={5}>
+                  {sourcePieData.map((entry, index) => (
+                    <Cell key={`source-${index}`} fill={["#60a5fa", "#f59e0b", "#34d399", "#c084fc"][index % 4]} />
+                  ))}
+                </Pie>
+                <Tooltip contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155", borderRadius: "8px" }} />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="text-[10px] font-mono text-slate-400 mt-2">
+            Total ingested sources: <b className="text-white">{sourceBreakdown.total || summary.total_crimes}</b>
+          </div>
+        </div>
+
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl">
+          <div className="mb-3">
+            <h3 className="text-sm font-bold text-white tracking-wide uppercase">Daily Trend</h3>
+            <span className="text-[11px] font-mono text-slate-400">30-day rolling incident volume</span>
+          </div>
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={dailyTrendData}>
+                <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" vertical={false} />
+                <XAxis dataKey="date" stroke="#64748b" fontSize={10} fontFamily="monospace" />
+                <YAxis stroke="#64748b" fontSize={10} fontFamily="monospace" />
+                <Tooltip contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155", borderRadius: "8px" }} />
+                <Bar dataKey="incidents" fill="#60a5fa" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="cyber" fill="#c084fc" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl">
+          <div className="mb-3">
+            <h3 className="text-sm font-bold text-white tracking-wide uppercase">Seasonal Pattern</h3>
+            <span className="text-[11px] font-mono text-slate-400">Weekday intensity and seasonal spread</span>
+          </div>
+          <div className="h-48">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={weekdayTrendData}>
+                <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" vertical={false} />
+                <XAxis dataKey="day" stroke="#64748b" fontSize={10} fontFamily="monospace" />
+                <YAxis stroke="#64748b" fontSize={10} fontFamily="monospace" />
+                <Tooltip contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155", borderRadius: "8px" }} />
+                <Bar dataKey="incidents" fill="#f59e0b" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
@@ -379,7 +617,7 @@ export default function IntelligenceAnalytics({
                       <td className="py-3.5 text-right px-2">
                         {hot.status !== "STABLE" && hot.status !== "MODERATE" ? (
                           <button
-                            onClick={() => handleHotspotDeploy(idx, hot.sector)}
+                            onClick={() => handleHotspotDeploy(hot.sector)}
                             className="px-4 py-1.5 bg-violet-600 hover:bg-violet-500 text-white font-bold rounded-lg text-[10px] uppercase cursor-pointer tracking-wider transition-all shadow-[0_0_15px_rgba(139,92,246,0.2)] hover:shadow-[0_0_20px_rgba(139,92,246,0.4)]"
                           >
                             Deploy Unit
@@ -419,6 +657,82 @@ export default function IntelligenceAnalytics({
           </div>
           <div className="text-[10px] font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-auto">
             Live summary pulled from backend stats and local incident stream.
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-sm font-bold text-white tracking-wide uppercase">Zone Risk Scoring</h3>
+              <span className="text-[11px] font-mono text-slate-400">Historical load + severity + cyber share + trend</span>
+            </div>
+            <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2 py-1 rounded">
+              {zoneRisks.length || 6} ZONES
+            </span>
+          </div>
+          <div className="space-y-3">
+            {topZoneRisks.map((zone) => (
+              <div key={zone.id} className="bg-slate-950/50 border border-slate-800/60 rounded-xl p-4">
+                <div className="flex items-center justify-between gap-3 mb-2">
+                  <div>
+                    <div className="text-sm font-bold text-white">{zone.zone}</div>
+                    <div className="text-[11px] font-mono text-slate-400">
+                      {zone.incidents} incidents · {zone.avg_severity.toFixed(1)} severity
+                    </div>
+                  </div>
+                  <div className={`text-xs font-bold px-2.5 py-1 rounded border ${zone.level === "CRITICAL" ? "text-rose-300 border-rose-500/30 bg-rose-500/10" : zone.level === "HIGH" ? "text-amber-300 border-amber-500/30 bg-amber-500/10" : zone.level === "MODERATE" ? "text-yellow-300 border-yellow-500/30 bg-yellow-500/10" : "text-emerald-300 border-emerald-500/30 bg-emerald-500/10"}`}>
+                    {zone.risk_score.toFixed(1)} / 100
+                  </div>
+                </div>
+                <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-cyan-500 via-violet-500 to-rose-500" style={{ width: `${Math.min(100, zone.risk_score)}%` }} />
+                </div>
+                <div className="mt-3 text-[11px] font-mono text-slate-400 flex flex-wrap gap-2">
+                  {zone.drivers.slice(0, 3).map((driver, idx) => (
+                    <span key={idx} className="px-2 py-1 rounded bg-slate-900 border border-slate-800">{driver}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-sm font-bold text-white tracking-wide uppercase">Hotspot Predictions</h3>
+              <span className="text-[11px] font-mono text-slate-400">Model-backed deployment priorities</span>
+            </div>
+            <span className="text-[10px] font-mono text-violet-400 bg-violet-500/10 border border-violet-500/20 px-2 py-1 rounded">
+              {topPredictions.length || 4} PREDICTIONS
+            </span>
+          </div>
+          <div className="space-y-3">
+            {topPredictions.map((item) => (
+              <div key={item.id} className="bg-slate-950/50 border border-slate-800/60 rounded-xl p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-sm font-bold text-white">{item.zone}</div>
+                    <div className="text-[11px] font-mono text-slate-400">
+                      Confidence {item.confidence}% · {item.expected_incidents_7d} expected incidents / 7d
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => onDeployUnitFromHotspot(item.zone)}
+                    className="px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg bg-violet-600 hover:bg-violet-500 text-white"
+                  >
+                    Deploy
+                  </button>
+                </div>
+                <div className="mt-3 text-[11px] font-mono text-slate-400 flex flex-wrap gap-2">
+                  {item.drivers.map((driver, idx) => (
+                    <span key={idx} className="px-2 py-1 rounded bg-slate-900 border border-slate-800">{driver}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

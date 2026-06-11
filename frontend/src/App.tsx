@@ -184,32 +184,35 @@ export default function App() {
   const handleSimulateAlarm = async () => {
     const alarmScenarios = [
       {
-        msg: "Perimeter Alert: Microphonic vibration detected on Hangar Fence Sector 4C.",
-        sec: "Sector 4C",
-        cat: "intrusion"
+        msg: "Assault reported near Vastrapur Lake. Dispatch requested immediately.",
+        sec: "Vastrapur",
+        cat: "assault",
+        coords: [23.0398, 72.5281]
       },
       {
-        msg: "RF Spectral Warning: Broad signal jamming interference on backup sub-band.",
-        sec: "Sector 3B",
-        cat: "cybercrime"
+        msg: "Cyber fraud incident: Target duped via spoofed payment portal link.",
+        sec: "Satellite",
+        cat: "cybercrime",
+        coords: [23.0045, 72.5845]
       },
       {
-        msg: "Biometric Lockdown: Unauthorized badge swipe sequence at perimeter checkpoint.",
-        sec: "Sector 9A",
-        cat: "fraud"
+        msg: "Vehicle theft reported in commercial parking zone near SG Highway.",
+        sec: "Thaltej",
+        cat: "theft",
+        coords: [23.0596, 72.5394]
       }
     ];
 
     const pick = alarmScenarios[Math.floor(Math.random() * alarmScenarios.length)];
-    const coords = pick.sec === "Sector 4C" ? [60.2, 25.1] : pick.sec === "Sector 3B" ? [22.1, 78.4] : [87.5, 54.2];
     
     const record = {
       externalId: `INC-${Math.floor(1000 + Math.random() * 9000)}`,
       type: pick.cat,
-      location: { lng: coords[0], lat: coords[1] },
-      address: pick.sec,
+      location: { lat: pick.coords[0], lng: pick.coords[1] },
+      address: `${pick.sec} (${pick.coords[0]}, ${pick.coords[1]})`,
       description: pick.msg,
-      severity: Math.floor(6 + Math.random() * 4)
+      severity: Math.floor(6 + Math.random() * 4),
+      source: pick.cat === "cybercrime" ? "cyber_branch" : "fir"
     };
 
     try {

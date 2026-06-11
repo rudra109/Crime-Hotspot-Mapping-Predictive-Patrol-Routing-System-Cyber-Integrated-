@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { io, Socket } from 'socket.io-client';
-import { Incident, Alert, PatrolUnit, AuditLogEntry } from '../types';
+import { Alert, AuditLogEntry, DailyTrendPoint, HotspotPrediction, Incident, SeasonalTrends, SourceBreakdown, ZoneRisk } from '../types';
 
 const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:8001/api/v1';
 const SOCKET_URL = (import.meta as any).env?.VITE_SOCKET_URL || 'http://localhost:8001';
@@ -27,7 +27,10 @@ export const fetchCrimes = async (): Promise<Incident[]> => {
       reportedBy: 'System API',
       isHighPriority: c.severity >= 8,
       attachmentsCount: 0,
-      threatIndex: c.severity * 10
+      threatIndex: c.severity * 10,
+      source: c.source,
+      sourceId: c.source_id,
+      reconciliationStatus: c.reconciliation_status
     }));
   } catch (error) {
     console.warn('Falling back to empty crime list:', error);
@@ -63,6 +66,31 @@ export const fetchHourlyStats = async () => {
 export const fetchAuditLogs = async (): Promise<AuditLogEntry[]> => {
   const res = await apiClient.get('/audit');
   return res.data.logs || [];
+};
+
+export const fetchSourceBreakdown = async (): Promise<SourceBreakdown> => {
+  const res = await apiClient.get('/analytics/sources');
+  return res.data;
+};
+
+export const fetchDailyTrends = async (days = 30): Promise<DailyTrendPoint[]> => {
+  const res = await apiClient.get('/analytics/daily-trends', { params: { days } });
+  return res.data.data || [];
+};
+
+export const fetchSeasonalTrends = async (): Promise<SeasonalTrends> => {
+  const res = await apiClient.get('/analytics/seasonal-trends');
+  return res.data;
+};
+
+export const fetchZoneRiskScores = async (): Promise<ZoneRisk[]> => {
+  const res = await apiClient.get('/analytics/zones/risk');
+  return res.data.data || [];
+};
+
+export const fetchHotspotPredictions = async (): Promise<HotspotPrediction[]> => {
+  const res = await apiClient.get('/analytics/hotspots');
+  return res.data.data || [];
 };
 
 // WebSocket integration
