@@ -50,6 +50,6 @@ export interface AuditLogEntry {
   changes?: Record<string, any>;
 }
 
-export type ViewState = "SPLASH" | "OPERATIONS" | "INTELLIGENCE" | "TACTICAL_PLAN" | "SURVEILLANCE" | "MOBILE_OFFICER" | "DRONE_CONTROL" | "SECURE_COMMS" | "AUDIT_LOGS";
+export type ViewState = "LANDING" | "SPLASH" | "OPERATIONS" | "INTELLIGENCE" | "TACTICAL_PLAN" | "SURVEILLANCE" | "MOBILE_OFFICER" | "DRONE_CONTROL" | "SECURE_COMMS" | "AUDIT_LOGS";
 
 export type MobileTab = "MAP" | "ALERTS" | "REPORT" | "STATUS";

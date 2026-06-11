@@ -35,7 +35,7 @@ const INITIAL_SECTORS: SectorData[] = [
 const STATUS_FILL: Record<string, string> = {
   CRITICAL: "#ef4444",
   ELEVATED: "#f59e0b",
-  MODERATE: "#3b82f6",
+  MODERATE: "#8b5cf6",
   STABLE: "#10b981",
 };
 

@@ -56,10 +56,10 @@ const sectorMetricsData = [
 
 const categoryColorMap: Record<string, string> = {
   Intrusion: "#f87171",
-  "Comms Jamming": "#38bdf8",
+  "Comms Jamming": "#8b5cf6",
   "Biometric Alarm": "#fbbf24",
   "System Sabotage": "#c084fc",
-  Drill: "#14b8a6",
+  Drill: "#a78bfa",
 };
 
 export default function IntelligenceAnalytics({
@@ -198,13 +198,13 @@ export default function IntelligenceAnalytics({
         <div className="bg-slate-900/60 border border-slate-800 p-4 rounded-xl">
           <div className="flex justify-between items-start text-slate-400">
             <span className="text-[10px] tracking-wider uppercase font-mono">Avg Severity</span>
-            <span className="text-[10px] bg-slate-800 px-1 py-0.5 font-mono rounded font-semibold text-teal-400">
+            <span className="text-[10px] bg-slate-800 px-1 py-0.5 font-mono rounded font-semibold text-violet-400">
               {threatLabel.toUpperCase()}
             </span>
           </div>
           <div className="mt-2.5">
             <div className="text-2xl font-extrabold font-mono text-white">{summary.average_severity.toFixed(1)}</div>
-            <div className="text-[10px] text-teal-400 font-mono mt-0.5">Derived from stored incidents</div>
+            <div className="text-[10px] text-violet-400 font-mono mt-0.5">Derived from stored incidents</div>
           </div>
         </div>
 
@@ -244,8 +244,8 @@ export default function IntelligenceAnalytics({
               <AreaChart data={riskTrendsData}>
                 <defs>
                   <linearGradient id="riskGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#14b8a6" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#14b8a6" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#a78bfa" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#a78bfa" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" vertical={false} />
@@ -254,15 +254,15 @@ export default function IntelligenceAnalytics({
                 <Tooltip
                   contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155" }}
                   labelStyle={{ color: "#ffffff", fontFamily: "monospace", fontSize: "11px" }}
-                  itemStyle={{ color: "#14b8a6", fontFamily: "monospace", fontSize: "11px" }}
+                  itemStyle={{ color: "#a78bfa", fontFamily: "monospace", fontSize: "11px" }}
                 />
-                <Area type="monotone" dataKey="value" stroke="#14b8a6" strokeWidth={2} fillOpacity={1} fill="url(#riskGrad)" />
+                <Area type="monotone" dataKey="value" stroke="#a78bfa" strokeWidth={2} fillOpacity={1} fill="url(#riskGrad)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
           <div className="text-[10px] font-mono text-slate-500 mt-1 flex justify-between items-center bg-slate-950 p-2 border border-slate-850 rounded">
             <span>TIMESTAMP LOG: LIVE FROM BACKEND</span>
-            <span className="text-teal-400 font-bold">{hourlyStats.length} HOURLY BUCKETS</span>
+            <span className="text-violet-400 font-bold">{hourlyStats.length} HOURLY BUCKETS</span>
           </div>
         </div>
 
@@ -277,7 +277,7 @@ export default function IntelligenceAnalytics({
                 <PolarGrid stroke="#1e293b" />
                 <PolarAngleAxis dataKey="subject" stroke="#94a3b8" fontSize={10} fontFamily="monospace" />
                 <PolarRadiusAxis angle={30} domain={[0, 100]} stroke="#475569" fontSize={9} />
-                <Radar name="Aegis Core Grid" dataKey="A" stroke="#38bdf8" fill="#38bdf8" fillOpacity={0.25} />
+                <Radar name="Aegis Core Grid" dataKey="A" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.25} />
               </RadarChart>
             </ResponsiveContainer>
           </div>
@@ -305,7 +305,7 @@ export default function IntelligenceAnalytics({
                   dataKey="value"
                 >
                   {currentPieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={categoryColorMap[entry.name] || "#14b8a6"} />
+                    <Cell key={`cell-${index}`} fill={categoryColorMap[entry.name] || "#a78bfa"} />
                   ))}
                 </Pie>
                 <Tooltip
@@ -323,7 +323,7 @@ export default function IntelligenceAnalytics({
 
           <div className="space-y-1.5 pt-2 border-t border-slate-800/40">
             {currentPieData.map((entry, idx) => {
-              const color = categoryColorMap[entry.name] || "#14b8a6";
+              const color = categoryColorMap[entry.name] || "#a78bfa";
               return (
                 <div key={idx} className="flex justify-between items-center text-xs font-mono">
                   <div className="flex items-center gap-2">
@@ -367,7 +367,7 @@ export default function IntelligenceAnalytics({
                   return (
                     <tr key={hot.id} className="hover:bg-slate-900/30 transition-colors">
                       <td className="py-3 font-bold text-slate-100 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-teal-400" />
+                        <MapPin className="w-3.5 h-3.5 text-violet-400" />
                         {hot.sector}
                       </td>
                       <td className="py-3 text-[11px] text-slate-400">{hot.coordinate}</td>
@@ -379,7 +379,7 @@ export default function IntelligenceAnalytics({
                         {hot.status !== "STABLE" && hot.status !== "MODERATE" ? (
                           <button
                             onClick={() => handleHotspotDeploy(idx, hot.sector)}
-                            className="px-2.5 py-1 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold rounded text-[10px] uppercase cursor-pointer tracking-wider transition-all"
+                            className="px-2.5 py-1 bg-violet-500 hover:bg-violet-400 text-slate-950 font-bold rounded text-[10px] uppercase cursor-pointer tracking-wider transition-all"
                           >
                             Deploy Unit
                           </button>

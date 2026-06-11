@@ -16,6 +16,7 @@ import { fetchCrimes, ingestSimulatedCrime, wsService, optimizeRoute } from "./a
 
 // Sub component Imports
 import SplashView from "./components/SplashView";
+import LandingPage from "./components/LandingPage";
 import CommandDashboard from "./components/CommandDashboard";
 import IntelligenceAnalytics from "./components/IntelligenceAnalytics";
 import TacticalPlanning from "./components/TacticalPlanning";
@@ -26,7 +27,7 @@ import SecureComms from "./components/SecureComms";
 import AuditLogView from "./components/AuditLogView";
 
 export default function App() {
-  const [viewState, setViewState] = useState<ViewState>("SPLASH");
+  const [viewState, setViewState] = useState<ViewState>("LANDING");
   const [incidents, setIncidents] = useState<Incident[]>(initialIncidents);
   const [alerts, setAlerts] = useState<Alert[]>(initialAlerts);
   const [units, setUnits] = useState<PatrolUnit[]>(initialUnits);
@@ -231,6 +232,10 @@ export default function App() {
     setUnits(initialUnits);
     setViewState("SPLASH");
   };
+
+  if (viewState === "LANDING") {
+    return <LandingPage onEnterDashboard={() => setViewState("OPERATIONS")} />;
+  }
 
   if (viewState === "SPLASH") {
     return <SplashView onInitialize={() => setViewState("OPERATIONS")} />;

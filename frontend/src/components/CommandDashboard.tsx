@@ -113,7 +113,7 @@ export default function CommandDashboard({
             ? "#ef4444"
             : incident.threatIndex >= 50
             ? "#f59e0b"
-            : "#3b82f6";
+            : "#8b5cf6";
 
         // Custom circle marker
         const circleMarker = L.circleMarker([lat, lng], {

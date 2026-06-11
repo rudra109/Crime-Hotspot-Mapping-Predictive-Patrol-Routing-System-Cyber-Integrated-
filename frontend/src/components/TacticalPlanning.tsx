@@ -87,7 +87,7 @@ export default function TacticalPlanning({
       {/* Title Header spans 12 Cols */}
       <div className="lg:col-span-12 flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-4 gap-3">
         <div>
-          <div className="text-xs uppercase tracking-widest font-mono text-teal-400 font-semibold mb-1">
+          <div className="text-xs uppercase tracking-widest font-mono text-violet-400 font-semibold mb-1">
             Dynamic Alignment Vectors v4.2
           </div>
           <h2 className="text-2xl font-bold text-white tracking-tight leading-none">
@@ -99,7 +99,7 @@ export default function TacticalPlanning({
             <span className="block text-[9px] font-mono text-slate-500 font-semibold uppercase">Mitigation Status</span>
             <span className="text-xs font-bold font-mono text-emerald-400">8.4/10 SCORE</span>
           </div>
-          <div className="h-8 w-1 bg-teal-500"></div>
+          <div className="h-8 w-1 bg-violet-500"></div>
           <div className="text-right">
             <span className="block text-[9px] font-mono text-slate-500 font-semibold uppercase font-bold">Roster Active</span>
             <span className="text-xs font-bold font-mono text-white">12/15 ACTIVE</span>
@@ -122,13 +122,13 @@ export default function TacticalPlanning({
             <div id="route-presets" className="flex items-center gap-1.5 text-[10px] font-mono">
               <button 
                 onClick={() => handlePresetSelect("ALPHA_SWEEP")}
-                className="px-2 py-0.5 border border-slate-850 hover:border-teal-500/30 bg-slate-950 text-slate-300 rounded cursor-pointer transition-colors"
+                className="px-2 py-0.5 border border-slate-850 hover:border-violet-500/30 bg-slate-950 text-slate-300 rounded cursor-pointer transition-colors"
               >
                 SWEEP A
               </button>
               <button 
                 onClick={() => handlePresetSelect("BRAVO_VECTORS")}
-                className="px-2 py-0.5 border border-slate-850 hover:border-teal-500/30 bg-slate-950 text-slate-300 rounded cursor-pointer transition-colors"
+                className="px-2 py-0.5 border border-slate-850 hover:border-violet-500/30 bg-slate-950 text-slate-300 rounded cursor-pointer transition-colors"
               >
                 VECTORS B
               </button>
@@ -148,7 +148,7 @@ export default function TacticalPlanning({
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#0c111d_1px,transparent_1px),linear-gradient(to_bottom,#0c111d_1px,transparent_1px)] bg-[size:20px_20px] opacity-80"></div>
             
             {/* Sector Circles Background */}
-            <div className="absolute w-[180px] h-[180px] border border-dashed border-teal-500/10 rounded-full animate-pulse"></div>
+            <div className="absolute w-[180px] h-[180px] border border-dashed border-violet-500/10 rounded-full animate-pulse"></div>
 
             {/* Render Path SVG linking all coordination points sequential */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -156,7 +156,7 @@ export default function TacticalPlanning({
                 <polyline
                   points={plannerWaypoints.map(w => `${w.x},${w.y}`).join(" ")}
                   fill="none"
-                  stroke="#14b8a6"
+                  stroke="#a78bfa"
                   strokeWidth="0.8"
                   strokeDasharray="2,2"
                 />
@@ -164,7 +164,7 @@ export default function TacticalPlanning({
               {plannerWaypoints.length > 2 && (
                 <polygon
                   points={plannerWaypoints.map(w => `${w.x},${w.y}`).join(" ")}
-                  fill="rgba(20,184,166,0.03)"
+                  fill="rgba(139,92,246,0.03)"
                 />
               )}
 
@@ -175,7 +175,7 @@ export default function TacticalPlanning({
                   y1={plannerWaypoints[plannerWaypoints.length - 1].y}
                   x2={plannerWaypoints[0].x}
                   y2={plannerWaypoints[0].y}
-                  stroke="#10b981"
+                  stroke="#8b5cf6"
                   strokeWidth="0.5"
                   strokeDasharray="1,1"
                 />
@@ -190,7 +190,7 @@ export default function TacticalPlanning({
                 style={{ left: `${wp.x}%`, top: `${wp.y}%` }}
               >
                 <div className="relative group">
-                  <div className="w-4 h-4 bg-teal-500 hover:bg-teal-400 rounded-full flex items-center justify-center text-[10px] text-slate-950 font-extrabold font-mono border border-white cursor-pointer shadow-md">
+                  <div className="w-4 h-4 bg-violet-500 hover:bg-violet-400 rounded-full flex items-center justify-center text-[10px] text-slate-950 font-extrabold font-mono border border-white cursor-pointer shadow-md">
                     {idx + 1}
                   </div>
                   {/* Tooltip detail */}
@@ -217,7 +217,7 @@ export default function TacticalPlanning({
                 placeholder="e.g. Checkpoint Sentinel East" 
                 value={newWpName}
                 onChange={(e) => setNewWpName(e.target.value)}
-                className="bg-slate-900 text-white placeholder-slate-700 border border-slate-800 focus:border-teal-400 rounded-md px-2 py-1.5 text-xs outline-none font-mono"
+                className="bg-slate-900 text-white placeholder-slate-700 border border-slate-800 focus:border-violet-400 rounded-md px-2 py-1.5 text-xs outline-none font-mono"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -228,7 +228,7 @@ export default function TacticalPlanning({
                 max="100" 
                 value={newWpx}
                 onChange={(e) => setNewWpx(Number(e.target.value))}
-                className="bg-slate-900 text-white border border-slate-800 focus:border-teal-400 rounded-md px-2 py-1.5 text-xs outline-none font-mono text-center"
+                className="bg-slate-900 text-white border border-slate-800 focus:border-violet-400 rounded-md px-2 py-1.5 text-xs outline-none font-mono text-center"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -239,13 +239,13 @@ export default function TacticalPlanning({
                 max="100" 
                 value={newWpy}
                 onChange={(e) => setNewWpy(Number(e.target.value))}
-                className="bg-slate-900 text-white border border-slate-800 focus:border-teal-400 rounded-md px-2 py-1.5 text-xs outline-none font-mono text-center"
+                className="bg-slate-900 text-white border border-slate-800 focus:border-violet-400 rounded-md px-2 py-1.5 text-xs outline-none font-mono text-center"
               />
             </div>
             <div className="col-span-1 md:col-span-4 mt-1 flex justify-end">
               <button 
                 type="submit" 
-                className="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold tracking-wider rounded-md text-xs uppercase cursor-pointer flex items-center justify-center gap-1.5 transition-all"
+                className="px-4 py-1.5 bg-violet-500 hover:bg-violet-400 text-slate-950 font-bold tracking-wider rounded-md text-xs uppercase cursor-pointer flex items-center justify-center gap-1.5 transition-all"
               >
                 <MapPin className="w-3.5 h-3.5" />
                 Inject Coordinate Node
@@ -260,9 +260,9 @@ export default function TacticalPlanning({
           <div className="space-y-1.5">
             <h4 className="text-xs uppercase tracking-wider font-mono text-slate-300 font-bold">Estimated Coverage Integrity</h4>
             <div className="flex items-center gap-3">
-              <span className="text-3xl font-extrabold text-teal-400 font-mono">{totalIntegrityScore}%</span>
+              <span className="text-3xl font-extrabold text-violet-400 font-mono">{totalIntegrityScore}%</span>
               <div className="flex-1 bg-slate-950 rounded-full h-2.5 overflow-hidden border border-slate-800">
-                <div className="bg-teal-400 h-full transition-all" style={{ width: `${totalIntegrityScore}%` }}></div>
+                <div className="bg-violet-400 h-full transition-all" style={{ width: `${totalIntegrityScore}%` }}></div>
               </div>
             </div>
             <p className="text-[10px] text-slate-500 font-mono">Based on sector overlap coefficient &amp; 3D path coordinates.</p>
@@ -303,7 +303,7 @@ export default function TacticalPlanning({
                   onClick={() => setActiveUnitTab(unit.id)}
                   className={`py-2 text-center rounded border transition-all cursor-pointer ${
                     isActive 
-                      ? 'bg-teal-500 text-slate-950 font-bold border-teal-400' 
+                      ? 'bg-violet-500 text-slate-950 font-bold border-violet-400' 
                       : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-white'
                   }`}
                 >
@@ -333,7 +333,7 @@ export default function TacticalPlanning({
               </div>
               <div>
                 <span className="text-[9px] text-slate-500 block">ROUTE RISK COVERAGE</span>
-                <span className="text-teal-400 font-bold">{currentSelectedUnitObj.routeCoverage}%</span>
+                <span className="text-violet-400 font-bold">{currentSelectedUnitObj.routeCoverage}%</span>
               </div>
             </div>
 
@@ -343,9 +343,9 @@ export default function TacticalPlanning({
                 {currentSelectedUnitObj.waypoints.map((wp, idx) => {
                   const isCurrent = idx === currentSelectedUnitObj.currentWaypointIndex;
                   return (
-                    <div key={idx} className={`p-1.5 rounded flex justify-between items-center ${isCurrent ? 'bg-teal-950/40 text-teal-300 border border-teal-500/10 font-bold' : 'text-slate-400'}`}>
+                    <div key={idx} className={`p-1.5 rounded flex justify-between items-center ${isCurrent ? 'bg-violet-950/40 text-violet-300 border border-violet-500/10 font-bold' : 'text-slate-400'}`}>
                       <span className="text-[11px] truncate flex items-center gap-1.5">
-                        <span className={`inline-block w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-teal-400 animate-ping' : 'bg-slate-700'}`}></span>
+                        <span className={`inline-block w-1.5 h-1.5 rounded-full ${isCurrent ? 'bg-violet-400 animate-ping' : 'bg-slate-700'}`}></span>
                         {idx + 1}. {wp.name}
                       </span>
                       <span className="text-[9px] font-semibold text-slate-500">{wp.x}x , {wp.y}y</span>
@@ -361,7 +361,7 @@ export default function TacticalPlanning({
                 onClick={() => onOptimizeRoute(currentSelectedUnitObj.id)}
                 className="w-full py-2 bg-slate-900 border border-slate-800 text-slate-200 font-mono hover:text-white rounded flex items-center justify-center gap-2 text-xs uppercase cursor-pointer"
               >
-                <RefreshCw className="w-3.5 h-3.5 text-teal-400" />
+                <RefreshCw className="w-3.5 h-3.5 text-violet-400" />
                 CALIBRATE &amp; RECAST WAYPOINTS
               </button>
             </div>
@@ -397,14 +397,14 @@ export default function TacticalPlanning({
                     { name: "Sentinel Watch", x: 30, y: 50 }
                   ]);
                 }}
-                className="px-3 py-1.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold uppercase rounded text-[10px] cursor-pointer"
+                className="px-3 py-1.5 bg-violet-500 hover:bg-violet-400 text-slate-950 font-bold uppercase rounded text-[10px] cursor-pointer"
               >
                 APPLY ROUTE
               </button>
             </div>
           ) : (
-            <div className="bg-teal-950/10 border border-teal-500/20 p-4 rounded-lg">
-              <span className="text-xs font-bold text-teal-400 font-mono block">PROTOCOL APPLIED SUCCESSFULLY</span>
+            <div className="bg-violet-950/10 border border-violet-500/20 p-4 rounded-lg">
+              <span className="text-xs font-bold text-violet-400 font-mono block">PROTOCOL APPLIED SUCCESSFULLY</span>
               <p className="text-[10px] text-slate-300 font-mono mt-1">
                 Sector-9 sweep integrated. Matrix recalculated. Real-time path overlap score is now elevated to <b>98% Coverage</b>.
               </p>
