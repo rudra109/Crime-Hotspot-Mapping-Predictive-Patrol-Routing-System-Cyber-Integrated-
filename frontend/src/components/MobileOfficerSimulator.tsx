@@ -14,10 +14,14 @@ import {
   Battery,
   Signal,
   Wifi,
+  WifiOff,
   AlertOctagon,
   Camera,
   Navigation2,
   CheckCircle2,
+  RefreshCw,
+  Database,
+  CloudOff
 } from "lucide-react";
 import { Incident, Alert, MobileTab } from "../types";
 
@@ -35,6 +39,13 @@ type IncomingIncidentCategory =
   | "Robbery"
   | "Snatching";
 
+interface QueuedReport {
+  id: string;
+  type: 'incident' | 'backup';
+  payload: any;
+  timestamp: string;
+}
+
 export default function MobileOfficerSimulator({
   onAddIncident,
   onAddAlert,
@@ -47,6 +58,11 @@ export default function MobileOfficerSimulator({
   const [incidentsLoggedCount, setIncidentsLoggedCount] = useState(3);
   const [lastSync, setLastSync] = useState("Just now");
 
+  // Connectivity and Offline states
+  const [isOffline, setIsOffline] = useState<boolean>(false);
+  const [offlineQueue, setOfflineQueue] = useState<QueuedReport[]>([]);
+  const [syncing, setSyncing] = useState<boolean>(false);
+
   const [reportCategory, setReportCategory] = useState<IncomingIncidentCategory>("Theft");
   const [reportLocation, setReportLocation] = useState("Vastrapur Lake");
   const [reportDetails, setReportDetails] = useState("");
@@ -58,6 +74,28 @@ export default function MobileOfficerSimulator({
   const [newFileName, setNewFileName] = useState("");
   const [recentSubmitMessage, setRecentSubmitMessage] = useState<string | null>(null);
 
+  // Load offline queue initially from LocalStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("aegis_offline_reports");
+      if (stored) {
+        setOfflineQueue(JSON.parse(stored));
+      }
+    } catch (e) {
+      console.error("Failed to load offline reports from localStorage:", e);
+    }
+  }, []);
+
+  // Save offline queue when it changes
+  const saveQueue = (queue: QueuedReport[]) => {
+    setOfflineQueue(queue);
+    try {
+      localStorage.setItem("aegis_offline_reports", JSON.stringify(queue));
+    } catch (e) {
+      console.error("Failed to save offline reports to localStorage:", e);
+    }
+  };
+
   useEffect(() => {
     if (dutyState !== "ON_DUTY") return;
     const interval = setInterval(() => {
@@ -68,6 +106,49 @@ export default function MobileOfficerSimulator({
     }, 1000);
     return () => clearInterval(interval);
   }, [dutyState]);
+
+  // Sync offline reports to server
+  const handleSyncReports = async () => {
+    if (isOffline || offlineQueue.length === 0 || syncing) return;
+    setSyncing(true);
+    setRecentSubmitMessage("Synchronizing offline queue...");
+
+    // Simulate network delay for sync
+    setTimeout(() => {
+      offlineQueue.forEach((item) => {
+        if (item.type === 'incident') {
+          onAddIncident(item.payload.incident);
+          if (item.payload.alert) {
+            onAddAlert(item.payload.alert);
+          }
+          setIncidentsLoggedCount(prev => prev + 1);
+        } else if (item.type === 'backup') {
+          onAddAlert(item.payload);
+        }
+      });
+
+      setRecentSubmitMessage(`Sync completed! ${offlineQueue.length} records uploaded.`);
+      saveQueue([]);
+      setLastSync("Synced offline logs just now");
+      setSyncing(false);
+
+      setTimeout(() => {
+        setRecentSubmitMessage(null);
+      }, 3000);
+    }, 1500);
+  };
+
+  // Toggle offline simulation
+  const handleToggleConnection = () => {
+    const nextState = !isOffline;
+    setIsOffline(nextState);
+    if (!nextState && offlineQueue.length > 0) {
+      // Auto-trigger sync when back online
+      setTimeout(() => {
+        handleSyncReports();
+      }, 500);
+    }
+  };
 
   const formatSeconds = (sec: number) => {
     const hrs = Math.floor(sec / 3600);
@@ -102,8 +183,20 @@ export default function MobileOfficerSimulator({
       sector: "Vastrapur",
       status: "Pending",
     };
-    onAddAlert(freshAlert);
-    alert("Backup request sent to command.");
+
+    if (isOffline) {
+      const updatedQueue = [...offlineQueue, {
+        id: `OFF-BAK-${Date.now()}`,
+        type: 'backup' as const,
+        payload: freshAlert,
+        timestamp: new Date().toISOString()
+      }];
+      saveQueue(updatedQueue);
+      alert("Device offline: Backup request stored in local offline queue.");
+    } else {
+      onAddAlert(freshAlert);
+      alert("Backup request sent to command.");
+    }
   };
 
   const handleSubmitReport = (e: React.FormEvent) => {
@@ -126,8 +219,6 @@ export default function MobileOfficerSimulator({
       threatIndex: reportHighPriority ? 95 : 45,
     };
 
-    onAddIncident(freshIncident);
-
     const companionAlert: Alert = {
       id: `ALT-COMP-${Date.now()}`,
       type: reportHighPriority ? "Critical" : "Warning",
@@ -137,40 +228,87 @@ export default function MobileOfficerSimulator({
       status: "Pending",
       incidentId,
     };
-    onAddAlert(companionAlert);
 
-    setIncidentsLoggedCount((prev) => prev + 1);
-    setRecentSubmitMessage(`Report sent. Ref: ${incidentId}`);
-    setReportDetails("");
+    if (isOffline) {
+      const updatedQueue = [...offlineQueue, {
+        id: `OFF-INC-${Date.now()}`,
+        type: 'incident' as const,
+        payload: { incident: freshIncident, alert: companionAlert },
+        timestamp: new Date().toISOString()
+      }];
+      saveQueue(updatedQueue);
+      setRecentSubmitMessage(`Offline Mode: Report stored in local cache. ID: ${incidentId}`);
+      setReportDetails("");
 
-    setTimeout(() => {
-      setRecentSubmitMessage(null);
-      setActiveTab("MAP");
-    }, 2200);
+      setTimeout(() => {
+        setRecentSubmitMessage(null);
+        setActiveTab("MAP");
+      }, 2500);
+    } else {
+      onAddIncident(freshIncident);
+      onAddAlert(companionAlert);
+      setIncidentsLoggedCount((prev) => prev + 1);
+      setRecentSubmitMessage(`Report sent. Ref: ${incidentId}`);
+      setReportDetails("");
+
+      setTimeout(() => {
+        setRecentSubmitMessage(null);
+        setActiveTab("MAP");
+      }, 2200);
+    }
   };
 
   return (
     <div id="mobile-device-simulator" className="flex flex-col xl:flex-row items-center justify-center p-2 gap-8 font-sans">
+      
+      {/* ── Simulated Phone Body ── */}
       <div className="w-[380px] h-[780px] bg-black border-[8px] border-slate-900 rounded-[44px] shadow-[0_24px_48px_-16px_rgba(0,0,0,0.85)] relative flex flex-col justify-between overflow-hidden outline outline-1 outline-slate-800">
+        
+        {/* Phone Top Status Bar */}
         <div className="absolute top-0 inset-x-0 h-11 bg-black flex items-center justify-between px-5 z-40 text-[10px] font-mono text-slate-300">
           <span className="font-bold">09:41</span>
           <div className="w-28 h-5 bg-[#0B1220] rounded-b-2xl -mt-2" />
           <div className="flex items-center gap-1.5">
             <Signal className="w-3.5 h-3.5 text-teal-400" />
-            <Wifi className="w-3.5 h-3.5 text-teal-400" />
+            {isOffline ? (
+              <WifiOff className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+            ) : (
+              <Wifi className="w-3.5 h-3.5 text-teal-400" />
+            )}
             <Battery className="w-4 h-4 text-emerald-400" />
           </div>
         </div>
 
-        <div className="flex-1 mt-11 mb-14 bg-[#050B14] flex flex-col overflow-y-auto px-4 py-3 relative">
-          <div className="flex items-center justify-between mb-3 px-1">
+        {/* Sync/Offline Banner */}
+        <div className={`absolute top-11 inset-x-0 py-1 px-4 text-[9px] font-mono font-bold text-center z-30 transition-all ${
+          isOffline 
+            ? "bg-amber-500/90 text-slate-950" 
+            : "bg-emerald-600/90 text-white"
+        }`}>
+          {isOffline ? (
+            <span className="flex items-center justify-center gap-1">
+              <CloudOff className="w-3 h-3" />
+              OFFLINE CACHE MODES ACTIVE
+            </span>
+          ) : (
+            <span className="flex items-center justify-center gap-1">
+              <CheckCircle2 className="w-3 h-3" />
+              CENTRAL COMMAND SYSTEM SYNCED
+            </span>
+          )}
+        </div>
+
+        {/* Content Container */}
+        <div className="flex-1 mt-16 mb-14 bg-[#050B14] flex flex-col overflow-y-auto px-4 py-3 relative">
+          
+          <div className="flex items-center justify-between mb-3 px-1 mt-1">
             <div>
               <div className="text-[10px] uppercase tracking-widest text-slate-500 font-mono">AHMEDABAD POLICE</div>
-              <div className="text-sm font-semibold text-white">Field Officer App</div>
+              <div className="text-sm font-semibold text-white">PCR Field Terminal</div>
             </div>
             <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-400 bg-[#0B1220] border border-slate-800 rounded-full px-2.5 py-1">
               <Navigation2 className="w-3.5 h-3.5 text-teal-400" />
-              Live GPS
+              GPS Locked
             </div>
           </div>
 
@@ -185,14 +323,15 @@ export default function MobileOfficerSimulator({
                 <MapPin className="w-3.5 h-3.5 text-slate-500 absolute right-3 top-2.5" />
               </div>
 
+              {/* Status & Backup buttons */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-[#0B1220] p-3 border border-slate-800/60 rounded-2xl flex flex-col gap-2">
-                  <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider block">Duty Status</span>
+                <div className="bg-[#0B1220] p-3 border border-slate-800/60 rounded-2xl flex flex-col gap-1.5">
+                  <span className="text-[9px] font-mono text-slate-500 uppercase tracking-wider block">Network</span>
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span className="text-xs font-semibold text-slate-200">On Duty</span>
+                    <span className={`w-2 h-2 rounded-full ${isOffline ? "bg-amber-400" : "bg-emerald-400 animate-pulse"}`}></span>
+                    <span className="text-xs font-semibold text-slate-200">{isOffline ? "Offline" : "Online"}</span>
                   </div>
-                  <span className="text-[10px] text-slate-500 font-mono">Officer J. Vance</span>
+                  <span className="text-[10px] text-slate-500 font-mono">Officer Vance (PCR-01)</span>
                 </div>
 
                 <button
@@ -203,6 +342,31 @@ export default function MobileOfficerSimulator({
                   Request Backup
                 </button>
               </div>
+
+              {/* Offline Queue Indicator if items exist */}
+              {offlineQueue.length > 0 && (
+                <div className="bg-amber-500/10 border border-amber-500/30 p-3 rounded-2xl font-mono text-xs text-amber-300 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold flex items-center gap-1">
+                      <Database className="w-3.5 h-3.5" />
+                      Queue: {offlineQueue.length} Pending logs
+                    </span>
+                    {!isOffline && (
+                      <button 
+                        onClick={handleSyncReports}
+                        disabled={syncing}
+                        className="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-2 py-1 rounded text-[9px] flex items-center gap-1 transition"
+                      >
+                        <RefreshCw className={`w-2.5 h-2.5 ${syncing ? "animate-spin" : ""}`} />
+                        Sync Logs
+                      </button>
+                    )}
+                  </div>
+                  <p className="text-[9px] text-slate-400 leading-normal">
+                    Reports will cache locally in PWA localStorage until network connection is simulated online.
+                  </p>
+                </div>
+              )}
 
               <div className="bg-[#0B1220] p-4 border border-slate-800/60 rounded-3xl flex flex-col gap-3">
                 <div className="flex justify-between items-center pb-2 border-b border-slate-800/60">
@@ -432,7 +596,7 @@ export default function MobileOfficerSimulator({
                   onClick={() => setDutyState("ON_DUTY")}
                   className={`py-1.5 text-[9px] uppercase font-bold rounded-lg border transition-all cursor-pointer ${
                     dutyState === "ON_DUTY"
-                      ? "bg-emerald-500 text-slate-950 border-emerald-400"
+                      ? "bg-teal-500 text-slate-950 border-teal-400"
                       : "bg-[#050B14] text-slate-400 border-slate-800 hover:text-white"
                   }`}
                 >
@@ -483,6 +647,7 @@ export default function MobileOfficerSimulator({
           )}
         </div>
 
+        {/* Navigation bottom bar */}
         <div className="absolute bottom-0 inset-x-0 h-14 bg-[#050B14] border-t border-slate-900 flex items-center justify-around px-2 z-40">
           <button
             onClick={() => setActiveTab("MAP")}
@@ -526,23 +691,53 @@ export default function MobileOfficerSimulator({
         </div>
       </div>
 
+      {/* ── Desktop Controls & Description Panel ── */}
       <div className="max-w-xs space-y-4">
-        <div className="bg-[#0B1220] border border-slate-800 p-5 rounded-2xl">
-          <h4 className="text-xs uppercase tracking-wider font-mono text-slate-400 mb-2">Field Officer App Notes</h4>
-          <p className="text-xs text-slate-300 leading-relaxed font-mono">
-            This screen mirrors the mobile app used by field officers. It keeps the same workflow, but reads like a real device interface.
+        <div className="bg-[#0B1220] border border-slate-800 p-5 rounded-3xl">
+          <h4 className="text-xs uppercase tracking-wider font-mono text-[#00E5FF] mb-2 font-bold flex items-center gap-1.5">
+            <Wifi className="w-4 h-4" />
+            PWA OFFLINE CONSOLE
+          </h4>
+          
+          <p className="text-[11px] text-slate-300 leading-normal font-mono mb-4">
+            Simulate a field PCR patrol unit entering a cellular dead zone around outer Ahmedabad sectors.
           </p>
-          <div className="space-y-2 pt-3 text-[11px] font-mono border-t border-slate-800 text-slate-400 leading-relaxed">
-            <div>
-              <b className="text-slate-100 block">Incident sync</b>
-              Submitting a report pushes it into the desktop command center immediately.
-            </div>
-            <div>
-              <b className="text-slate-100 block">Live patrol</b>
-              The active-time clock and distance meters update while duty is on.
+
+          <div className="space-y-3 pt-3 text-[11px] font-mono border-t border-slate-800 text-slate-400 leading-normal">
+            <button
+              onClick={handleToggleConnection}
+              className={`w-full py-2 rounded-xl text-[10px] font-bold uppercase transition flex items-center justify-center gap-2 cursor-pointer border ${
+                isOffline
+                  ? "bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-400 border-emerald-500/20"
+                  : "bg-amber-600/10 hover:bg-amber-600/20 text-amber-400 border-amber-500/20"
+              }`}
+            >
+              {isOffline ? "🔌 Connect Network Online" : "🔌 Cut Connection (Go Offline)"}
+            </button>
+
+            {offlineQueue.length > 0 && (
+              <button
+                onClick={handleSyncReports}
+                disabled={isOffline || syncing}
+                className="w-full py-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold rounded-xl transition text-[10px] cursor-pointer flex items-center justify-center gap-1.5"
+              >
+                <RefreshCw className={`w-3 h-3 ${syncing ? "animate-spin" : ""}`} />
+                Force Queue Sync ({offlineQueue.length})
+              </button>
+            )}
+
+            <div className="text-[10px] bg-[#050B14] p-3.5 border border-slate-850 rounded-2xl space-y-2">
+              <span className="text-slate-100 font-bold block">Simulation Instructions:</span>
+              <ol className="list-decimal pl-4 space-y-1 text-slate-400 text-[9px]">
+                <li>Toggle network <b>Offline</b> using the button above.</li>
+                <li>Go to the <b>Report</b> tab inside the phone and submit a theft log.</li>
+                <li>Go to the <b>Status</b> tab and click <b>Request Backup</b>.</li>
+                <li>Observe the items added to the pending local offline queue.</li>
+                <li>Toggle network <b>Online</b> and click <b>Force Queue Sync</b> to sync the logs with the command center.</li>
+              </ol>
             </div>
           </div>
-          <div className="mt-3 text-[10px] text-slate-500 font-mono flex items-center gap-2">
+          <div className="mt-4 text-[10px] text-slate-500 font-mono flex items-center gap-2 border-t border-slate-800/80 pt-3">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
             {lastSync}
           </div>

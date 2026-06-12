@@ -6,12 +6,12 @@
 import React, { useState, useEffect } from "react";
 import { 
   ShieldAlert, Radio, ShieldCheck, Activity, Map, 
-  BarChart3, Cpu, Users, Layers, ExternalLink, LogOut, Navigation
+  BarChart3, Cpu, Users, Layers, ExternalLink, LogOut, Navigation, Wifi, Sliders
 } from "lucide-react";
 import { ViewState, Incident, Alert, PatrolUnit } from "./types";
 import { initialIncidents, initialAlerts, initialUnits } from "./data";
 
-import { fetchCrimes, ingestSimulatedCrime, wsService, optimizeRoute } from "./api/apiClient";
+import { fetchCrimes, ingestSimulatedCrime, wsService, optimizeRoute, fetchAlerts, acknowledgeAlert, escalateAlert } from "./api/apiClient";
 
 // Sub component Imports
 import SplashView from "./components/SplashView";
@@ -22,6 +22,11 @@ import TacticalPlanning from "./components/TacticalPlanning";
 import SurveillanceHeatmap from "./components/SurveillanceHeatmap";
 import MobileOfficerSimulator from "./components/MobileOfficerSimulator";
 import AuditLogView from "./components/AuditLogView";
+import GISMapPanel from "./components/GISMapPanel";
+import CyberIntelligence from "./components/CyberIntelligence";
+import DecisionSupport from "./components/DecisionSupport";
+import SecurityConsole from "./components/SecurityConsole";
+import VoiceAssistant from "./components/VoiceAssistant";
 
 export default function App() {
   const [viewState, setViewState] = useState<ViewState>("LANDING");
@@ -40,13 +45,32 @@ export default function App() {
       } catch (err) {
         console.error("Failed to fetch crimes from API:", err);
       }
+
+      try {
+        const liveAlerts = await fetchAlerts();
+        if (liveAlerts && liveAlerts.length > 0) {
+          setAlerts(liveAlerts as any);
+        }
+      } catch (err) {
+        console.error("Failed to fetch alerts from API:", err);
+      }
     };
     loadData();
 
     // Socket.IO Integration for Real-Time Updates
     wsService.onNewCrime((crimeData) => {
-      // Refresh list
       loadData();
+    });
+
+    wsService.onNewAlert((newAlert) => {
+      setAlerts(prev => {
+        if (prev.some(a => a.id === newAlert.id)) return prev;
+        return [newAlert as any, ...prev];
+      });
+    });
+
+    wsService.onAlertUpdate((updatedAlert) => {
+      setAlerts(prev => prev.map(a => a.id === updatedAlert.id ? (updatedAlert as any) : a));
     });
 
     return () => wsService.disconnect();
@@ -97,13 +121,28 @@ export default function App() {
     setAlerts(prev => [...prev, newAlert]);
   };
 
-  const handleAckAlert = (alertId: string) => {
-    setAlerts(prev => prev.map(alert => {
-      if (alert.id === alertId) {
-        return { ...alert, status: "Acknowledged" };
-      }
-      return alert;
-    }));
+  const handleAckAlert = async (alertId: string) => {
+    try {
+      await acknowledgeAlert(alertId, {
+        operatorId: "OP-DASHBOARD",
+        operatorName: "Duty Dispatcher",
+        notes: "Acknowledged via main Command Dashboard."
+      });
+      setAlerts(prev => prev.map(alert => {
+        if (alert.id === alertId) {
+          return {
+            ...alert,
+            status: "Acknowledged",
+            operatorId: "OP-DASHBOARD",
+            operatorName: "Duty Dispatcher",
+            acknowledgedAt: new Date().toISOString()
+          } as any;
+        }
+        return alert;
+      }));
+    } catch (err) {
+      console.error("Failed to acknowledge alert in App:", err);
+    }
   };
 
   const handleDispatchAlertUnit = (alertId: string, sector: string) => {
@@ -268,9 +307,13 @@ export default function App() {
 
             {[
               { id: "OPERATIONS", icon: Layers, label: "Operations" },
-              { id: "SURVEILLANCE", icon: Cpu, label: "Live Map" },
+              { id: "GIS_MAP", icon: Map, label: "GIS Crime Map" },
+              { id: "SURVEILLANCE", icon: Cpu, label: "Zone Heatmap" },
               { id: "TACTICAL_PLAN", icon: Navigation, label: "Patrol Routing" },
               { id: "INTELLIGENCE", icon: BarChart3, label: "Analytics" },
+              { id: "CYBER_INTEL", icon: Wifi, label: "Cyber Intelligence" },
+              { id: "DECISION_SUPPORT", icon: Sliders, label: "Decision Support" },
+              { id: "SECURITY_CONSOLE", icon: ShieldCheck, label: "Security Console" },
               { id: "MOBILE_OFFICER", icon: Users, label: "Field Units" },
               { id: "AUDIT_LOGS", icon: ShieldAlert, label: "Audit Logs" }
             ].map((navItem) => {
@@ -329,23 +372,34 @@ export default function App() {
             </div>
           </div>
 
-          <div id="perspective-selector" className="flex items-center bg-[#0b1320]/70 border border-slate-700/80 p-1 rounded-xl text-xs font-medium shadow-inner backdrop-blur-md">
-            <button
-              onClick={() => setViewState("OPERATIONS")}
-              className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
-                viewState !== 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              Command View
-            </button>
-            <button
-              onClick={() => setViewState("MOBILE_OFFICER")}
-              className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
-                viewState === 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
-              }`}
-            >
-              Field Officer View
-            </button>
+          <div className="flex items-center gap-4">
+            <VoiceAssistant
+              onNavigate={(view) => setViewState(view)}
+              onOptimizeRoutes={() => handleOptimizeRoute("PCR-01")}
+              onSimulateAlarm={handleSimulateAlarm}
+              crimesCount={incidents.length}
+              alertsCount={alerts.filter(a => a.status === 'Pending').length}
+              unitsCount={units.length}
+            />
+
+            <div id="perspective-selector" className="flex items-center bg-[#0b1320]/70 border border-slate-700/80 p-1 rounded-xl text-xs font-medium shadow-inner backdrop-blur-md">
+              <button
+                onClick={() => setViewState("OPERATIONS")}
+                className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
+                  viewState !== 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
+                }`}
+              >
+                Command View
+              </button>
+              <button
+                onClick={() => setViewState("MOBILE_OFFICER")}
+                className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
+                  viewState === 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
+                }`}
+              >
+                Field Officer View
+              </button>
+            </div>
           </div>
         </header>
 
@@ -362,6 +416,12 @@ export default function App() {
                 onAckAlert={handleAckAlert}
                 onSimulateAlarm={handleSimulateAlarm}
               />
+            </div>
+          )}
+
+          {viewState === "GIS_MAP" && (
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
+              <GISMapPanel incidents={incidents} />
             </div>
           )}
 
@@ -427,9 +487,34 @@ export default function App() {
 
 
 
+          {viewState === "CYBER_INTEL" && (
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
+              <CyberIntelligence />
+            </div>
+          )}
+
           {viewState === "AUDIT_LOGS" && (
             <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
               <AuditLogView />
+            </div>
+          )}
+
+          {viewState === "DECISION_SUPPORT" && (
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
+              <DecisionSupport
+                incidents={incidents}
+                onDispatchUnit={handleDispatchUnit}
+                onAddAlert={handleAddAlert}
+                onRefreshData={() => {
+                  // refresh triggered
+                }}
+              />
+            </div>
+          )}
+
+          {viewState === "SECURITY_CONSOLE" && (
+            <div className="animate-fade-in w-full h-full max-w-7xl mx-auto">
+              <SecurityConsole />
             </div>
           )}
 

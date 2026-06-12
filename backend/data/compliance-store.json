@@ -1,0 +1,11 @@
+{
+  "legalHolds": [
+    {
+      "incidentId": "INC-9428",
+      "reason": "Undergoing active investigation by Vastrapur Division Inspector.",
+      "markedBy": "BADGE-1111",
+      "markedAt": "2026-06-09T05:25:42.993Z"
+    }
+  ],
+  "retentionDays": 90
+}

@@ -1,0 +1,144 @@
+[
+  {
+    "id": "INC-3180",
+    "type": "assault",
+    "source": "fir",
+    "source_id": "INC-3180",
+    "reconciliation_status": "primary",
+    "severity": 6,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5281,
+        23.0398
+      ]
+    },
+    "location_address": "Vastrapur (23.0398, 72.5281)",
+    "timestamp": "2026-06-12T06:01:38.852Z",
+    "description": "b4b3f7184f77acdbec2d3caa:2fc5962358d02c7237fc9aa6256c0abe:40f167992ba1568844debb75dd35d8ba1ce3033e58845b4219cd78da430eea03b174331e1e5a154d456a5cc9b58409664b1df69a2802b4cc1eeca6b11e5a7d86e00320781f"
+  },
+  {
+    "id": "INC-SEC-TEST",
+    "type": "assault",
+    "source": "fir",
+    "source_id": "INC-SEC-TEST",
+    "reconciled_id": "INC-SEC-TEST",
+    "reconciliation_status": "duplicate",
+    "severity": 9,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5714,
+        23.0225
+      ]
+    },
+    "location_address": "Secured HQ Vault",
+    "timestamp": "2026-06-12T05:42:15.517Z",
+    "description": "490f4c5e5fd4fba046f09333:c04767a293c738bd8dc515a81a2f21cc:635533c04fea8968b0655ab195fd2de74a7fb41d119b9485897a19f63166eb877beeb20675cf7a07ea5cae91ff06fa71681e5c0d1dec986c6e811fbe10bcceca169684f47c19993edbe2742ab66cdb509594"
+  },
+  {
+    "id": "INC-SEC-TEST",
+    "type": "assault",
+    "source": "fir",
+    "source_id": "INC-SEC-TEST",
+    "reconciled_id": "INC-SEC-TEST",
+    "reconciliation_status": "duplicate",
+    "severity": 9,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5714,
+        23.0225
+      ]
+    },
+    "location_address": "Secured HQ Vault",
+    "timestamp": "2026-06-12T05:29:56.025Z",
+    "description": "9d0abd834e8adc8aa486c54b:8014c7498c75b3f9c35151e6e0bf7ed8:c0211ba3eeda67682c7130d553a8504d411e7035d336cecbe3c22fcd4786903ca0faf00c0aab3d01e1edb81f5c7fd689482f40253beaa3b98fa55b1e9bef4cc2970c13bfead4f22f686f769ab7dad930852f"
+  },
+  {
+    "id": "INC-SEC-TEST",
+    "type": "assault",
+    "source": "fir",
+    "source_id": "INC-SEC-TEST",
+    "reconciliation_status": "primary",
+    "severity": 9,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5714,
+        23.0225
+      ]
+    },
+    "location_address": "Secured HQ Vault",
+    "timestamp": "2026-06-12T05:26:04.380Z",
+    "description": "d4b4da470774c6fb49f6bd60:36d0b0709ae9388cde078312a58a80ac:0fdcf8edafba4244041e7aa963873a56c72a657d93ccee3a2647e01a2464e2d116909516f01cc280c881c5bdc8447a33c92251ad1076ccad41bcc694d0c9bf6dbdc963dde264529d5636227e72f27e788322"
+  },
+  {
+    "id": "INC-9428",
+    "type": "assault",
+    "source": "fir",
+    "source_id": "FIR-2026-9428",
+    "severity": 6,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5281,
+        23.0398
+      ]
+    },
+    "location_address": "Vastrapur Lake, Ahmedabad",
+    "timestamp": "2026-06-12T03:25:42.820Z",
+    "description": "5a4e84e9026ba24cc3816f8c:5ec451d9b403c813d2a6bda3baffc141:b1750645e17db845b973f9718b97b66087cf6aae5e91ea0507c485fa7dbeafde357f9bcde84bb470f5b75cf33fd1e93b7e184ac924ec5a983e"
+  },
+  {
+    "id": "INC-9431",
+    "type": "theft",
+    "source": "fir",
+    "source_id": "FIR-2026-9431",
+    "severity": 5,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5312,
+        23.041
+      ]
+    },
+    "location_address": "Vastrapur Circle, Ahmedabad",
+    "timestamp": "2026-06-12T01:25:42.820Z",
+    "description": "fddeefa9f21632bc136b5bea:527225c41e2721dcffe0d4089567f45f:05e1edaf02f3b155abc640ebe4381313d280a0eb973b7600f0c27f08fc66949d4d1e2656a4385e54130d23dedcb1be0efe5cb799a09748719115"
+  },
+  {
+    "id": "INC-8812",
+    "type": "traffic",
+    "source": "patrol_log",
+    "source_id": "PAT-2026-8812",
+    "severity": 4,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5394,
+        23.0596
+      ]
+    },
+    "location_address": "SG Highway, Ahmedabad",
+    "timestamp": "2026-06-11T23:25:42.820Z",
+    "description": "4b4cabff2dff55b1dc58d0e5:a1ca9f9bbcabd0178c04dbd29c087bde:80011626eee3ac17deee4ebcb22ca592c65b82b2013e86a14f87fcf131ceeb8b99dca63450236eb5ebee8da7c23f28c4f2bd7673c760"
+  },
+  {
+    "id": "INC-5501",
+    "type": "cybercrime",
+    "source": "cyber_branch",
+    "source_id": "CYB-2026-5501",
+    "severity": 8,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5845,
+        23.0045
+      ]
+    },
+    "location_address": "Satellite Area, Ahmedabad",
+    "timestamp": "2026-06-11T05:25:42.820Z",
+    "description": "08fda4f8c288069502b59e75:fae1c7ccc6edae2b6e70691fd1721ee1:3a435eb678ea272c77b01e157f4fe889cd52d636cd962c60a7ccdbd62499e3bcc2a9bef3b369c7445cb15ff01396b088"
+  }
+]

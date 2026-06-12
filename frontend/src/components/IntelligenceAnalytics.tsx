@@ -8,6 +8,18 @@ import {
   MapPin,
   ChevronRight,
   BadgeInfo,
+  Activity,
+  TrendingUp,
+  RefreshCw,
+  AlertTriangle,
+  CheckCircle2,
+  Database,
+  Calendar,
+  Layers,
+  Gauge,
+  Sliders,
+  Sparkles,
+  Search,
 } from "lucide-react";
 import {
   AreaChart,
@@ -28,6 +40,8 @@ import {
   Pie,
   Cell,
   Legend,
+  LineChart,
+  Line,
 } from "recharts";
 import { Incident } from "../types";
 import {
@@ -38,6 +52,11 @@ import {
   fetchSourceBreakdown,
   fetchStatsSummary,
   fetchZoneRiskScores,
+  fetchAdvancedForecast,
+  triggerRetraining,
+  fetchModelMonitoring,
+  fetchPredictionHistory,
+  syncPredictionOutcomes,
 } from "../api/apiClient";
 
 interface IntelligenceAnalyticsProps {
@@ -108,6 +127,145 @@ export default function IntelligenceAnalytics({
   });
   const [zoneRisks, setZoneRisks] = useState<Array<{ id: string; zone: string; incidents: number; avg_severity: number; recent_7d: number; previous_7d: number; trend_pct: number; cyber_share: number; critical_share: number; risk_score: number; level: "LOW" | "MODERATE" | "HIGH" | "CRITICAL"; drivers: string[]; center: { lat: number; lng: number } }>>([]);
   const [hotspotPredictions, setHotspotPredictions] = useState<Array<{ id: string; zone: string; center: { lat: number; lng: number }; risk_score: number; confidence: number; expected_incidents_7d: number; drivers: string[]; model_version: string }>>([]);
+
+  // Unified filter states
+  const [filterSearch, setFilterSearch] = useState("");
+  const [filterDateRange, setFilterDateRange] = useState("all");
+  const [filterSource, setFilterSource] = useState("all");
+  const [filterZone, setFilterZone] = useState("all");
+  const [filterSeverity, setFilterSeverity] = useState("all");
+  const [filterStatus, setFilterStatus] = useState("all");
+
+  const filteredIncidents = useMemo(() => {
+    return incidents.filter(inc => {
+      // 1. Search Query
+      if (filterSearch) {
+        const query = filterSearch.toLowerCase();
+        const matchesId = inc.id.toLowerCase().includes(query);
+        const matchesCat = inc.category.toLowerCase().includes(query);
+        const matchesLoc = inc.location.toLowerCase().includes(query);
+        const matchesDesc = inc.description?.toLowerCase().includes(query) ?? false;
+        if (!matchesId && !matchesCat && !matchesLoc && !matchesDesc) return false;
+      }
+
+      // 2. Date Range
+      if (filterDateRange !== 'all') {
+        const ts = inc.timestamp || "";
+        if (filterDateRange === 'last24h') {
+          if (!ts.includes('IST') && !ts.includes('Immediate')) return false;
+        }
+      }
+
+      // 3. Source
+      if (filterSource !== 'all') {
+        const sourceVal = inc.source || (inc.reportedBy?.toLowerCase().includes('mobile') || inc.location.includes('Mobile') ? 'mobile_officer' : 'fir');
+        if (filterSource === 'fir' && sourceVal !== 'fir') return false;
+        if (filterSource === 'complaint' && sourceVal !== 'complaint') return false;
+        if (filterSource === 'patrol' && sourceVal !== 'patrol_log') return false;
+        if (filterSource === 'cyber' && sourceVal !== 'cyber_branch') return false;
+        if (filterSource === 'mobile' && sourceVal !== 'mobile_officer') return false;
+      }
+
+      // 4. Zone
+      if (filterZone !== 'all') {
+        const zoneLower = filterZone.toLowerCase();
+        let incZone = "central";
+        const loc = inc.location.toLowerCase();
+        if (loc.includes('vastrapur') || loc.includes('thaltej') || loc.includes('sg highway') || loc.includes('bopal')) incZone = "west";
+        else if (loc.includes('naranpura') || loc.includes('chandkheda') || loc.includes('sabarmati')) incZone = "north";
+        else if (loc.includes('bapunagar') || loc.includes('odhav') || loc.includes('nikol')) incZone = "east";
+        else if (loc.includes('maninagar') || loc.includes('vatva')) incZone = "south";
+        
+        if (incZone !== zoneLower) return false;
+      }
+
+      // 5. Severity
+      if (filterSeverity !== 'all') {
+        const index = inc.threatIndex;
+        if (filterSeverity === 'critical' && index < 85) return false;
+        if (filterSeverity === 'high' && (index < 60 || index >= 85)) return false;
+        if (filterSeverity === 'moderate' && (index < 40 || index >= 60)) return false;
+        if (filterSeverity === 'routine' && index >= 40) return false;
+      }
+
+      // 6. Case Status
+      if (filterStatus !== 'all') {
+        if (inc.status !== filterStatus) return false;
+      }
+
+      return true;
+    });
+  }, [incidents, filterSearch, filterDateRange, filterSource, filterZone, filterSeverity, filterStatus]);
+
+  // New Predictive Analytics States
+  const [activeSubTab, setActiveSubTab] = useState<'matrix' | 'predictive'>('matrix');
+  const [forecastWindow, setForecastWindow] = useState<string>('hourly');
+  const [forecastData, setForecastData] = useState<{ forecast: any[]; explainability: any; model_version: string } | null>(null);
+  const [forecastLoading, setForecastLoading] = useState<boolean>(false);
+  const [monitoringData, setMonitoringData] = useState<any[]>([]);
+  const [predictionHistory, setPredictionHistory] = useState<any[]>([]);
+  const [retrainingLoading, setRetrainingLoading] = useState<boolean>(false);
+  const [retrainResult, setRetrainResult] = useState<any>(null);
+  const [syncLoading, setSyncLoading] = useState<boolean>(false);
+
+  const loadForecast = async (window: string) => {
+    setForecastLoading(true);
+    try {
+      const data = await fetchAdvancedForecast(window);
+      setForecastData(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setForecastLoading(false);
+    }
+  };
+
+  const loadMonitoringAndHistory = async () => {
+    try {
+      const [mon, hist] = await Promise.all([
+        fetchModelMonitoring(),
+        fetchPredictionHistory(50),
+      ]);
+      setMonitoringData(mon);
+      setPredictionHistory(hist);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleRetrain = async () => {
+    setRetrainingLoading(true);
+    try {
+      const res = await triggerRetraining();
+      setRetrainResult(res);
+      await loadMonitoringAndHistory();
+      await loadForecast(forecastWindow);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setRetrainingLoading(false);
+    }
+  };
+
+  const handleSyncOutcomes = async () => {
+    setSyncLoading(true);
+    try {
+      await syncPredictionOutcomes();
+      await loadMonitoringAndHistory();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSyncLoading(false);
+    }
+  };
+
+  // Run on tab changes
+  useEffect(() => {
+    if (activeSubTab === 'predictive') {
+      loadForecast(forecastWindow);
+      loadMonitoringAndHistory();
+    }
+  }, [activeSubTab, forecastWindow]);
 
   useEffect(() => {
     let mounted = true;
@@ -338,6 +496,411 @@ export default function IntelligenceAnalytics({
     onDeployUnitFromHotspot(sector);
   };
 
+  if (activeSubTab === 'predictive') {
+    return (
+      <div className="space-y-6 font-sans text-slate-300">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="px-2 py-0.5 text-[9px] font-mono bg-violet-950/60 border border-violet-500/30 text-violet-400 rounded-sm uppercase font-bold tracking-widest animate-pulse">
+                PREDICTIVE COGNITION NODE
+              </span>
+              <span className="text-xs font-mono text-slate-500">MODEL_LIFECYCLE_ENG</span>
+            </div>
+            <h2 className="text-2xl font-bold text-white tracking-wide">PREDICTIVE FORECASTS & LIFE-CYCLE</h2>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setActiveSubTab('matrix')}
+              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-mono text-xs font-bold rounded-lg border border-slate-700 uppercase tracking-wider transition-all cursor-pointer"
+            >
+              ← Back to Metrics
+            </button>
+            <button
+              onClick={handleRetrain}
+              disabled={retrainingLoading}
+              className="px-4 py-2 bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 text-white font-mono text-xs font-bold rounded-lg uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${retrainingLoading ? 'animate-spin' : ''}`} />
+              {retrainingLoading ? 'Retraining Pipeline...' : 'Retrain Model Pipeline'}
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl flex flex-col justify-between shadow-xl">
+            <div className="flex justify-between items-start text-slate-400 mb-2">
+              <span className="text-[10px] tracking-widest uppercase font-bold text-violet-400">ACTIVE MODEL</span>
+              <Database className="w-4 h-4 text-violet-400" />
+            </div>
+            <div>
+              <div className="text-xl font-extrabold text-white truncate">
+                {forecastData?.model_version.split('-')[0].toUpperCase() || 'PROPHET'}
+              </div>
+              <div className="text-[10px] text-slate-500 font-mono mt-1">Version: {forecastData?.model_version || 'ensemble-v2.0'}</div>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl flex flex-col justify-between shadow-xl">
+            <div className="flex justify-between items-start text-slate-400 mb-2">
+              <span className="text-[10px] tracking-widest uppercase font-bold text-emerald-400">DRIFT EVALUATION</span>
+              <Gauge className="w-4 h-4 text-emerald-400" />
+            </div>
+            <div>
+              {monitoringData[0] && JSON.parse(monitoringData[0].drift_metrics || '{}').drift_detected ? (
+                <div className="flex items-center gap-1 text-amber-400 font-bold text-lg">
+                  <AlertTriangle className="w-5 h-5 text-amber-500 animate-pulse" />
+                  <span>DRIFT DETECTED</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1 text-emerald-400 font-bold text-lg">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  <span>MODEL ALIGNED</span>
+                </div>
+              )}
+              <div className="text-[10px] text-slate-500 font-mono mt-1">
+                KS p-val: {monitoringData[0] ? Number(JSON.parse(monitoringData[0].drift_metrics || '{}').p_value || 0).toFixed(4) : '1.0000'}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl flex flex-col justify-between shadow-xl">
+            <div className="flex justify-between items-start text-slate-400 mb-2">
+              <span className="text-[10px] tracking-widest uppercase font-bold text-cyan-400">MEAN ABS ERROR (MAE)</span>
+              <TrendingUp className="w-4 h-4 text-cyan-400" />
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold text-white">
+                {monitoringData[0] ? Number(JSON.parse(monitoringData[0].evaluation_metrics || '{}').mae || 0).toFixed(2) : '1.05'}
+              </div>
+              <div className="text-[10px] text-slate-500 font-mono mt-1">Lower error is better</div>
+            </div>
+          </div>
+
+          <div className="bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl flex flex-col justify-between shadow-xl">
+            <div className="flex justify-between items-start text-slate-400 mb-2">
+              <span className="text-[10px] tracking-widest uppercase font-bold text-pink-400">VALIDATION RMSE</span>
+              <Activity className="w-4 h-4 text-pink-400" />
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold text-white">
+                {monitoringData[0] ? Number(JSON.parse(monitoringData[0].evaluation_metrics || '{}').rmse || 0).toFixed(2) : '1.34'}
+              </div>
+              <div className="text-[10px] text-slate-500 font-mono mt-1">Baseline Root Mean Sq Error</div>
+            </div>
+          </div>
+        </div>
+
+        {retrainResult && (
+          <div className="bg-slate-900 border border-violet-500/30 p-4 rounded-xl flex items-center justify-between shadow-md">
+            <div>
+              <div className="text-sm font-bold text-white uppercase tracking-wider font-mono">Retraining Pipeline Succeeded</div>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Model version <span className="text-violet-400 font-mono font-bold">{retrainResult.model_version}</span> deployed. MAE: {retrainResult.evaluation?.mae?.toFixed(3)}, RMSE: {retrainResult.evaluation?.rmse?.toFixed(3)}. Drift: {retrainResult.drift_detection?.drift_detected ? 'Yes' : 'No'}.
+              </p>
+            </div>
+            <button
+              onClick={() => setRetrainResult(null)}
+              className="text-xs font-mono text-slate-400 hover:text-white px-2 py-1 bg-slate-800 rounded border border-slate-700 cursor-pointer"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="lg:col-span-8 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl flex flex-col justify-between">
+            <div>
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="text-sm font-bold text-white tracking-wide uppercase">MULTIPLE WINDOW COGNITIVE FORECASTS</h3>
+                  <span className="text-[11px] font-mono text-slate-400">Predictive Incident Count Projection</span>
+                </div>
+                <div className="flex gap-1 bg-[#090F1C] border border-slate-800 p-1 rounded-lg">
+                  {['hourly', 'daily', 'weekly', 'seasonal'].map((win) => (
+                    <button
+                      key={win}
+                      onClick={() => setForecastWindow(win)}
+                      className={`px-3 py-1 text-[10px] font-mono font-bold uppercase rounded-md transition-all cursor-pointer ${forecastWindow === win ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+                    >
+                      {win}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="h-72 mt-4 relative">
+                {forecastLoading && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-slate-950/20 backdrop-blur-sm rounded-xl z-10">
+                    <div className="flex flex-col items-center gap-3">
+                      <RefreshCw className="w-8 h-8 text-violet-500 animate-spin" />
+                      <span className="text-xs font-mono text-slate-400">Generating Prophet forecast...</span>
+                    </div>
+                  </div>
+                )}
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={forecastData?.forecast || []}>
+                    <defs>
+                      <linearGradient id="predIncidents" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4} />
+                        <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" vertical={false} />
+                    <XAxis
+                      dataKey="timestamp"
+                      stroke="#64748b"
+                      fontSize={9}
+                      fontFamily="monospace"
+                      tickFormatter={(tick) => {
+                        const d = new Date(tick);
+                        if (forecastWindow === 'hourly') return `${String(d.getHours()).padStart(2, '0')}:00`;
+                        if (forecastWindow === 'daily') return `${d.getDate()} ${d.toLocaleString('default', { month: 'short' })}`;
+                        if (forecastWindow === 'weekly') return `W${Math.ceil(d.getDate() / 7)}`;
+                        return `Q${Math.floor(d.getMonth() / 3) + 1}`;
+                      }}
+                    />
+                    <YAxis stroke="#64748b" fontSize={10} fontFamily="monospace" />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: "#0b1329", borderColor: "#334155", borderRadius: "12px" }}
+                      labelStyle={{ color: "#ffffff", fontFamily: "monospace", fontSize: "11px" }}
+                      itemStyle={{ fontFamily: "monospace", fontSize: "11px" }}
+                    />
+                    <Area type="monotone" dataKey="upper_bound" stroke="none" fill="#8b5cf6" fillOpacity={0.1} />
+                    <Area type="monotone" dataKey="predicted_incidents" stroke="#8b5cf6" strokeWidth={3} fillOpacity={1} fill="url(#predIncidents)" name="Predicted Incidents" />
+                    <Area type="monotone" dataKey="lower_bound" stroke="none" fill="#0f172a" fillOpacity={0.5} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            <div className="text-[10px] font-mono text-slate-400 mt-4 flex justify-between items-center bg-slate-950/50 p-3.5 border border-slate-800/60 rounded-xl">
+              <span>ACTIVE MODEL TARGET WINDOW: <b className="text-white uppercase">{forecastWindow}</b></span>
+              <span className="text-violet-400 font-bold bg-violet-500/10 px-2 py-0.5 rounded border border-violet-500/20 shadow-sm">CONFIDENCE BAND: 95%</span>
+            </div>
+          </div>
+
+          <div className="lg:col-span-4 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl flex flex-col justify-between">
+            <div>
+              <div className="mb-4 border-b border-slate-800/80 pb-3">
+                <h3 className="text-sm font-bold text-white tracking-wide uppercase flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-violet-400" />
+                  MODEL EXPLAINABILITY
+                </h3>
+                <span className="text-[11px] font-mono text-slate-400">Cycle influences and raw drivers</span>
+              </div>
+
+              <div className="space-y-4">
+                <div className="bg-slate-950/50 border border-slate-800/60 rounded-xl p-4">
+                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">NATURAL EXPLANATION</div>
+                  <p className="text-xs text-slate-200 mt-2 italic leading-relaxed">
+                    "{forecastData?.explainability?.explanation || 'Loading explanation...'}"
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex justify-between items-center text-xs font-mono text-slate-400 mb-1">
+                      <span>Baseline Trend Contribution</span>
+                      <span className="text-white font-bold">{forecastData?.explainability?.base_trend?.toFixed(2) || '0.00'}</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-full bg-violet-500" style={{ width: `${Math.min(100, Math.max(0, (forecastData?.explainability?.base_trend || 0) * 15))}%` }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between items-center text-xs font-mono text-slate-400 mb-1">
+                      <span>Weekly Seasonality Impact</span>
+                      <span className={`font-bold ${forecastData?.explainability?.weekly_impact >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        {forecastData?.explainability?.weekly_impact >= 0 ? '+' : ''}{forecastData?.explainability?.weekly_impact?.toFixed(2) || '0.00'}
+                      </span>
+                    </div>
+                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className={`h-full ${forecastData?.explainability?.weekly_impact >= 0 ? 'bg-emerald-500' : 'bg-rose-500'}`} style={{ width: `${Math.min(100, Math.max(0, Math.abs(forecastData?.explainability?.weekly_impact || 0) * 30))}%` }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between items-center text-xs font-mono text-slate-400 mb-1">
+                      <span>Daily Seasonality Impact</span>
+                      <span className={`font-bold ${forecastData?.explainability?.daily_impact >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        {forecastData?.explainability?.daily_impact >= 0 ? '+' : ''}{forecastData?.explainability?.daily_impact?.toFixed(2) || '0.00'}
+                      </span>
+                    </div>
+                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className={`h-full ${forecastData?.explainability?.daily_impact >= 0 ? 'bg-emerald-500' : 'bg-rose-500'}`} style={{ width: `${Math.min(100, Math.max(0, Math.abs(forecastData?.explainability?.daily_impact || 0) * 30))}%` }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between items-center text-xs font-mono text-slate-400 mb-1">
+                      <span>Quarterly/Seasonal Impact</span>
+                      <span className={`font-bold ${forecastData?.explainability?.seasonal_impact >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        {forecastData?.explainability?.seasonal_impact >= 0 ? '+' : ''}{forecastData?.explainability?.seasonal_impact?.toFixed(2) || '0.00'}
+                      </span>
+                    </div>
+                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className={`h-full ${forecastData?.explainability?.seasonal_impact >= 0 ? 'bg-emerald-500' : 'bg-rose-500'}`} style={{ width: `${Math.min(100, Math.max(0, Math.abs(forecastData?.explainability?.seasonal_impact || 0) * 30))}%` }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="text-[10px] font-mono text-slate-500 border-t border-slate-800/80 pt-3 mt-4">
+              Additive terms and baseline trends are computed directly from the Prophet training model parameters.
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="lg:col-span-7 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl flex flex-col justify-between">
+            <div>
+              <div className="flex justify-between items-center pb-3 border-b border-slate-800/80 mb-4">
+                <div>
+                  <h3 className="text-sm font-bold text-white tracking-wide uppercase">SUPERVISOR OUTCOME AUDIT</h3>
+                  <span className="text-[11px] font-mono text-slate-400">Compare Predicted vs Actual outcomes</span>
+                </div>
+                <button
+                  onClick={handleSyncOutcomes}
+                  disabled={syncLoading}
+                  className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 disabled:bg-slate-900 border border-slate-700 text-[10px] font-mono uppercase font-bold text-white rounded-lg flex items-center gap-1.5 cursor-pointer"
+                >
+                  <RefreshCw className={`w-3 h-3 ${syncLoading ? 'animate-spin' : ''}`} />
+                  {syncLoading ? 'Syncing...' : 'Sync Live Outcomes'}
+                </button>
+              </div>
+
+              <div className="overflow-x-auto min-h-[200px] max-h-[280px] custom-scrollbar">
+                <table className="w-full text-left font-mono text-xs text-slate-300">
+                  <thead>
+                    <tr className="border-b border-slate-800/80 text-[10px] text-slate-500 uppercase font-semibold">
+                      <th className="py-2.5 px-2">Target Date/Time</th>
+                      <th className="py-2.5">Type</th>
+                      <th className="py-2.5">Predicted</th>
+                      <th className="py-2.5">Actual Outcome</th>
+                      <th className="py-2.5 text-right px-2">Abs Error</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/40">
+                    {predictionHistory.slice(0, 8).map((hist, idx) => {
+                      const pred = hist.predicted_value;
+                      const act = hist.actual_value;
+                      const hasActual = act !== null && act !== undefined;
+                      const err = hasActual ? Math.abs(pred - act) : null;
+                      let errorBadge = "text-slate-400 bg-slate-900 border border-slate-800";
+                      if (err !== null) {
+                        if (err <= 1.0) errorBadge = "text-emerald-400 bg-emerald-500/10 border border-emerald-500/20";
+                        else if (err <= 3.0) errorBadge = "text-yellow-400 bg-yellow-500/10 border border-yellow-500/20";
+                        else errorBadge = "text-rose-400 bg-rose-500/10 border border-rose-500/20";
+                      }
+
+                      const targetDate = new Date(hist.target_time);
+                      const targetStr = `${targetDate.getDate()} ${targetDate.toLocaleString('default', { month: 'short' })} ${String(targetDate.getHours()).padStart(2, '0')}:00`;
+
+                      return (
+                        <tr key={hist.id || idx} className="hover:bg-slate-800/30 transition-colors">
+                          <td className="py-3 px-2 font-bold text-slate-200 flex items-center gap-1.5">
+                            <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                            {targetStr}
+                          </td>
+                          <td className="py-3 text-[10px] text-slate-400 capitalize">{hist.forecast_type}</td>
+                          <td className="py-3 font-semibold text-white">{pred.toFixed(1)}</td>
+                          <td className="py-3">
+                            {hasActual ? (
+                              <span className="text-white font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
+                                {act} incidents
+                              </span>
+                            ) : (
+                              <span className="text-slate-500 text-[10px] italic">Awaiting outcomes</span>
+                            )}
+                          </td>
+                          <td className="py-3 text-right px-2">
+                            {err !== null ? (
+                              <span className={`px-2 py-0.5 text-[10px] rounded font-bold ${errorBadge}`}>
+                                {err.toFixed(1)}
+                              </span>
+                            ) : (
+                              <span className="text-slate-600 font-mono">-</span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    {predictionHistory.length === 0 && (
+                      <tr>
+                        <td colSpan={5} className="py-6 text-center text-slate-500 font-mono italic text-xs">
+                          No predictions recorded yet. Generates automatically when supervisors inspect forecasts.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="text-[10px] text-slate-500 mt-4">
+              Historical logs are persisted securely and validated against live incidents periodically.
+            </div>
+          </div>
+
+          <div className="lg:col-span-5 bg-slate-900/40 backdrop-blur-xl border border-slate-800/80 p-6 rounded-3xl shadow-xl flex flex-col justify-between">
+            <div>
+              <div className="pb-3 border-b border-slate-800/80 mb-4">
+                <h3 className="text-sm font-bold text-white tracking-wide uppercase">TRAINING RUN HISTORY</h3>
+                <span className="text-[11px] font-mono text-slate-400">Retraining logs and evaluation audits</span>
+              </div>
+
+              <div className="space-y-3 max-h-[240px] overflow-y-auto custom-scrollbar pr-1">
+                {monitoringData.map((run, idx) => {
+                  const evalM = JSON.parse(run.evaluation_metrics || '{}');
+                  const driftM = JSON.parse(run.drift_metrics || '{}');
+                  const trainedTime = new Date(run.trained_at).toLocaleString();
+
+                  return (
+                    <div key={run.id || idx} className="bg-slate-950/50 border border-slate-800/60 rounded-xl p-3.5 hover:border-slate-700/80 transition-colors">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <div className="text-xs font-bold text-white font-mono">{run.version}</div>
+                          <div className="text-[9px] text-slate-500 font-mono mt-0.5">{trainedTime}</div>
+                        </div>
+                        <span className={`px-2 py-0.5 text-[9px] font-mono font-bold rounded border ${run.is_active ? 'text-violet-400 border-violet-500/20 bg-violet-500/10' : 'text-slate-500 border-slate-800 bg-slate-900'}`}>
+                          {run.is_active ? 'ACTIVE' : 'ARCHIVED'}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 mt-3 text-[10px] font-mono text-slate-400 pt-2.5 border-t border-slate-900">
+                        <div>
+                          <span className="block text-[8px] text-slate-500">MAE</span>
+                          <b className="text-white">{evalM.mae?.toFixed(2) || '0.50'}</b>
+                        </div>
+                        <div>
+                          <span className="block text-[8px] text-slate-500">RMSE</span>
+                          <b className="text-white">{evalM.rmse?.toFixed(2) || '0.70'}</b>
+                        </div>
+                        <div>
+                          <span className="block text-[8px] text-slate-500">DRIFT</span>
+                          <b className={driftM.drift_detected ? 'text-amber-400' : 'text-emerald-400'}>
+                            {driftM.drift_detected ? 'YES' : 'NO'}
+                          </b>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {monitoringData.length === 0 && (
+                  <div className="text-center text-slate-500 font-mono italic text-xs py-8">
+                    No retraining runs cataloged. Execute a pipeline above to start tracking.
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="text-[10px] text-slate-500 mt-4">
+              Active model parameters are updated on successful execution of the Prophet split fit pipeline.
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 font-sans">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
@@ -350,9 +913,25 @@ export default function IntelligenceAnalytics({
           </div>
           <h2 className="text-2xl font-bold text-white tracking-wide">INTELLIGENCE & ANALYTICS MATRIX</h2>
         </div>
-        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400 bg-[#0B1220] border border-slate-800 rounded-lg p-1.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-          <span>COMPUTATION ENGINE: LIVE BACKEND SYNCHRONIZED</span>
+        <div className="flex items-center gap-2.5">
+          <div className="flex bg-[#090F1C] border border-slate-800 p-1 rounded-lg">
+            <button
+              onClick={() => setActiveSubTab('matrix')}
+              className={`px-3 py-1.5 text-xs font-mono font-bold uppercase rounded-md transition-all cursor-pointer ${activeSubTab === 'matrix' ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+            >
+              Matrix Metrics
+            </button>
+            <button
+              onClick={() => setActiveSubTab('predictive')}
+              className={`px-3 py-1.5 text-xs font-mono font-bold uppercase rounded-md transition-all cursor-pointer ${activeSubTab === 'predictive' ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+            >
+              Predictive Lifecycle
+            </button>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400 bg-[#0B1220] border border-slate-800 rounded-lg p-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>COMPUTATION ENGINE: LIVE BACKEND SYNCHRONIZED</span>
+          </div>
         </div>
       </div>
 

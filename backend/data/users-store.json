@@ -1,0 +1,112 @@
+[
+  {
+    "id": "user-001",
+    "badgeNumber": "BADGE-1111",
+    "name": "Chief Inspector Dave",
+    "passwordHash": "c82377751be91eed8b8be4bbeb47cbc0027948862116c8dfd4ca7d3e07682942",
+    "passwordSalt": "78245aed6377fef3f55c4fd4885b0f7c",
+    "role": "supervisor",
+    "totpSecret": "D3S9A2F8H4K6L8M2N4P6",
+    "mfaActive": true,
+    "createdAt": "2026-06-12T05:25:42.985Z"
+  },
+  {
+    "id": "user-002",
+    "badgeNumber": "BADGE-2222",
+    "name": "Officer Patel",
+    "passwordHash": "22a3c33dc79b5af4cb70ba57d96e8599616c5f56d6464a7cf2f2c2d121fe4449",
+    "passwordSalt": "c41d68f28f67e2b06bb4eb8212d31d54",
+    "role": "dispatcher",
+    "totpSecret": "A2B4C6D8E2F4A2C4E6F8",
+    "mfaActive": true,
+    "createdAt": "2026-06-12T05:25:42.985Z"
+  },
+  {
+    "id": "user-1781241964240",
+    "badgeNumber": "BADGE-TEST-4717",
+    "name": "Inspector Test Security",
+    "passwordHash": "b22314279ae0d88f4699d9b275110617290dd2140695ad222cfce82ab51b2c0a",
+    "passwordSalt": "7ba4a661c017b832f5905df62603e316",
+    "role": "supervisor",
+    "totpSecret": "BB178B04E7A2DCCFE4CE",
+    "mfaActive": true,
+    "createdAt": "2026-06-12T05:26:04.244Z"
+  },
+  {
+    "id": "user-1781241964315",
+    "badgeNumber": "BADGE-TEST-4717-OFF",
+    "name": "Officer Junior Test",
+    "passwordHash": "c26030c2a89d4201bf5a0158346bdc6b9682871c87e6a51469f32f844d7d25e9",
+    "passwordSalt": "5fb2e7c516a20e24b3c59981bc3fa26b",
+    "role": "officer",
+    "totpSecret": "13C35277D25F63DB5B0D",
+    "mfaActive": true,
+    "createdAt": "2026-06-12T05:26:04.315Z"
+  },
+  {
+    "id": "user-1781242195877",
+    "badgeNumber": "BADGE-TEST-8114",
+    "name": "Inspector Test Security",
+    "passwordHash": "fc1c6350a2c206e1de747418df8f930bbbefaa916d928aeba98dc1cd28b73b90",
+    "passwordSalt": "15dff3ad9669284cb52a9a2c5a6d2820",
+    "role": "supervisor",
+    "totpSecret": "4F6E61AEE1F9CDEADF03",
+    "mfaActive": true,
+    "createdAt": "2026-06-12T05:29:55.877Z"
+  },
+  {
+    "id": "user-1781242195954",
+    "badgeNumber": "BADGE-TEST-8114-OFF",
+    "name": "Officer Junior Test",
+    "passwordHash": "53e94d6e9748dabe6b7e6768c1f27f9dc737e04461362946a563f77aa5045f29",
+    "passwordSalt": "6e3a618d30065e4e9509300732188f38",
+    "role": "officer",
+    "totpSecret": "5056ED6E01FEDC742AA6",
+    "mfaActive": true,
+    "createdAt": "2026-06-12T05:29:55.954Z"
+  },
+  {
+    "id": "user-1781242431887",
+    "badgeNumber": "BADGE-SUPERVISOR-SIM",
+    "name": "Inspector Security Chief",
+    "passwordHash": "54874f83255b940cb8c0f41efe0773d299ee7a8bf559b8fc61a0035c118761ca",
+    "passwordSalt": "ead1667b855c0a979c4bb16c180e5af9",
+    "role": "dispatcher",
+    "totpSecret": "B77CBE9295CEA38646C6",
+    "mfaActive": false,
+    "createdAt": "2026-06-12T05:33:51.887Z"
+  },
+  {
+    "id": "user-1781242935410",
+    "badgeNumber": "BADGE-TEST-8811",
+    "name": "Inspector Test Security",
+    "passwordHash": "02251a8725a08da59b838215c567c92422570e8461c2bb624bcf9cfec23fc08f",
+    "passwordSalt": "f90ce74f8d912829cbe0fe9aa6f8378f",
+    "role": "supervisor",
+    "totpSecret": "5F1DF6325328177A480E",
+    "mfaActive": true,
+    "createdAt": "2026-06-12T05:42:15.410Z"
+  },
+  {
+    "id": "user-1781242935475",
+    "badgeNumber": "BADGE-TEST-8811-OFF",
+    "name": "Officer Junior Test",
+    "passwordHash": "207d02e2d9ed086a61b03b6907f48fc8a2f4ed1d20ccd160874aa06e38b91d9d",
+    "passwordSalt": "8b0d9889fcd583c79abea5a5ca78e104",
+    "role": "officer",
+    "totpSecret": "E737807A32503E3005F5",
+    "mfaActive": true,
+    "createdAt": "2026-06-12T05:42:15.475Z"
+  },
+  {
+    "id": "user-1781244385089",
+    "badgeNumber": "1232",
+    "name": "asffcf",
+    "passwordHash": "a34c0cf1ab0c39c275a1fd117f1217396f32c1b06ae298590f26a40b56881a4e",
+    "passwordSalt": "b0080bfbd4df60bebb2da6316e2b7709",
+    "role": "supervisor",
+    "totpSecret": "ECF4E61CF8EA90991F71",
+    "mfaActive": false,
+    "createdAt": "2026-06-12T06:06:25.089Z"
+  }
+]

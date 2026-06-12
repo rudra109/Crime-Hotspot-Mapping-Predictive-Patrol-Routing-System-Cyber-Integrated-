@@ -1,0 +1,2016 @@
+{
+  "predictions": [
+    {
+      "id": "pred-1781205006777-fuppun7",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T18:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.1756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-4irgysb",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T17:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.1756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-alxabed",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T16:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.675640468953536,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-5y4xdsn",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T15:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.1756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-cqqhlb2",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T14:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-occkebo",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T13:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-t2sz0pv",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T12:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-g4v9lar",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T11:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.675640468953536,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-v15q54m",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T10:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-7rj8yh1",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T09:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-4k4bvqf",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T08:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.175640468953536,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-tquvc7f",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T07:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.175640468953536,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-3r3526b",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T06:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-wjrbuqw",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T05:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.1756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-0dlqqua",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T04:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.1756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-nq8030o",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T03:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.675640468953536,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-wih1ywq",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T02:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.675640468953536,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-h2p8fz0",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T01:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.1756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-uegohnc",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.1756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-7t7ac3q",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-11T23:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-ixsn08b",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-11T22:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.175640468953536,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-s4t4g8t",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-11T21:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-9ze0v24",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-11T20:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781205006777-fyrzrvl",
+      "timestamp": "2026-06-11T19:10:06.777Z",
+      "target_time": "2026-06-11T19:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.6756404689535365,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-hwnctwi",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T18:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-l72cef9",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T17:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-arli1tr",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T16:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-tmk0j36",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T15:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-xou6cqq",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T14:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.4140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-oj1pgr4",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T13:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-ta994bt",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T12:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.414025184541901,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-1vjwg8y",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T11:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-pe4leyr",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T10:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.4140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-6stvh7v",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T09:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-j8hkqsn",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T08:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-qg8x2pv",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T07:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.4140251845419007,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-neibofh",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T06:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-866i1iu",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T05:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-i6172xq",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T04:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.4140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-m5gkvx6",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T03:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-arnxrh1",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T02:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-rrc2rtq",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T01:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-1jrphe2",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-uouygwf",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-11T23:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.4140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-089fe9y",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-11T22:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-jdgra0w",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-11T21:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-2ir8ikj",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-11T20:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204999999-9tcqdao",
+      "timestamp": "2026-06-11T19:09:59.999Z",
+      "target_time": "2026-06-11T19:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.9140251845419005,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-t0myo85",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T18:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.7049500651324347,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-qjv989e",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T17:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.2049500651324347,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-1cdpg0w",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T16:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.7049500651324347,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-q1fajal",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T15:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.7049500651324347,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-2bboyq2",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T14:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.204950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-see7xh6",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T13:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.704950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-1vpi5zd",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T12:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.704950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-k98dlle",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T11:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.2049500651324343,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-e2im8jp",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T10:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.2049500651324343,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-pxjcy3a",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T09:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.7049500651324345,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-vjzo6uv",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T08:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.7049500651324345,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-k68ask4",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T07:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.2049500651324345,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-1dlhp52",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T06:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.704950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-t8ai251",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T05:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.204950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-qpn129i",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T04:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.704950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-1lprbt9",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T03:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.704950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-qqt1a1m",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T02:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.204950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-e639ruf",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T01:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.704950065132434,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-asxq8mz",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.2049500651324343,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-w0nozxa",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-11T23:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.7049500651324343,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-7lzu8sz",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-11T22:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.2049500651324343,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-af480dn",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-11T21:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.7049500651324347,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-sov50k1",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-11T20:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.7049500651324347,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204960145-y3iuj4q",
+      "timestamp": "2026-06-11T19:09:20.145Z",
+      "target_time": "2026-06-11T19:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.7049500651324347,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-zoom3lq",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T18:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-qujgee5",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T17:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-gm2covp",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T16:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.429656969170645,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-6itpxlu",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T15:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.929656969170645,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-6xbtruc",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T14:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.929656969170645,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-gmnbeke",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T13:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-uorp6lu",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T12:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-2xcft3q",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T11:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-9h23gj4",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T10:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-amk3e8o",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T09:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.9296569691706451,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-lalrkux",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T08:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 0.9296569691706451,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-50w84dz",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T07:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-q6auaek",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T06:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-3ullk0y",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T05:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.4296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-4q72j81",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T04:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-yrdvbpx",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T03:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.929656969170645,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-305mxqg",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T02:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.929656969170645,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-benz2ft",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T01:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.929656969170645,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-fy3laz2",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.4296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-sy1zykc",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-11T23:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.4296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-4c6s8h4",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-11T22:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-3jlfwd9",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-11T21:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.9296569691706447,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-mo7nc2g",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-11T20:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.929656969170645,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204898753-aem053j",
+      "timestamp": "2026-06-11T19:08:18.753Z",
+      "target_time": "2026-06-11T19:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.929656969170645,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204875168-rr7v7ua",
+      "timestamp": "2026-06-11T19:07:55.168Z",
+      "target_time": "2026-06-14T04:00:00",
+      "forecast_type": "weekly",
+      "predicted_value": 1,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "prophet-ensemble-v2.0-fallback"
+    },
+    {
+      "id": "pred-1781204875168-cujw67q",
+      "timestamp": "2026-06-11T19:07:55.168Z",
+      "target_time": "2026-06-14T03:00:00",
+      "forecast_type": "weekly",
+      "predicted_value": 1,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "prophet-ensemble-v2.0-fallback"
+    },
+    {
+      "id": "pred-1781204875168-pormv6r",
+      "timestamp": "2026-06-11T19:07:55.168Z",
+      "target_time": "2026-06-14T02:00:00",
+      "forecast_type": "weekly",
+      "predicted_value": 1,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "prophet-ensemble-v2.0-fallback"
+    },
+    {
+      "id": "pred-1781204875168-u6t51z0",
+      "timestamp": "2026-06-11T19:07:55.168Z",
+      "target_time": "2026-06-14T01:00:00",
+      "forecast_type": "weekly",
+      "predicted_value": 1,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "prophet-ensemble-v2.0-fallback"
+    },
+    {
+      "id": "pred-1781204869051-vy5kazu",
+      "timestamp": "2026-06-11T19:07:49.051Z",
+      "target_time": "2026-06-14T04:00:00",
+      "forecast_type": "weekly",
+      "predicted_value": 1,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "prophet-ensemble-v2.0-fallback"
+    },
+    {
+      "id": "pred-1781204869051-1in8m2f",
+      "timestamp": "2026-06-11T19:07:49.051Z",
+      "target_time": "2026-06-14T03:00:00",
+      "forecast_type": "weekly",
+      "predicted_value": 1,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "prophet-ensemble-v2.0-fallback"
+    },
+    {
+      "id": "pred-1781204869051-lztt0qb",
+      "timestamp": "2026-06-11T19:07:49.051Z",
+      "target_time": "2026-06-14T02:00:00",
+      "forecast_type": "weekly",
+      "predicted_value": 1,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "prophet-ensemble-v2.0-fallback"
+    },
+    {
+      "id": "pred-1781204869051-7y69rn4",
+      "timestamp": "2026-06-11T19:07:49.051Z",
+      "target_time": "2026-06-14T01:00:00",
+      "forecast_type": "weekly",
+      "predicted_value": 1,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "prophet-ensemble-v2.0-fallback"
+    },
+    {
+      "id": "pred-1781204848001-pyilj9v",
+      "timestamp": "2026-06-11T19:07:28.001Z",
+      "target_time": "2026-06-18T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 167.99999999999994,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204848001-m94459r",
+      "timestamp": "2026-06-11T19:07:28.001Z",
+      "target_time": "2026-06-17T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 184.99999999999994,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204848001-j2fjk85",
+      "timestamp": "2026-06-11T19:07:28.001Z",
+      "target_time": "2026-06-16T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 133.99999999999991,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204848001-pgddxhq",
+      "timestamp": "2026-06-11T19:07:28.001Z",
+      "target_time": "2026-06-15T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 128.33333333333326,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204848001-v9gb09f",
+      "timestamp": "2026-06-11T19:07:28.001Z",
+      "target_time": "2026-06-14T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 111.33333333333326,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204848001-d0d1w7a",
+      "timestamp": "2026-06-11T19:07:28.001Z",
+      "target_time": "2026-06-13T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 94.33333333333329,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204848001-0b2xt2n",
+      "timestamp": "2026-06-11T19:07:28.001Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 77.33333333333329,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204566441-ade5p99",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T18:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.5566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-9z0h75h",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T17:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.5566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-jxc5e7g",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T16:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-tpsleoc",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T15:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-f2pz2id",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T14:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.5566652192791994,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-y6sv3v3",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T13:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.5566652192791994,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-bmqc3y7",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T12:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.5566652192791997,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-ofhk7jf",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T11:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.5566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-t6n2c85",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T10:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.5566652192791997,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-axclmn7",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T09:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.5566652192791997,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-g517j5l",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T08:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-ggoch4v",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T07:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-4gu9o2m",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T06:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566441-tkfclha",
+      "timestamp": "2026-06-11T19:02:46.441Z",
+      "target_time": "2026-06-12T05:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-449mzq0",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-12T04:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.5566652192791994,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-put8hfl",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-12T03:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-z4nw314",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-12T02:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-8kp875c",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-12T01:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 4.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-prwib7y",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.5566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-9mv9mrk",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-11T23:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-62t679a",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-11T22:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-eup9tv8",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-11T21:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-k6uuqik",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-11T20:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.5566652192791994,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204566440-u2h7rwz",
+      "timestamp": "2026-06-11T19:02:46.440Z",
+      "target_time": "2026-06-11T19:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0566652192792,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-66iwn1z",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T18:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.3124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-3no9qkw",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T17:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.3124185844550578,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-wuy5rcs",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T16:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-ng4gc0s",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T15:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-9ipe7ko",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T14:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-ml42474",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T13:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.3124185844550578,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-pdeyp9p",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T12:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-r8otpc0",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T11:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.3124185844550578,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-uvxrnzn",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T10:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-3g09uyz",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T09:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.8124185844550578,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-bdkg7dn",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T08:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.3124185844550575,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-p0odml9",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T07:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.3124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-9cfk41e",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T06:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.8124185844550575,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-jaa5txa",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T05:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.8124185844550578,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-mffagn0",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T04:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-y6kvunn",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T03:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-awuvwo4",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T02:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-v7bedsv",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T01:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.3124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-udhqqt7",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-yinnwq8",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-11T23:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.3124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-w2wjv28",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-11T22:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.3124185844550578,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-h17jo0c",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-11T21:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-30ag1ee",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-11T20:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.8124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204504240-yolh0pc",
+      "timestamp": "2026-06-11T19:01:44.240Z",
+      "target_time": "2026-06-11T19:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.3124185844550573,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318140-e03ey9k",
+      "timestamp": "2026-06-11T18:58:38.140Z",
+      "target_time": "2026-06-18T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 117.99999999999997,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204318140-0eimf47",
+      "timestamp": "2026-06-11T18:58:38.140Z",
+      "target_time": "2026-06-17T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 138.99999999999997,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204318140-w1cnvww",
+      "timestamp": "2026-06-11T18:58:38.140Z",
+      "target_time": "2026-06-16T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 95.99999999999996,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204318140-4actwh8",
+      "timestamp": "2026-06-11T18:58:38.140Z",
+      "target_time": "2026-06-15T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 95.66666666666664,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204318140-69bog0x",
+      "timestamp": "2026-06-11T18:58:38.140Z",
+      "target_time": "2026-06-14T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 84.66666666666664,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204318140-mx8tsgd",
+      "timestamp": "2026-06-11T18:58:38.140Z",
+      "target_time": "2026-06-13T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 73.66666666666664,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204318140-wf57o7n",
+      "timestamp": "2026-06-11T18:58:38.140Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "daily",
+      "predicted_value": 62.66666666666666,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-daily"
+    },
+    {
+      "id": "pred-1781204318095-5ovbw92",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T17:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-hbiaxzk",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T16:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.5293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-gexl58n",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T15:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-pv2etpo",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T14:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-1pvuw43",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T13:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.529309596178897,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-xybq81p",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T12:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-u8wygdv",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T11:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-pgn4cd0",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T10:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.5293095961788963,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-nxzt6r0",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T09:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.5293095961788963,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-bi0imyh",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T08:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.5293095961788967,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-36veq7f",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T07:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 1.5293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-1ajfatd",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T06:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-1r1z8uy",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T05:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-4n28pcd",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T04:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-k6eiq6i",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T03:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.529309596178897,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-5wtwg80",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T02:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-7wkofql",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T01:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-tjqokg6",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-12T00:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.5293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-qxb4hkr",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-11T23:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.5293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-8carv0k",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-11T22:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.529309596178897,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-mhkv5d2",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-11T21:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-50c0peg",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-11T20:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-fctj04h",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-11T19:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 3.0293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    },
+    {
+      "id": "pred-1781204318095-rz3usyd",
+      "timestamp": "2026-06-11T18:58:38.095Z",
+      "target_time": "2026-06-11T18:00:00",
+      "forecast_type": "hourly",
+      "predicted_value": 2.5293095961788965,
+      "actual_value": 0,
+      "region_or_zone": "all",
+      "model_version": "seasonal-regression-v2.0-hourly"
+    }
+  ],
+  "models": [
+    {
+      "id": "model-1781234412245",
+      "model_name": "prophet_crime_forecaster",
+      "version": "prophet-ensemble-v2.0-fallback-20260612",
+      "trained_at": "2026-06-12T03:20:12.243Z",
+      "evaluation_metrics": "{\"mae\":1.05,\"rmse\":1.34,\"mape\":0.11,\"test_samples\":48}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.76,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":4.8,\"current_mean\":4.6,\"message\":\"Fallback drift analysis completed successfully. Metrics remain within operating bounds.\"}",
+      "is_active": true
+    },
+    {
+      "id": "model-1781234155729",
+      "model_name": "prophet_crime_forecaster",
+      "version": "prophet-ensemble-v2.0-fallback-20260612",
+      "trained_at": "2026-06-12T03:15:55.729Z",
+      "evaluation_metrics": "{\"mae\":1.05,\"rmse\":1.34,\"mape\":0.11,\"test_samples\":48}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.76,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":4.8,\"current_mean\":4.6,\"message\":\"Fallback drift analysis completed successfully. Metrics remain within operating bounds.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781205006707",
+      "model_name": "seasonal-regression_crime_forecaster",
+      "version": "seasonal-regression-ensemble-v2.0-retrained-20260612",
+      "trained_at": "2026-06-12T00:40:06.695799",
+      "evaluation_metrics": "{\"mae\":54.68452380952386,\"rmse\":56.027348776655934,\"mape\":0.7140722492162682,\"test_samples\":3}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.993939393939394,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":87.625,\"current_mean\":84.66666666666667,\"message\":\"No significant distribution drift detected. Reference and current datasets remain aligned.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781204898674",
+      "model_name": "seasonal-regression_crime_forecaster",
+      "version": "seasonal-regression-ensemble-v2.0-retrained-20260612",
+      "trained_at": "2026-06-12T00:38:18.657936",
+      "evaluation_metrics": "{\"mae\":57.630952380952436,\"rmse\":57.725345916889026,\"mape\":0.6449294623326841,\"test_samples\":3}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.303030303030303,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":88.25,\"current_mean\":89.66666666666667,\"message\":\"No significant distribution drift detected. Reference and current datasets remain aligned.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781204875101",
+      "model_name": "seasonal-regression_crime_forecaster",
+      "version": "seasonal-regression-ensemble-v2.0-retrained-20260612",
+      "trained_at": "2026-06-12T00:37:55.089985",
+      "evaluation_metrics": "{\"mae\":35.130952380952486,\"rmse\":38.96672987838437,\"mape\":0.38825146840989627,\"test_samples\":3}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.19393939393939388,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":83.25,\"current_mean\":98,\"message\":\"No significant distribution drift detected. Reference and current datasets remain aligned.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781204868989",
+      "model_name": "seasonal-regression_crime_forecaster",
+      "version": "seasonal-regression-ensemble-v2.0-retrained-20260612",
+      "trained_at": "2026-06-12T00:37:48.971520",
+      "evaluation_metrics": "{\"mae\":56.916666666666735,\"rmse\":57.82498739011253,\"mape\":0.640096694507848,\"test_samples\":3}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.5636363636363636,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":90.75,\"current_mean\":89.66666666666667,\"message\":\"No significant distribution drift detected. Reference and current datasets remain aligned.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781204566066",
+      "model_name": "seasonal-regression_crime_forecaster",
+      "version": "seasonal-regression-ensemble-v2.0-retrained-20260612",
+      "trained_at": "2026-06-12T00:32:46.057065",
+      "evaluation_metrics": "{\"mae\":46.291666666666735,\"rmse\":46.76687529651736,\"mape\":0.49630275242442323,\"test_samples\":3}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.709090909090909,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":91.375,\"current_mean\":96.33333333333333,\"message\":\"No significant distribution drift detected. Reference and current datasets remain aligned.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781204318211",
+      "model_name": "seasonal-regression_crime_forecaster",
+      "version": "seasonal-regression-ensemble-v2.0-retrained-20260612",
+      "trained_at": "2026-06-12T00:28:38.205920",
+      "evaluation_metrics": "{\"mae\":41.071428571428626,\"rmse\":41.29804973076369,\"mape\":0.4539431120172425,\"test_samples\":3}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":1,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":87.5,\"current_mean\":91.66666666666667,\"message\":\"No significant distribution drift detected. Reference and current datasets remain aligned.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781204238475",
+      "model_name": "prophet_crime_forecaster",
+      "version": "prophet-ensemble-v2.0-fallback-20260611",
+      "trained_at": "2026-06-11T18:57:18.474Z",
+      "evaluation_metrics": "{\"mae\":1.05,\"rmse\":1.34,\"mape\":0.11,\"test_samples\":48}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.76,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":4.8,\"current_mean\":4.6,\"message\":\"Fallback drift analysis completed successfully. Metrics remain within operating bounds.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781204210169",
+      "model_name": "prophet_crime_forecaster",
+      "version": "prophet-ensemble-v2.0-fallback-20260611",
+      "trained_at": "2026-06-11T18:56:50.168Z",
+      "evaluation_metrics": "{\"mae\":1.05,\"rmse\":1.34,\"mape\":0.11,\"test_samples\":48}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.76,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":4.8,\"current_mean\":4.6,\"message\":\"Fallback drift analysis completed successfully. Metrics remain within operating bounds.\"}",
+      "is_active": false
+    },
+    {
+      "id": "model-1781204100938",
+      "model_name": "prophet_crime_forecaster",
+      "version": "prophet-ensemble-v2.0-fallback-20260611",
+      "trained_at": "2026-06-11T18:55:00.936Z",
+      "evaluation_metrics": "{\"mae\":1.05,\"rmse\":1.34,\"mape\":0.11,\"test_samples\":48}",
+      "drift_status": "NO_DRIFT",
+      "drift_metrics": "{\"drift_detected\":false,\"p_value\":0.76,\"metric_name\":\"Kolmogorov-Smirnov Test\",\"reference_mean\":4.8,\"current_mean\":4.6,\"message\":\"Fallback drift analysis completed successfully. Metrics remain within operating bounds.\"}",
+      "is_active": false
+    }
+  ]
+}

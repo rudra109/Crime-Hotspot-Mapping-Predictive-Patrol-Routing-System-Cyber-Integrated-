@@ -26,8 +26,14 @@ export interface Alert {
   message: string;
   time: string;
   sector: string;
-  status: "Pending" | "Acknowledged" | "Dispatched";
+  status: "Pending" | "Acknowledged" | "Dispatched" | "Escalated";
   incidentId?: string;
+  escalationLevel?: number | string;
+  routeCategory?: string;
+  timestamp?: string;
+  operatorName?: string;
+  operatorId?: string;
+  operatorNotes?: string;
 }
 
 export interface PatrolUnit {
@@ -99,6 +105,6 @@ export interface HotspotPrediction {
   model_version: string;
 }
 
-export type ViewState = "LANDING" | "SPLASH" | "OPERATIONS" | "INTELLIGENCE" | "TACTICAL_PLAN" | "SURVEILLANCE" | "MOBILE_OFFICER" | "DRONE_CONTROL" | "SECURE_COMMS" | "AUDIT_LOGS";
+export type ViewState = "LANDING" | "SPLASH" | "OPERATIONS" | "GIS_MAP" | "INTELLIGENCE" | "TACTICAL_PLAN" | "SURVEILLANCE" | "MOBILE_OFFICER" | "DRONE_CONTROL" | "SECURE_COMMS" | "AUDIT_LOGS" | "CYBER_INTEL" | "DECISION_SUPPORT" | "SECURITY_CONSOLE";
 
 export type MobileTab = "MAP" | "ALERTS" | "REPORT" | "STATUS";

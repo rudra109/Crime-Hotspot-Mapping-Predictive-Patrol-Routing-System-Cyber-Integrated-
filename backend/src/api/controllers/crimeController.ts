@@ -4,6 +4,7 @@ import { AppDataSource } from '../../config/database';
 import { CrimeIncident, CrimeSource } from '../../models/crime.model';
 import { emitAlertCreated, emitCrimeCreated } from '../../services/realtime';
 import { auditService } from '../../services/audit-service';
+import { AlertsService } from '../../services/alerts-service';
 
 const ingestionService = new CrimeIngestionService();
 
@@ -26,19 +27,21 @@ const handleIngest = async (req: Request, res: Response, forcedSource?: string) 
     const source = normalizeSource(forcedSource || req.body.source);
     const result = await ingestionService.ingestBatch(records, source);
 
-    result.ingestedRecords.forEach((crime) => {
+    result.ingestedRecords.forEach(async (crime) => {
       emitCrimeCreated(crime);
 
       if ((crime.severity || 0) >= 8) {
-        emitAlertCreated({
-          id: `ALT-${crime.id}`,
-          type: 'Critical',
-          message: `[${crime.source.toUpperCase()}] ${crime.type.toUpperCase()} reported at ${crime.location_address || 'unknown location'}`,
-          time: new Date().toISOString(),
-          sector: crime.location_address ? crime.location_address.split('(')[0].trim() : 'UNKNOWN',
-          status: 'Pending',
-          incidentId: crime.id
-        });
+        try {
+          await AlertsService.createAlert({
+            message: `[${crime.source.toUpperCase()}] ${crime.type.toUpperCase()} reported at ${crime.location_address || 'unknown location'}`,
+            sector: crime.location_address ? crime.location_address.split('(')[0].trim() : 'UNKNOWN',
+            incidentId: crime.id,
+            severity: crime.severity,
+            source: 'local'
+          });
+        } catch (err) {
+          console.error("Failed to create alert for ingested crime:", err);
+        }
       }
     });
 

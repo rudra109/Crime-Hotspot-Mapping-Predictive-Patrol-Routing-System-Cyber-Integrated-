@@ -1,0 +1,702 @@
+{
+  "vehicles": [
+    {
+      "lat": 23.03100960431392,
+      "lng": 72.58316241738542,
+      "speed": 56,
+      "heading": 128,
+      "accuracy": 7.521160066563662,
+      "status": "en_route",
+      "batteryLevel": 88,
+      "vehicleId": "PCR-01",
+      "timestamp": "2026-06-12T06:05:28.925Z"
+    },
+    {
+      "vehicleId": "PCR-02",
+      "lat": 22.95,
+      "lng": 72.65919944104367,
+      "speed": 37,
+      "heading": 137,
+      "timestamp": "2026-06-12T06:05:28.925Z",
+      "accuracy": 16.207318440910427,
+      "status": "en_route",
+      "batteryLevel": 78
+    },
+    {
+      "vehicleId": "PCR-03",
+      "lat": 22.97719476598101,
+      "lng": 72.67266259776696,
+      "speed": 48,
+      "heading": 180,
+      "timestamp": "2026-06-12T06:05:28.925Z",
+      "accuracy": 19.435243492905954,
+      "status": "on_scene",
+      "batteryLevel": 65
+    },
+    {
+      "vehicleId": "PCR-04",
+      "lat": 23.078979476560185,
+      "lng": 72.75,
+      "speed": 22,
+      "heading": 75,
+      "timestamp": "2026-06-12T06:05:28.925Z",
+      "accuracy": 3.732252069057688,
+      "status": "en_route",
+      "batteryLevel": 88
+    },
+    {
+      "vehicleId": "PCR-05",
+      "lat": 22.9975,
+      "lng": 72.602,
+      "speed": 0,
+      "heading": 0,
+      "timestamp": "2026-06-12T06:05:28.925Z",
+      "accuracy": 6,
+      "status": "idle",
+      "batteryLevel": 55
+    },
+    {
+      "vehicleId": "PCR-06",
+      "lat": 23.062,
+      "lng": 72.537,
+      "speed": 42,
+      "heading": 185.89533916370868,
+      "timestamp": "2026-06-12T06:05:28.925Z",
+      "accuracy": 7,
+      "status": "en_route",
+      "batteryLevel": 97
+    }
+  ],
+  "constraints": [
+    {
+      "id": "rc-001",
+      "type": "road_closure",
+      "lat": 23.031,
+      "lng": 72.588,
+      "radius": 300,
+      "description": "Road repair work — Ashram Road near Ellis Bridge",
+      "active": true,
+      "expiresAt": "2026-06-15T02:26:10.647Z",
+      "severity": "medium"
+    },
+    {
+      "id": "rc-002",
+      "type": "curfew",
+      "lat": 23.029,
+      "lng": 72.64,
+      "radius": 800,
+      "description": "Section 144 imposed — Odhav industrial area after 22:00",
+      "active": false,
+      "severity": "high"
+    },
+    {
+      "id": "rc-003",
+      "type": "weather",
+      "lat": 23.058,
+      "lng": 72.541,
+      "radius": 1200,
+      "description": "Heavy rain warning — Thaltej-Bopal corridor, reduced visibility",
+      "active": true,
+      "expiresAt": "2026-06-12T08:26:10.647Z",
+      "severity": "medium"
+    },
+    {
+      "id": "rc-004",
+      "type": "vip_area",
+      "lat": 23.0225,
+      "lng": 72.5714,
+      "radius": 500,
+      "description": "VIP movement — Additional IG Office area, restricted patrol",
+      "active": false,
+      "severity": "critical"
+    },
+    {
+      "id": "rc-005",
+      "type": "construction",
+      "lat": 23.1035,
+      "lng": 72.586,
+      "radius": 400,
+      "description": "Metro construction — Chandkheda station area",
+      "active": true,
+      "expiresAt": "2026-07-12T02:26:10.647Z",
+      "severity": "low"
+    },
+    {
+      "id": "rc-test-001",
+      "type": "road_closure",
+      "lat": 23.04,
+      "lng": 72.57,
+      "radius": 250,
+      "description": "Test road closure for API validation",
+      "active": true,
+      "severity": "high"
+    },
+    {
+      "id": "sim-ry-test-01",
+      "type": "road_closure",
+      "lat": 23.0225,
+      "lng": 72.5714,
+      "radius": 1000,
+      "description": "[SIMULATED] Ratha Yatra Test Procession Loop",
+      "active": true,
+      "severity": "high"
+    },
+    {
+      "id": "sim-ry-001",
+      "type": "road_closure",
+      "lat": 23.0225,
+      "lng": 72.5714,
+      "radius": 1200,
+      "description": "[SIMULATED] Procession Route Lockdown - Ashram Road & Ellis Bridge Corridor",
+      "active": true,
+      "severity": "critical"
+    },
+    {
+      "id": "sim-ry-002",
+      "type": "vip_area",
+      "lat": 22.9975,
+      "lng": 72.602,
+      "radius": 600,
+      "description": "[SIMULATED] High Crowd Density zone - Jagannath Mandir Perimeter",
+      "active": true,
+      "severity": "high"
+    }
+  ],
+  "routes": [
+    {
+      "routeId": "route-PCR-05-1781232378837",
+      "vehicleId": "PCR-05",
+      "waypoints": [
+        {
+          "name": "Police HQ",
+          "lat": 23.0225,
+          "lng": 72.5714
+        },
+        {
+          "name": "Vastrapur Lake",
+          "lat": 23.0398,
+          "lng": 72.5281
+        },
+        {
+          "name": "SG Highway Crossing",
+          "lat": 23.062,
+          "lng": 72.537
+        },
+        {
+          "name": "Thaltej",
+          "lat": 23.058,
+          "lng": 72.541
+        },
+        {
+          "name": "Bopal Junction",
+          "lat": 23.032,
+          "lng": 72.463
+        },
+        {
+          "name": "Police HQ",
+          "lat": 23.0225,
+          "lng": 72.5714
+        }
+      ],
+      "distanceKm": 34.2496,
+      "estimatedMins": 45.96,
+      "assignedAt": "2026-06-12T02:46:18.837Z",
+      "status": "in_progress",
+      "currentWaypointIndex": 1,
+      "constraints": [
+        "rc-001",
+        "rc-003",
+        "rc-005",
+        "rc-test-001"
+      ],
+      "turnByTurnInstructions": [
+        {
+          "step": 1,
+          "instruction": "Start from Police HQ on Ashram Road",
+          "distance": 4831,
+          "duration": 435,
+          "fromLat": 23.0225,
+          "fromLng": 72.5714,
+          "toLat": 23.0398,
+          "toLng": 72.5281,
+          "streetName": "Ashram Road",
+          "maneuver": "depart"
+        },
+        {
+          "step": 2,
+          "instruction": "Continue straight on CG Road for 2631m",
+          "distance": 2631,
+          "duration": 237,
+          "fromLat": 23.0398,
+          "fromLng": 72.5281,
+          "toLat": 23.062,
+          "toLng": 72.537,
+          "streetName": "CG Road",
+          "maneuver": "straight"
+        },
+        {
+          "step": 3,
+          "instruction": "Turn left onto SG Highway",
+          "distance": 604,
+          "duration": 54,
+          "fromLat": 23.062,
+          "fromLng": 72.537,
+          "toLat": 23.058,
+          "toLng": 72.541,
+          "streetName": "SG Highway",
+          "maneuver": "turn_left"
+        },
+        {
+          "step": 4,
+          "instruction": "Turn right onto Ring Road",
+          "distance": 8489,
+          "duration": 764,
+          "fromLat": 23.058,
+          "fromLng": 72.541,
+          "toLat": 23.032,
+          "toLng": 72.463,
+          "streetName": "Ring Road",
+          "maneuver": "turn_right"
+        },
+        {
+          "step": 5,
+          "instruction": "Arrive at Police HQ",
+          "distance": 11143,
+          "duration": 1003,
+          "fromLat": 23.032,
+          "fromLng": 72.463,
+          "toLat": 23.0225,
+          "toLng": 72.5714,
+          "streetName": "Nehru Bridge",
+          "maneuver": "arrive"
+        }
+      ],
+      "priority": "normal"
+    },
+    {
+      "routeId": "route-PCR-06-1781232587201",
+      "vehicleId": "PCR-06",
+      "waypoints": [
+        {
+          "name": "Police HQ",
+          "lat": 23.0225,
+          "lng": 72.5714
+        },
+        {
+          "name": "Vastrapur Lake",
+          "lat": 23.0398,
+          "lng": 72.5281
+        },
+        {
+          "name": "SG Highway Crossing",
+          "lat": 23.062,
+          "lng": 72.537
+        },
+        {
+          "name": "Thaltej",
+          "lat": 23.058,
+          "lng": 72.541
+        },
+        {
+          "name": "Bopal Junction",
+          "lat": 23.032,
+          "lng": 72.463
+        },
+        {
+          "name": "Police HQ",
+          "lat": 23.0225,
+          "lng": 72.5714
+        }
+      ],
+      "distanceKm": 34.2496,
+      "estimatedMins": 45.96,
+      "assignedAt": "2026-06-12T02:49:47.201Z",
+      "status": "pending",
+      "currentWaypointIndex": 0,
+      "constraints": [
+        "rc-001",
+        "rc-003",
+        "rc-005",
+        "rc-test-001"
+      ],
+      "turnByTurnInstructions": [
+        {
+          "step": 1,
+          "instruction": "Start from Police HQ on Ashram Road",
+          "distance": 4831,
+          "duration": 435,
+          "fromLat": 23.0225,
+          "fromLng": 72.5714,
+          "toLat": 23.0398,
+          "toLng": 72.5281,
+          "streetName": "Ashram Road",
+          "maneuver": "depart"
+        },
+        {
+          "step": 2,
+          "instruction": "Continue straight on CG Road for 2631m",
+          "distance": 2631,
+          "duration": 237,
+          "fromLat": 23.0398,
+          "fromLng": 72.5281,
+          "toLat": 23.062,
+          "toLng": 72.537,
+          "streetName": "CG Road",
+          "maneuver": "straight"
+        },
+        {
+          "step": 3,
+          "instruction": "Turn left onto SG Highway",
+          "distance": 604,
+          "duration": 54,
+          "fromLat": 23.062,
+          "fromLng": 72.537,
+          "toLat": 23.058,
+          "toLng": 72.541,
+          "streetName": "SG Highway",
+          "maneuver": "turn_left"
+        },
+        {
+          "step": 4,
+          "instruction": "Turn right onto Ring Road",
+          "distance": 8489,
+          "duration": 764,
+          "fromLat": 23.058,
+          "fromLng": 72.541,
+          "toLat": 23.032,
+          "toLng": 72.463,
+          "streetName": "Ring Road",
+          "maneuver": "turn_right"
+        },
+        {
+          "step": 5,
+          "instruction": "Arrive at Police HQ",
+          "distance": 11143,
+          "duration": 1003,
+          "fromLat": 23.032,
+          "fromLng": 72.463,
+          "toLat": 23.0225,
+          "toLng": 72.5714,
+          "streetName": "Nehru Bridge",
+          "maneuver": "arrive"
+        }
+      ],
+      "priority": "normal"
+    },
+    {
+      "routeId": "route-PCR-03-1781232620054",
+      "vehicleId": "PCR-03",
+      "waypoints": [
+        {
+          "name": "Police HQ",
+          "lat": 23.0225,
+          "lng": 72.5714
+        },
+        {
+          "name": "Vastrapur Lake",
+          "lat": 23.0398,
+          "lng": 72.5281
+        },
+        {
+          "name": "SG Highway Crossing",
+          "lat": 23.062,
+          "lng": 72.537
+        },
+        {
+          "name": "Thaltej",
+          "lat": 23.058,
+          "lng": 72.541
+        },
+        {
+          "name": "Bopal Junction",
+          "lat": 23.032,
+          "lng": 72.463
+        },
+        {
+          "name": "Police HQ",
+          "lat": 23.0225,
+          "lng": 72.5714
+        }
+      ],
+      "distanceKm": 34.2496,
+      "estimatedMins": 45.96,
+      "assignedAt": "2026-06-12T02:50:20.055Z",
+      "status": "in_progress",
+      "currentWaypointIndex": 1,
+      "constraints": [
+        "rc-001",
+        "rc-003",
+        "rc-005",
+        "rc-test-001"
+      ],
+      "turnByTurnInstructions": [
+        {
+          "step": 1,
+          "instruction": "Start from Police HQ on Ashram Road",
+          "distance": 4831,
+          "duration": 435,
+          "fromLat": 23.0225,
+          "fromLng": 72.5714,
+          "toLat": 23.0398,
+          "toLng": 72.5281,
+          "streetName": "Ashram Road",
+          "maneuver": "depart"
+        },
+        {
+          "step": 2,
+          "instruction": "Continue straight on CG Road for 2631m",
+          "distance": 2631,
+          "duration": 237,
+          "fromLat": 23.0398,
+          "fromLng": 72.5281,
+          "toLat": 23.062,
+          "toLng": 72.537,
+          "streetName": "CG Road",
+          "maneuver": "straight"
+        },
+        {
+          "step": 3,
+          "instruction": "Turn left onto SG Highway",
+          "distance": 604,
+          "duration": 54,
+          "fromLat": 23.062,
+          "fromLng": 72.537,
+          "toLat": 23.058,
+          "toLng": 72.541,
+          "streetName": "SG Highway",
+          "maneuver": "turn_left"
+        },
+        {
+          "step": 4,
+          "instruction": "Turn right onto Ring Road",
+          "distance": 8489,
+          "duration": 764,
+          "fromLat": 23.058,
+          "fromLng": 72.541,
+          "toLat": 23.032,
+          "toLng": 72.463,
+          "streetName": "Ring Road",
+          "maneuver": "turn_right"
+        },
+        {
+          "step": 5,
+          "instruction": "Arrive at Police HQ",
+          "distance": 11143,
+          "duration": 1003,
+          "fromLat": 23.032,
+          "fromLng": 72.463,
+          "toLat": 23.0225,
+          "toLng": 72.5714,
+          "streetName": "Nehru Bridge",
+          "maneuver": "arrive"
+        }
+      ],
+      "priority": "normal"
+    },
+    {
+      "routeId": "route-PCR-01-1781242947664",
+      "vehicleId": "PCR-01",
+      "waypoints": [
+        {
+          "lat": 23.0225,
+          "lng": 72.5714,
+          "name": "Police HQ"
+        },
+        {
+          "lat": 23.0398,
+          "lng": 72.5281,
+          "name": "Vastrapur"
+        },
+        {
+          "lat": 23.062,
+          "lng": 72.537,
+          "name": "SG Highway"
+        },
+        {
+          "lat": 23.0225,
+          "lng": 72.5714,
+          "name": "Police HQ"
+        }
+      ],
+      "distanceKm": 18.5,
+      "estimatedMins": 35,
+      "assignedAt": "2026-06-12T05:42:27.664Z",
+      "status": "in_progress",
+      "currentWaypointIndex": 1,
+      "constraints": [
+        "rc-001",
+        "rc-003",
+        "rc-005",
+        "rc-test-001",
+        "sim-ry-test-01"
+      ],
+      "turnByTurnInstructions": [
+        {
+          "step": 1,
+          "instruction": "Start from Police HQ on Ashram Road",
+          "distance": 4831,
+          "duration": 435,
+          "fromLat": 23.0225,
+          "fromLng": 72.5714,
+          "toLat": 23.0398,
+          "toLng": 72.5281,
+          "streetName": "Ashram Road",
+          "maneuver": "depart"
+        },
+        {
+          "step": 2,
+          "instruction": "Continue straight on CG Road for 2631m",
+          "distance": 2631,
+          "duration": 237,
+          "fromLat": 23.0398,
+          "fromLng": 72.5281,
+          "toLat": 23.062,
+          "toLng": 72.537,
+          "streetName": "CG Road",
+          "maneuver": "straight"
+        },
+        {
+          "step": 3,
+          "instruction": "Arrive at Police HQ",
+          "distance": 5629,
+          "duration": 507,
+          "fromLat": 23.062,
+          "fromLng": 72.537,
+          "toLat": 23.0225,
+          "toLng": 72.5714,
+          "streetName": "SG Highway",
+          "maneuver": "arrive"
+        }
+      ],
+      "priority": "normal"
+    },
+    {
+      "routeId": "route-PCR-02-1781244342795",
+      "vehicleId": "PCR-02",
+      "waypoints": [
+        {
+          "lat": 23.0225,
+          "lng": 72.5714,
+          "name": "HQ Base"
+        },
+        {
+          "lat": 23.0242,
+          "lng": 72.5614,
+          "name": "CG Road"
+        }
+      ],
+      "distanceKm": 4.5,
+      "estimatedMins": 12,
+      "assignedAt": "2026-06-12T06:05:42.796Z",
+      "status": "pending",
+      "currentWaypointIndex": 0,
+      "constraints": [
+        "rc-001",
+        "rc-003",
+        "rc-005",
+        "rc-test-001",
+        "sim-ry-test-01",
+        "sim-ry-001",
+        "sim-ry-002"
+      ],
+      "turnByTurnInstructions": [
+        {
+          "step": 1,
+          "instruction": "Start from HQ Base on Ashram Road",
+          "distance": 1041,
+          "duration": 94,
+          "fromLat": 23.0225,
+          "fromLng": 72.5714,
+          "toLat": 23.0242,
+          "toLng": 72.5614,
+          "streetName": "Ashram Road",
+          "maneuver": "depart"
+        }
+      ],
+      "priority": "urgent"
+    },
+    {
+      "routeId": "route-PCR-04-1781244342799",
+      "vehicleId": "PCR-04",
+      "waypoints": [
+        {
+          "lat": 23.0225,
+          "lng": 72.5714,
+          "name": "HQ Base"
+        },
+        {
+          "lat": 22.9975,
+          "lng": 72.602,
+          "name": "Maninagar"
+        }
+      ],
+      "distanceKm": 4.5,
+      "estimatedMins": 12,
+      "assignedAt": "2026-06-12T06:05:42.799Z",
+      "status": "pending",
+      "currentWaypointIndex": 0,
+      "constraints": [
+        "rc-001",
+        "rc-003",
+        "rc-005",
+        "rc-test-001",
+        "sim-ry-test-01",
+        "sim-ry-001",
+        "sim-ry-002"
+      ],
+      "turnByTurnInstructions": [
+        {
+          "step": 1,
+          "instruction": "Start from HQ Base on Ashram Road",
+          "distance": 4188,
+          "duration": 377,
+          "fromLat": 23.0225,
+          "fromLng": 72.5714,
+          "toLat": 22.9975,
+          "toLng": 72.602,
+          "streetName": "Ashram Road",
+          "maneuver": "depart"
+        }
+      ],
+      "priority": "urgent"
+    }
+  ],
+  "acknowledgments": [
+    {
+      "vehicleId": "PCR-05",
+      "routeId": "route-PCR-05-1781232378837",
+      "status": "acknowledged",
+      "acknowledgedAt": "2026-06-12T02:46:21.369Z",
+      "officerNote": ""
+    },
+    {
+      "vehicleId": "PCR-06",
+      "routeId": "route-PCR-06-1781232587201",
+      "status": "pending"
+    },
+    {
+      "vehicleId": "PCR-03",
+      "routeId": "route-PCR-03-1781232620054",
+      "status": "acknowledged",
+      "acknowledgedAt": "2026-06-12T02:50:24.894Z",
+      "officerNote": ""
+    },
+    {
+      "vehicleId": "PCR-01",
+      "routeId": "route-PCR-01-1781242947664",
+      "status": "acknowledged",
+      "acknowledgedAt": "2026-06-12T05:42:27.693Z",
+      "officerNote": "En route to first waypoint, ETA 8 minutes"
+    },
+    {
+      "vehicleId": "PCR-02",
+      "routeId": "route-PCR-02-1781244342795",
+      "status": "pending"
+    },
+    {
+      "vehicleId": "PCR-04",
+      "routeId": "route-PCR-04-1781244342799",
+      "status": "pending"
+    }
+  ]
+}

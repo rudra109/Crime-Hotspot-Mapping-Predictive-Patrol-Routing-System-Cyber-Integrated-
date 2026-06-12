@@ -43,6 +43,13 @@ class ForecastPoint(BaseModel):
 class ForecastRequest(BaseModel):
     history: List[ForecastPoint]
 
+class AdvancedForecastRequest(BaseModel):
+    history: List[ForecastPoint]
+    window: str = "hourly"
+
+class RetrainRequest(BaseModel):
+    history: List[ForecastPoint]
+
 class AnomalyRequest(BaseModel):
     history: List[ForecastPoint]
 
@@ -152,6 +159,30 @@ def forecast_incidents(req: ForecastRequest):
                 for _, row in forecast.iterrows()
             ]
         }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/v1/ml/forecast-advanced")
+def forecast_incidents_advanced(req: AdvancedForecastRequest):
+    try:
+        if not req.history:
+            return {"forecast": [], "explainability": {}, "model_version": "prophet-ensemble-v2.0"}
+
+        history = pd.DataFrame([item.model_dump() for item in req.history])
+        result = forecasting_service.forecast_advanced(history, window=req.window)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/v1/ml/retrain")
+def retrain_model(req: RetrainRequest):
+    try:
+        if not req.history:
+            return {"status": "error", "message": "History cannot be empty"}
+
+        history = pd.DataFrame([item.model_dump() for item in req.history])
+        result = forecasting_service.retrain_and_evaluate(history)
+        return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
