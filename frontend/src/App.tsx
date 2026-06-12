@@ -281,27 +281,27 @@ export default function App() {
   }
 
   return (
-    <div id="application-container" className="min-h-screen bg-[#07111f] text-slate-100 flex flex-col md:flex-row font-sans selection:bg-blue-500/30 selection:text-white">
+    <div id="application-container" className="min-h-screen bg-[#050B14] text-slate-100 flex flex-col md:flex-row font-sans selection:bg-cyan-500/30">
       
       {/* ── Sidebar ── */}
-      <aside className="w-full md:w-64 bg-[#0b1320]/90 backdrop-blur-xl border-b md:border-b-0 md:border-r border-slate-700/80 flex flex-col justify-between shrink-0 z-50 shadow-[4px_0_24px_rgba(0,0,0,0.35)]">
+      <aside className="w-full md:w-64 bg-[#0B1220] border-b md:border-b-0 md:border-r border-slate-800 flex flex-col justify-between shrink-0 z-50 shadow-xl">
         <div className="flex flex-col gap-2 p-6">
-          <div className="flex items-center gap-3 border-b border-slate-800/80 pb-6 mb-6">
-            <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-300 shadow-[0_0_15px_rgba(37,99,235,0.15)]">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-6 mb-6">
+            <div className="h-10 w-10 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center text-blue-400">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[10px] font-mono tracking-widest text-blue-300 font-bold uppercase leading-none mb-1">
+              <div className="text-[10px] font-mono tracking-widest text-slate-500 font-bold uppercase leading-none mb-1">
                 Ahmedabad Police
               </div>
-              <h2 className="text-sm font-bold tracking-tight text-white font-sans">
+              <h2 className="text-sm font-bold tracking-tight text-slate-100 font-sans">
                 COMMAND CENTER
               </h2>
             </div>
           </div>
 
           <div className="space-y-1">
-            <span className="text-[10px] uppercase font-mono text-slate-400 tracking-widest font-bold block px-3 mb-3">
+            <span className="text-[10px] uppercase font-mono text-slate-500 tracking-widest font-bold block px-3 mb-3">
               Operations Menu
             </span>
 
@@ -323,13 +323,13 @@ export default function App() {
                 <button
                   key={navItem.id}
                   onClick={() => setViewState(navItem.id as ViewState)}
-                  className={`w-full text-left px-4 py-2.5 rounded-xl flex items-center gap-3 text-sm font-medium transition-all duration-300 cursor-pointer ${
+                  className={`w-full text-left px-4 py-2.5 rounded-lg flex items-center gap-3 text-sm font-medium transition-all duration-200 cursor-pointer border-l-4 ${
                     isActive 
-                      ? 'bg-blue-500/10 border border-blue-400/30 text-blue-200 shadow-[0_0_15px_rgba(37,99,235,0.1)] translate-x-1' 
-                      : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 border border-transparent'
+                      ? 'bg-blue-500/10 border-cyan-400 text-cyan-300' 
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 border-transparent'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 transition-colors ${isActive ? "text-blue-300" : "text-slate-500"}`} />
+                  <Icon className={`w-4 h-4 transition-colors ${isActive ? "text-cyan-400" : "text-slate-500"}`} />
                   <span className={isActive ? "font-bold tracking-wide" : ""}>{navItem.label}</span>
                 </button>
               );
@@ -337,7 +337,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="p-6 border-t border-slate-700/80 bg-[#0b1320]/35 flex flex-col gap-4">
+        <div className="p-6 border-t border-slate-800 bg-[#0B1220] flex flex-col gap-4">
           <div className="flex items-center justify-between text-xs font-mono">
             <span className="text-slate-500">SEC:</span>
             <span className="text-slate-300 font-bold tracking-wider">GUJ-POLICE-2026</span>
@@ -345,7 +345,7 @@ export default function App() {
 
           <button
             onClick={handleResetStorage}
-            className="w-full text-left px-4 py-2.5 text-amber-300 hover:text-amber-200 hover:bg-amber-500/10 border border-transparent hover:border-amber-500/20 rounded-xl flex items-center gap-3 text-sm font-medium cursor-pointer transition-all duration-200"
+            className="w-full text-left px-4 py-2.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/30 flex items-center gap-3 text-sm font-medium cursor-pointer transition-all duration-200"
           >
             <LogOut className="w-4 h-4" />
             <span>Reset Session</span>
@@ -355,19 +355,17 @@ export default function App() {
 
       {/* ── Main Stage ── */}
       <main className="flex-1 flex flex-col max-w-full overflow-hidden relative">
-        {/* Subtle background glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-900/20 blur-[120px] rounded-full pointer-events-none" />
 
-        <header className="px-8 py-5 border-b border-slate-700/80 bg-[#07111f]/90 backdrop-blur-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 z-40 sticky top-0 shadow-[0_4px_30px_rgba(0,0,0,0.35)]">
+        <header className="px-8 py-5 border-b border-slate-800 bg-[#050B14] flex flex-col md:flex-row justify-between items-start md:items-center gap-4 z-40 sticky top-0 shadow-sm">
           <div className="flex items-center gap-4">
             <div className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
             </div>
             <div>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-blue-300/80 block mb-0.5 font-bold">Command Link Status</span>
+              <span className="text-[10px] uppercase font-mono tracking-widest text-cyan-500/60 block mb-0.5 font-bold">Command Link Status</span>
               <h1 className="text-xs font-mono text-slate-300 flex items-center gap-2">
-                AHMEDABAD POLICE ACTIVE <span className="opacity-40">|</span> PORT <b className="text-white">3000</b>
+                AHMEDABAD POLICE ACTIVE <span className="opacity-40">|</span> PORT <b className="text-cyan-400">3000</b>
               </h1>
             </div>
           </div>
@@ -382,19 +380,19 @@ export default function App() {
               unitsCount={units.length}
             />
 
-            <div id="perspective-selector" className="flex items-center bg-[#0b1320]/70 border border-slate-700/80 p-1 rounded-xl text-xs font-medium shadow-inner backdrop-blur-md">
+            <div id="perspective-selector" className="flex items-center bg-[#0B1220] border border-slate-800 p-1 rounded-lg text-xs font-medium flex-row">
               <button
                 onClick={() => setViewState("OPERATIONS")}
-                className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
-                  viewState !== 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
+                className={`px-4 py-2 rounded-md transition-all duration-200 uppercase tracking-widest font-bold text-[10px] ${
+                  viewState !== 'MOBILE_OFFICER' ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-[0_0_15px_rgba(0,229,255,0.15)]' : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
                 }`}
               >
                 Command View
               </button>
               <button
                 onClick={() => setViewState("MOBILE_OFFICER")}
-                className={`px-4 py-2 rounded-lg transition-all duration-300 uppercase tracking-widest font-bold text-[10px] ${
-                  viewState === 'MOBILE_OFFICER' ? 'bg-gradient-to-r from-blue-600 to-blue-400 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
+                className={`px-4 py-2 rounded-md transition-all duration-200 uppercase tracking-widest font-bold text-[10px] ${
+                  viewState === 'MOBILE_OFFICER' ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-[0_0_15px_rgba(0,229,255,0.15)]' : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
                 }`}
               >
                 Field Officer View

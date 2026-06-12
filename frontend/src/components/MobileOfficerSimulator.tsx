@@ -77,6 +77,9 @@ export default function MobileOfficerSimulator({
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
+  const mapLayersRef = useRef<any[]>([]);
+  const startMarkerRef = useRef<any>(null);
+  const currentMarkerRef = useRef<any>(null);
   const [mapReady, setMapReady] = useState(false);
 
   useEffect(() => {
@@ -84,7 +87,7 @@ export default function MobileOfficerSimulator({
     let attempts = 0;
     const vehicleId = "PCR-01"; // Simulated mobile officer ID
     
-    const tryInit = async () => {
+    const tryInit = () => {
       const L = (window as any).L;
       if (!L) {
         if (attempts++ < 30) setTimeout(tryInit, 150);
@@ -106,63 +109,6 @@ export default function MobileOfficerSimulator({
         maxZoom: 19,
       }).addTo(map);
 
-      // Fetch live data
-      try {
-        const [routeData, positions] = await Promise.all([
-          fetchVehicleRoute(vehicleId),
-          fetchVehiclePositions()
-        ]);
-        
-        let startPoint: [number, number] = [23.0460, 72.5200];
-        let currentPoint: [number, number] = [23.0388, 72.5281];
-        
-        const pos = positions.find((p: any) => p.vehicleId === vehicleId);
-        if (pos) currentPoint = [pos.lat, pos.lng];
-
-        if (routeData && routeData.waypoints && routeData.waypoints.length > 0) {
-            startPoint = [routeData.waypoints[0].lat, routeData.waypoints[0].lng];
-            
-            // Generate polyline
-            const wpCoords = routeData.waypoints.map((w: any) => `${w.lng},${w.lat}`).join(';');
-            const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${wpCoords}?overview=full&geometries=geojson`;
-            const res = await fetch(osrmUrl);
-            const data = await res.json();
-            
-            if (data.code === "Ok" && data.routes?.length > 0) {
-              const geometry = data.routes[0].geometry.coordinates.map((c: any) => [c[1], c[0]]);
-              L.polyline(geometry, {
-                color: '#10b981',
-                weight: 2,
-                dashArray: '5, 5',
-                opacity: 0.9
-              }).addTo(map);
-            }
-        }
-
-        // Add markers
-        L.marker(startPoint, {
-          icon: L.divIcon({
-            className: '',
-            html: `<div style="display:flex;flex-direction:column;align-items:center;"><div style="width:8px;height:8px;background:#10b981;border-radius:50%"></div><span style="font-size:8px;color:#94a3b8;font-family:ui-monospace,monospace;margin-top:2px;">Start</span></div>`,
-            iconSize: [20, 20],
-            iconAnchor: [10, 4]
-          })
-        }).addTo(map);
-
-        L.marker(currentPoint, {
-          icon: L.divIcon({
-            className: '',
-            html: `<div style="display:flex;flex-direction:column;align-items:center;"><div style="width:10px;height:10px;background:#2dd4bf;border-radius:50%;box-shadow:0 0 10px #2dd4bf, inset 0 0 4px rgba(0,0,0,0.5);"></div><span style="font-size:8px;color:#fff;font-family:ui-monospace,monospace;font-weight:bold;margin-top:2px;">Current</span></div>`,
-            iconSize: [30, 20],
-            iconAnchor: [15, 5]
-          })
-        }).addTo(map);
-
-        map.setView(currentPoint, 13);
-      } catch (e) {
-        console.error("Error drawing live mobile route", e);
-      }
-
       setMapReady(true);
       setTimeout(() => map.invalidateSize(), 200);
     };
@@ -177,6 +123,88 @@ export default function MobileOfficerSimulator({
       }
     };
   }, [activeTab]);
+
+  useEffect(() => {
+    if (!mapReady || activeTab !== "MAP") return;
+    const L = (window as any).L;
+    const vehicleId = "PCR-01";
+
+    const fetchMapData = async () => {
+      if (!mapRef.current) return;
+      try {
+        const [routeData, positions] = await Promise.all([
+          fetchVehicleRoute(vehicleId),
+          fetchVehiclePositions()
+        ]);
+        
+        let startPoint: [number, number] = [23.0460, 72.5200];
+        let currentPoint: [number, number] = [23.0388, 72.5281];
+        
+        const pos = positions.find((p: any) => p.vehicleId === vehicleId);
+        if (pos) currentPoint = [pos.lat, pos.lng];
+
+        // Clear old polylines
+        mapLayersRef.current.forEach(layer => { try { mapRef.current.removeLayer(layer); } catch {} });
+        mapLayersRef.current = [];
+
+        if (routeData && routeData.waypoints && routeData.waypoints.length > 0) {
+            startPoint = [routeData.waypoints[0].lat, routeData.waypoints[0].lng];
+            
+            // Generate polyline
+            const wpCoords = routeData.waypoints.map((w: any) => `${w.lng},${w.lat}`).join(';');
+            const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${wpCoords}?overview=full&geometries=geojson`;
+            const res = await fetch(osrmUrl);
+            const data = await res.json();
+            
+            if (data.code === "Ok" && data.routes?.length > 0) {
+              const geometry = data.routes[0].geometry.coordinates.map((c: any) => [c[1], c[0]]);
+              const polyline = L.polyline(geometry, {
+                color: '#10b981',
+                weight: 2,
+                dashArray: '5, 5',
+                opacity: 0.9
+              }).addTo(mapRef.current);
+              mapLayersRef.current.push(polyline);
+            }
+        }
+
+        // Add or update markers
+        if (!startMarkerRef.current) {
+          startMarkerRef.current = L.marker(startPoint, {
+            icon: L.divIcon({
+              className: '',
+              html: `<div style="display:flex;flex-direction:column;align-items:center;"><div style="width:8px;height:8px;background:#10b981;border-radius:50%"></div><span style="font-size:8px;color:#94a3b8;font-family:ui-monospace,monospace;margin-top:2px;">Start</span></div>`,
+              iconSize: [20, 20],
+              iconAnchor: [10, 4]
+            })
+          }).addTo(mapRef.current);
+        } else {
+          startMarkerRef.current.setLatLng(startPoint);
+        }
+
+        if (!currentMarkerRef.current) {
+          currentMarkerRef.current = L.marker(currentPoint, {
+            icon: L.divIcon({
+              className: '',
+              html: `<div style="display:flex;flex-direction:column;align-items:center;"><div style="width:10px;height:10px;background:#2dd4bf;border-radius:50%;box-shadow:0 0 10px #2dd4bf, inset 0 0 4px rgba(0,0,0,0.5);"></div><span style="font-size:8px;color:#fff;font-family:ui-monospace,monospace;font-weight:bold;margin-top:2px;">Current</span></div>`,
+              iconSize: [30, 20],
+              iconAnchor: [15, 5]
+            })
+          }).addTo(mapRef.current);
+          mapRef.current.setView(currentPoint, 13);
+        } else {
+          currentMarkerRef.current.setLatLng(currentPoint);
+        }
+
+      } catch (e) {
+        console.error("Error drawing live mobile route", e);
+      }
+    };
+
+    fetchMapData();
+    const interval = setInterval(fetchMapData, 5000);
+    return () => clearInterval(interval);
+  }, [mapReady, activeTab]);
 
   // Load offline queue initially from LocalStorage
   useEffect(() => {

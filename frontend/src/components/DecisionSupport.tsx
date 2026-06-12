@@ -313,7 +313,7 @@ export default function DecisionSupport({
             <div>
               <span className="text-[10px] font-mono text-slate-400 uppercase block mb-2 font-bold">Sector Incident Spikes</span>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {Object.entries(simResult.sectorMultipliers).map(([sector, val]: any) => (
+                {Object.entries(simResult.sectorMultipliers || {}).map(([sector, val]: any) => (
                   <div key={sector} className="flex justify-between items-center bg-[#131B2E] border border-slate-800 p-3 rounded-xl">
                     <span className="text-xs text-slate-300 flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-slate-500" />
