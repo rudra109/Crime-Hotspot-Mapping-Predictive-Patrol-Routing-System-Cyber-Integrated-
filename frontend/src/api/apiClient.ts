@@ -135,7 +135,7 @@ export class WebSocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io(SOCKET_URL);
+    this.socket = io(SOCKET_URL, { path: '/ws', transports: ['websocket'] });
   }
 
   public onNewCrime(callback: (crime: any) => void) {

@@ -1,5 +1,18 @@
 [
   {
+    "id": "ALT-1781245459837",
+    "type": "Warning",
+    "message": "[Smart City Camera #CAM-TRAF-28] Violation: SPEEDING (125 km/h) detected in Thaltej.",
+    "sector": "Thaltej",
+    "status": "Pending",
+    "incidentId": null,
+    "timestamp": "2026-06-12T06:24:19.837Z",
+    "escalationLevel": 1,
+    "routeCategory": "general_dispatch",
+    "source": "local",
+    "history": "[{\"event\":\"Alert Triggered\",\"timestamp\":\"2026-06-12T06:24:19.837Z\",\"details\":\"Alert created via LOCAL. Operational route assigned: GENERAL_DISPATCH.\"}]"
+  },
+  {
     "id": "ALT-1781244388666",
     "type": "Warning",
     "message": "[AI PREDICTIVE WARNING] Early detection model forecasts a severe crime surge in Vastrapur sector within next 24 hours. Pre-position PCR assets to deter hotspots.",

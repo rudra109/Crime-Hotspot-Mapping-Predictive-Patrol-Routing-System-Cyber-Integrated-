@@ -1,5 +1,4 @@
-import app from './app';
-import { createServer } from 'http';
+import { app, server as httpServer } from './app';
 import { Server } from 'socket.io';
 import dotenv from 'dotenv';
 import { AppDataSource } from './config/database';
@@ -8,7 +7,6 @@ import { setRealtimeServer } from './services/realtime';
 dotenv.config();
 
 const port = process.env.PORT || 8001;
-const httpServer = createServer(app);
 
 // Initialize Socket.IO
 const io = new Server(httpServer, {

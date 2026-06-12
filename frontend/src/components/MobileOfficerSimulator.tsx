@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   MapPin,
   Radio,
@@ -24,6 +24,7 @@ import {
   CloudOff
 } from "lucide-react";
 import { Incident, Alert, MobileTab } from "../types";
+import { fetchVehicleRoute, fetchVehiclePositions } from "../api/apiClient";
 
 interface MobileOfficerSimulatorProps {
   onAddIncident: (incident: Incident) => void;
@@ -73,6 +74,109 @@ export default function MobileOfficerSimulator({
   ]);
   const [newFileName, setNewFileName] = useState("");
   const [recentSubmitMessage, setRecentSubmitMessage] = useState<string | null>(null);
+
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<any>(null);
+  const [mapReady, setMapReady] = useState(false);
+
+  useEffect(() => {
+    if (activeTab !== "MAP") return;
+    let attempts = 0;
+    const vehicleId = "PCR-01"; // Simulated mobile officer ID
+    
+    const tryInit = async () => {
+      const L = (window as any).L;
+      if (!L) {
+        if (attempts++ < 30) setTimeout(tryInit, 150);
+        return;
+      }
+      if (!mapContainerRef.current || mapRef.current) return;
+
+      const map = L.map(mapContainerRef.current, {
+        zoomControl: false,
+        attributionControl: false,
+        dragging: true,
+        touchZoom: true,
+        doubleClickZoom: false,
+        scrollWheelZoom: false
+      });
+      mapRef.current = map;
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+      }).addTo(map);
+
+      // Fetch live data
+      try {
+        const [routeData, positions] = await Promise.all([
+          fetchVehicleRoute(vehicleId),
+          fetchVehiclePositions()
+        ]);
+        
+        let startPoint: [number, number] = [23.0460, 72.5200];
+        let currentPoint: [number, number] = [23.0388, 72.5281];
+        
+        const pos = positions.find((p: any) => p.vehicleId === vehicleId);
+        if (pos) currentPoint = [pos.lat, pos.lng];
+
+        if (routeData && routeData.waypoints && routeData.waypoints.length > 0) {
+            startPoint = [routeData.waypoints[0].lat, routeData.waypoints[0].lng];
+            
+            // Generate polyline
+            const wpCoords = routeData.waypoints.map((w: any) => `${w.lng},${w.lat}`).join(';');
+            const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${wpCoords}?overview=full&geometries=geojson`;
+            const res = await fetch(osrmUrl);
+            const data = await res.json();
+            
+            if (data.code === "Ok" && data.routes?.length > 0) {
+              const geometry = data.routes[0].geometry.coordinates.map((c: any) => [c[1], c[0]]);
+              L.polyline(geometry, {
+                color: '#10b981',
+                weight: 2,
+                dashArray: '5, 5',
+                opacity: 0.9
+              }).addTo(map);
+            }
+        }
+
+        // Add markers
+        L.marker(startPoint, {
+          icon: L.divIcon({
+            className: '',
+            html: `<div style="display:flex;flex-direction:column;align-items:center;"><div style="width:8px;height:8px;background:#10b981;border-radius:50%"></div><span style="font-size:8px;color:#94a3b8;font-family:ui-monospace,monospace;margin-top:2px;">Start</span></div>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 4]
+          })
+        }).addTo(map);
+
+        L.marker(currentPoint, {
+          icon: L.divIcon({
+            className: '',
+            html: `<div style="display:flex;flex-direction:column;align-items:center;"><div style="width:10px;height:10px;background:#2dd4bf;border-radius:50%;box-shadow:0 0 10px #2dd4bf, inset 0 0 4px rgba(0,0,0,0.5);"></div><span style="font-size:8px;color:#fff;font-family:ui-monospace,monospace;font-weight:bold;margin-top:2px;">Current</span></div>`,
+            iconSize: [30, 20],
+            iconAnchor: [15, 5]
+          })
+        }).addTo(map);
+
+        map.setView(currentPoint, 13);
+      } catch (e) {
+        console.error("Error drawing live mobile route", e);
+      }
+
+      setMapReady(true);
+      setTimeout(() => map.invalidateSize(), 200);
+    };
+
+    tryInit();
+
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+        setMapReady(false);
+      }
+    };
+  }, [activeTab]);
 
   // Load offline queue initially from LocalStorage
   useEffect(() => {
@@ -379,19 +483,16 @@ export default function MobileOfficerSimulator({
                   </span>
                 </div>
 
-                <div className="h-28 bg-[#050B14] rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-850">
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#0c111d_1px,transparent_1px),linear-gradient(to_bottom,#0c111d_1px,transparent_1px)] bg-[size:15px_15px] opacity-70"></div>
-                  <div className="absolute top-[20%] left-[25%] flex flex-col items-center">
-                    <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-                    <span className="text-[7px] font-mono text-slate-500">Start</span>
-                  </div>
-                  <div className="absolute bottom-[35%] left-[55%] flex flex-col items-center">
-                    <div className="w-2 h-2 bg-teal-400 rounded-full animate-ping"></div>
-                    <span className="text-[7px] font-mono text-white font-bold">Current</span>
-                  </div>
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <line x1="25" y1="20" x2="55" y2="65" stroke="#10b981" strokeWidth="1" strokeDasharray="1,1" />
-                  </svg>
+                <div 
+                  ref={mapContainerRef} 
+                  className="h-32 rounded-2xl relative overflow-hidden border border-slate-850 z-0" 
+                  style={{ backgroundColor: '#050B14' }}
+                >
+                  {!mapReady && (
+                    <div className="absolute inset-0 flex items-center justify-center text-teal-400 font-mono text-[9px] z-10">
+                      Loading Tactical Map...
+                    </div>
+                  )}
                 </div>
 
                 <div className="bg-[#050B14] p-3 border border-slate-850 rounded-2xl text-[10px] font-mono">

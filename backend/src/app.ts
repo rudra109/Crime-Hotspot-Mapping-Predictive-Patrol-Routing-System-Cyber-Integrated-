@@ -1,8 +1,10 @@
 import express from 'express';
+import http from 'http';
 import cors from 'cors';
 import crimeRoutes from './api/routes/crimeRoutes';
 import statsRoutes from './api/routes/statsRoutes';
 import routingRoutes from './api/routes/routingRoutes';
+import { startScheduler } from './services/ingestion/scheduler';
 import auditRoutes from './api/routes/auditRoutes';
 import analyticsRoutes from './api/routes/analyticsRoutes';
 import connectorRoutes from './api/routes/connectorRoutes';
@@ -17,6 +19,7 @@ import smartCityRoutes from './api/routes/smartCityRoutes';
 import { accessAuditor } from './api/middleware/auth-middleware';
 
 const app = express();
+const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
@@ -48,4 +51,11 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-export default app;
+// Initialize realtime sockets lazily when server starts
+import { initSocket } from './realtime/socket';
+
+initSocket(server);
+// start ingestion scheduler
+startScheduler();
+
+export { app, server };

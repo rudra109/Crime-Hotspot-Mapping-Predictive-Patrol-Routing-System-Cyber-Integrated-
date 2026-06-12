@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { CryptoHelper } from '../../config/crypto-helper';
 import { auditService } from '../../services/audit-service';
+import { AuditLog } from '../../models/audit.model';
 
 // Extend express Request interface to support user context
 declare global {
@@ -69,17 +70,23 @@ export const accessAuditor = (req: Request, res: Response, next: NextFunction) =
       return;
     }
 
-    auditService.record({
-      userId: badge,
-      action: 'API_REQUEST',
-      resource: `${req.method} ${req.originalUrl}`,
-      status: res.statusCode >= 400 ? 'failed' : 'success',
-      changes: {
-        ip: req.ip || req.socket.remoteAddress,
-        statusCode: res.statusCode,
-        responseTimeMs: duration
-      }
-    });
+    const user = (req as any).user || { id: 'anonymous' };
+    const log = new AuditLog();
+    log.user_id = String(user.id || 'anonymous');
+    log.action = `${req.method} ${req.path}`;
+    log.resource = req.originalUrl;
+    log.changes = { ip: req.ip, headers: req.headers };
+    try {
+      (async () => {
+        const { AppDataSource } = await import('../../config/database');
+        if (AppDataSource.isInitialized) {
+          const repo = AppDataSource.getRepository(AuditLog);
+          await repo.save(log);
+        }
+      })();
+    } catch (e) {
+      // ignore in dev
+    }
   });
   next();
 };
