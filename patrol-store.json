@@ -1,46 +1,46 @@
 {
   "vehicles": [
     {
-      "lat": 23.05685224017584,
-      "lng": 72.55353934226525,
-      "speed": 33,
-      "heading": 47,
-      "accuracy": 4.6279441318194205,
+      "lat": 23.072744864608424,
+      "lng": 72.5589440864315,
+      "speed": 15,
+      "heading": 2,
+      "accuracy": 3,
       "status": "en_route",
       "batteryLevel": 88,
       "vehicleId": "PCR-01",
-      "timestamp": "2026-06-12T10:54:24.731Z"
+      "timestamp": "2026-06-13T06:03:44.613Z"
     },
     {
       "vehicleId": "PCR-02",
-      "lat": 22.957280316570923,
-      "lng": 72.6987723506448,
-      "speed": 26,
-      "heading": 85,
-      "timestamp": "2026-06-12T10:54:24.731Z",
-      "accuracy": 18.668660401855323,
+      "lat": 22.965579041619325,
+      "lng": 72.7228819541056,
+      "speed": 31,
+      "heading": 16,
+      "timestamp": "2026-06-13T06:03:44.613Z",
+      "accuracy": 16.40662591956733,
       "status": "en_route",
       "batteryLevel": 78
     },
     {
       "vehicleId": "PCR-03",
       "lat": 22.95,
-      "lng": 72.68070308333253,
-      "speed": 47,
-      "heading": 177,
-      "timestamp": "2026-06-12T10:54:24.731Z",
-      "accuracy": 19.091023646910717,
+      "lng": 72.68876125732777,
+      "speed": 42,
+      "heading": 190,
+      "timestamp": "2026-06-13T06:03:44.613Z",
+      "accuracy": 16.68675927989196,
       "status": "on_scene",
       "batteryLevel": 65
     },
     {
       "vehicleId": "PCR-04",
-      "lat": 23.07931585181682,
+      "lat": 23.101386793451976,
       "lng": 72.75,
-      "speed": 36,
-      "heading": 41,
-      "timestamp": "2026-06-12T10:54:24.731Z",
-      "accuracy": 9.793303274636237,
+      "speed": 54,
+      "heading": 53,
+      "timestamp": "2026-06-13T06:03:44.613Z",
+      "accuracy": 17.56406581439665,
       "status": "en_route",
       "batteryLevel": 88
     },
@@ -50,7 +50,7 @@
       "lng": 72.602,
       "speed": 0,
       "heading": 0,
-      "timestamp": "2026-06-12T10:54:24.731Z",
+      "timestamp": "2026-06-13T06:03:44.613Z",
       "accuracy": 6,
       "status": "idle",
       "batteryLevel": 55
@@ -60,8 +60,8 @@
       "lat": 23.062,
       "lng": 72.537,
       "speed": 42,
-      "heading": 183.1751777054983,
-      "timestamp": "2026-06-12T10:54:24.731Z",
+      "heading": 283.3375945995712,
+      "timestamp": "2026-06-13T06:03:44.613Z",
       "accuracy": 7,
       "status": "en_route",
       "batteryLevel": 97
@@ -494,41 +494,68 @@
       "priority": "normal"
     },
     {
-      "routeId": "route-PCR-01-1781242947664",
+      "routeId": "route-PCR-01-1781330288538",
       "vehicleId": "PCR-01",
       "waypoints": [
         {
+          "name": "Police HQ",
           "lat": 23.0225,
-          "lng": 72.5714,
-          "name": "Police HQ"
+          "lng": 72.5714
         },
         {
+          "name": "Vastrapur Lake",
           "lat": 23.0398,
-          "lng": 72.5281,
-          "name": "Vastrapur"
+          "lng": 72.5281
         },
         {
+          "name": "SG Highway",
           "lat": 23.062,
-          "lng": 72.537,
-          "name": "SG Highway"
+          "lng": 72.537
         },
         {
+          "name": "Naranpura",
+          "lat": 23.0522,
+          "lng": 72.5678
+        },
+        {
+          "name": "Chandkheda",
+          "lat": 23.1035,
+          "lng": 72.586
+        },
+        {
+          "name": "Bapunagar",
+          "lat": 23.035,
+          "lng": 72.62
+        },
+        {
+          "name": "Maninagar",
+          "lat": 22.9975,
+          "lng": 72.602
+        },
+        {
+          "name": "Bopal Junction",
+          "lat": 23.032,
+          "lng": 72.463
+        },
+        {
+          "name": "Police HQ",
           "lat": 23.0225,
-          "lng": 72.5714,
-          "name": "Police HQ"
+          "lng": 72.5714
         }
       ],
-      "distanceKm": 18.5,
-      "estimatedMins": 35,
-      "assignedAt": "2026-06-12T05:42:27.664Z",
-      "status": "in_progress",
-      "currentWaypointIndex": 1,
+      "distanceKm": 71.7735,
+      "estimatedMins": 86.91666666666667,
+      "assignedAt": "2026-06-13T05:58:08.545Z",
+      "status": "acknowledged",
+      "currentWaypointIndex": 0,
       "constraints": [
         "rc-001",
         "rc-003",
         "rc-005",
         "rc-test-001",
-        "sim-ry-test-01"
+        "sim-ry-test-01",
+        "sim-ry-001",
+        "sim-ry-002"
       ],
       "turnByTurnInstructions": [
         {
@@ -557,21 +584,81 @@
         },
         {
           "step": 3,
-          "instruction": "Arrive at Police HQ",
-          "distance": 5629,
-          "duration": 507,
+          "instruction": "Turn left onto SG Highway",
+          "distance": 3334,
+          "duration": 300,
           "fromLat": 23.062,
           "fromLng": 72.537,
+          "toLat": 23.0522,
+          "toLng": 72.5678,
+          "streetName": "SG Highway",
+          "maneuver": "turn_left"
+        },
+        {
+          "step": 4,
+          "instruction": "Turn right onto Ring Road",
+          "distance": 6000,
+          "duration": 540,
+          "fromLat": 23.0522,
+          "fromLng": 72.5678,
+          "toLat": 23.1035,
+          "toLng": 72.586,
+          "streetName": "Ring Road",
+          "maneuver": "turn_right"
+        },
+        {
+          "step": 5,
+          "instruction": "Continue straight on Nehru Bridge for 8373m",
+          "distance": 8373,
+          "duration": 754,
+          "fromLat": 23.1035,
+          "fromLng": 72.586,
+          "toLat": 23.035,
+          "toLng": 72.62,
+          "streetName": "Nehru Bridge",
+          "maneuver": "straight"
+        },
+        {
+          "step": 6,
+          "instruction": "Continue straight on Naroda Road for 4559m",
+          "distance": 4559,
+          "duration": 410,
+          "fromLat": 23.035,
+          "fromLng": 72.62,
+          "toLat": 22.9975,
+          "toLng": 72.602,
+          "streetName": "Naroda Road",
+          "maneuver": "straight"
+        },
+        {
+          "step": 7,
+          "instruction": "Continue straight on Sardar Patel Ring Road for 14734m",
+          "distance": 14734,
+          "duration": 1326,
+          "fromLat": 22.9975,
+          "fromLng": 72.602,
+          "toLat": 23.032,
+          "toLng": 72.463,
+          "streetName": "Sardar Patel Ring Road",
+          "maneuver": "straight"
+        },
+        {
+          "step": 8,
+          "instruction": "Arrive at Police HQ",
+          "distance": 11143,
+          "duration": 1003,
+          "fromLat": 23.032,
+          "fromLng": 72.463,
           "toLat": 23.0225,
           "toLng": 72.5714,
-          "streetName": "SG Highway",
+          "streetName": "Sindhu Bhavan Road",
           "maneuver": "arrive"
         }
       ],
       "priority": "normal"
     },
     {
-      "routeId": "route-PCR-02-1781244342795",
+      "routeId": "route-PCR-02-1781330593500",
       "vehicleId": "PCR-02",
       "waypoints": [
         {
@@ -587,7 +674,7 @@
       ],
       "distanceKm": 4.5,
       "estimatedMins": 12,
-      "assignedAt": "2026-06-12T06:05:42.796Z",
+      "assignedAt": "2026-06-13T06:03:13.500Z",
       "status": "pending",
       "currentWaypointIndex": 0,
       "constraints": [
@@ -616,7 +703,7 @@
       "priority": "urgent"
     },
     {
-      "routeId": "route-PCR-04-1781244342799",
+      "routeId": "route-PCR-04-1781330593528",
       "vehicleId": "PCR-04",
       "waypoints": [
         {
@@ -632,7 +719,7 @@
       ],
       "distanceKm": 4.5,
       "estimatedMins": 12,
-      "assignedAt": "2026-06-12T06:05:42.799Z",
+      "assignedAt": "2026-06-13T06:03:13.528Z",
       "status": "pending",
       "currentWaypointIndex": 0,
       "constraints": [
@@ -683,19 +770,19 @@
     },
     {
       "vehicleId": "PCR-01",
-      "routeId": "route-PCR-01-1781242947664",
+      "routeId": "route-PCR-01-1781330288538",
       "status": "acknowledged",
-      "acknowledgedAt": "2026-06-12T05:42:27.693Z",
-      "officerNote": "En route to first waypoint, ETA 8 minutes"
+      "acknowledgedAt": "2026-06-13T05:58:18.899Z",
+      "officerNote": ""
     },
     {
       "vehicleId": "PCR-02",
-      "routeId": "route-PCR-02-1781244342795",
+      "routeId": "route-PCR-02-1781330593500",
       "status": "pending"
     },
     {
       "vehicleId": "PCR-04",
-      "routeId": "route-PCR-04-1781244342799",
+      "routeId": "route-PCR-04-1781330593528",
       "status": "pending"
     }
   ]

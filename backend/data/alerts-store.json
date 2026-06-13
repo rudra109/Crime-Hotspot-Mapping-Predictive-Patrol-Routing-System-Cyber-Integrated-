@@ -1,5 +1,18 @@
 [
   {
+    "id": "ALT-1781330593487",
+    "type": "Critical",
+    "message": "[DECISION CENTER] Tactical plan deployed for \"Jagannath Ratha Yatra Procession\". 2 safety road constraints activated. Please coordinate PCR unit coverage zones.",
+    "sector": "Maninagar",
+    "status": "Pending",
+    "incidentId": null,
+    "timestamp": "2026-06-13T06:03:13.487Z",
+    "escalationLevel": 1,
+    "routeCategory": "general_dispatch",
+    "source": "local",
+    "history": "[{\"event\":\"Alert Triggered\",\"timestamp\":\"2026-06-13T06:03:13.487Z\",\"details\":\"Alert created via LOCAL. Operational route assigned: GENERAL_DISPATCH.\"}]"
+  },
+  {
     "id": "ALT-1781245459837",
     "type": "Warning",
     "message": "[Smart City Camera #CAM-TRAF-28] Violation: SPEEDING (125 km/h) detected in Thaltej.",

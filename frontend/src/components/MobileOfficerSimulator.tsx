@@ -561,6 +561,14 @@ export default function MobileOfficerSimulator({
                         <span className="text-slate-500 text-[9px]">{alert.time}</span>
                       </div>
                       <p className="leading-relaxed font-sans text-xs text-slate-200">{alert.message}</p>
+                      <div className="mt-3 flex justify-between items-center pt-2 border-t border-slate-800/50">
+                        <span className="text-slate-400 text-[10px]">Sector: <b className="text-slate-200">{alert.sector || "Unknown"}</b></span>
+                        {alert.status === 'Dispatched' && (
+                          <span className="flex items-center gap-1 text-[#00FFA3] text-[10px] font-bold">
+                            <CheckCircle2 className="w-3.5 h-3.5" /> DISPATCHED
+                          </span>
+                        )}
+                      </div>
                     </div>
                   );
                 })}

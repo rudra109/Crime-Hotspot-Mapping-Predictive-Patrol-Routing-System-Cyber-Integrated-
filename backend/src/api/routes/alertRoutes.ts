@@ -50,6 +50,7 @@ router.post('/:id/escalate', (req, res) => {
   const idx = alerts.findIndex((a: any) => a.id === id);
   if (idx === -1) return res.status(404).json({ message: 'Not found' });
   alerts[idx].status = 'Escalated';
+  alerts[idx].escalationLevel = level;
   alerts[idx].escalation = { level, reason, at: new Date().toISOString() };
   writeStore(alerts);
   broadcastEvent('alert:update', alerts[idx]);

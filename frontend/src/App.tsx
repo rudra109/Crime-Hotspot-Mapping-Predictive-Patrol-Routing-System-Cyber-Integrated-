@@ -101,14 +101,14 @@ export default function App() {
       return inc;
     }));
 
-    // Record an audit log
+    // Record an audit log and push to field units
     const updatedAlert: Alert = {
       id: `ALT-DISP-${Date.now()}`,
-      type: "Info",
-      time: "Immediate UTC",
-      message: `DISPATCH RESOLVED: Roster assigned ${units.find(u => u.id === unitId)?.name || 'Support'} to ${targetIncident.category} emergency.`,
-      sector: targetIncident.location.split(" ")[0],
-      status: "Acknowledged"
+      type: targetIncident.threatIndex >= 80 ? "Critical" : "Warning",
+      time: new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }) + " IST",
+      message: `${targetIncident.category} - ${targetIncident.description || "Incident reported"}. QRT Deployed.`,
+      sector: targetIncident.location.split(" ")[0].replace(/[^a-zA-Z]/g, ''),
+      status: "Dispatched"
     };
     setAlerts(prev => [...prev, updatedAlert]);
   };
@@ -121,28 +121,47 @@ export default function App() {
     setAlerts(prev => [...prev, newAlert]);
   };
 
-  const handleAckAlert = async (alertId: string) => {
+  const handleAckAlert = async (alertId: string, payload?: any) => {
     try {
-      await acknowledgeAlert(alertId, {
+      await acknowledgeAlert(alertId, payload || {
         operatorId: "OP-DASHBOARD",
         operatorName: "Duty Dispatcher",
         notes: "Acknowledged via main Command Dashboard."
       });
-      setAlerts(prev => prev.map(alert => {
-        if (alert.id === alertId) {
-          return {
-            ...alert,
-            status: "Acknowledged",
-            operatorId: "OP-DASHBOARD",
-            operatorName: "Duty Dispatcher",
-            acknowledgedAt: new Date().toISOString()
-          } as any;
-        }
-        return alert;
-      }));
     } catch (err) {
-      console.error("Failed to acknowledge alert in App:", err);
+      console.error("Failed to acknowledge alert in API, applying locally:", err);
     }
+    
+    setAlerts(prev => prev.map(alert => {
+      if (alert.id === alertId) {
+        return {
+          ...alert,
+          status: "Acknowledged",
+          operatorId: payload?.operatorId || "OP-DASHBOARD",
+          operatorName: payload?.operatorName || "Duty Dispatcher",
+          acknowledgedAt: new Date().toISOString()
+        } as any;
+      }
+      return alert;
+    }));
+  };
+
+  const handleEscalateAlert = async (alertId: string, level: number, reason?: string) => {
+    try {
+      await escalateAlert(alertId, {
+        level,
+        reason: reason || "Escalated via Command Dashboard"
+      });
+    } catch (err) {
+      console.error("Failed to escalate alert in API, applying locally:", err);
+    }
+    
+    setAlerts(prev => prev.map(alert => {
+      if (alert.id === alertId) {
+        return { ...alert, status: "Escalated", escalationLevel: level } as any;
+      }
+      return alert;
+    }));
   };
 
   const handleDispatchAlertUnit = (alertId: string, sector: string) => {
@@ -412,6 +431,7 @@ export default function App() {
                 onDispatchUnit={handleDispatchUnit}
                 onAddIncident={handleAddIncident}
                 onAckAlert={handleAckAlert}
+                onEscalateAlert={handleEscalateAlert}
                 onSimulateAlarm={handleSimulateAlarm}
               />
             </div>

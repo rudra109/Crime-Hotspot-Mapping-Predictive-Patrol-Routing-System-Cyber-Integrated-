@@ -23,7 +23,8 @@ interface CommandDashboardProps {
   units: PatrolUnit[];
   onDispatchUnit: (unitId: string, incidentId: string) => void;
   onAddIncident: (incident: Incident) => void;
-  onAckAlert: (alertId: string) => void;
+  onAckAlert: (alertId: string, payload?: any) => void;
+  onEscalateAlert?: (alertId: string, level: number, reason?: string) => void;
   onSimulateAlarm: () => void;
 }
 
@@ -41,6 +42,7 @@ export default function CommandDashboard({
   onDispatchUnit,
   onAddIncident,
   onAckAlert,
+  onEscalateAlert,
   onSimulateAlarm,
 }: CommandDashboardProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -390,12 +392,19 @@ export default function CommandDashboard({
   const handleAcknowledgeDetailed = async () => {
     if (!selectedAlert) return;
     try {
-      const res = await acknowledgeAlert(selectedAlert.id, {
+      const payload = {
         operatorId: ackOperatorId,
         operatorName: ackOperatorName,
         notes: ackNotes
+      };
+      
+      onAckAlert(selectedAlert.id, payload);
+      
+      setSelectedAlert({
+        ...selectedAlert,
+        status: 'Acknowledged',
+        ...payload
       });
-      setSelectedAlert(res.alert);
       setShowAckForm(false);
       setAckNotes("");
     } catch (err: any) {
@@ -406,11 +415,21 @@ export default function CommandDashboard({
   const handleEscalateDetailed = async () => {
     if (!selectedAlert) return;
     try {
-      const res = await escalateAlert(selectedAlert.id, {
-        level: escLevel,
-        reason: escReason
+      if (onEscalateAlert) {
+        onEscalateAlert(selectedAlert.id, escLevel, escReason);
+      } else {
+        await escalateAlert(selectedAlert.id, {
+          level: escLevel,
+          reason: escReason
+        });
+      }
+      
+      setSelectedAlert({
+        ...selectedAlert,
+        status: 'Escalated',
+        escalationLevel: escLevel,
+        escalation: { level: escLevel, reason: escReason, at: new Date().toISOString() }
       });
-      setSelectedAlert(res.alert);
       setShowEscForm(false);
       setEscReason("");
     } catch (err: any) {
