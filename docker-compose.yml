@@ -34,5 +34,41 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
+  ml-engine:
+    build: ./ml-engine
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+
+  backend:
+    build: ./backend
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+      - ml-engine
+    ports:
+      - "8001:8001"
+    environment:
+      - PORT=8001
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=dev_password
+      - DB_NAME=crime_hotspot
+      - ML_ENGINE_URL=http://ml-engine:8000
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - VITE_API_BASE_URL=http://localhost:8001/api/v1
+      - VITE_SOCKET_URL=http://localhost:8001
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:

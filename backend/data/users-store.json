@@ -108,5 +108,82 @@
     "totpSecret": "ECF4E61CF8EA90991F71",
     "mfaActive": false,
     "createdAt": "2026-06-12T06:06:25.089Z"
+  },
+  {
+    "id": "user-1781334113686",
+    "badgeNumber": "1234",
+    "name": "vraj",
+    "passwordHash": "bf955efaa99d34ddc54051ab3f2ded1b38aa443f0e7b38be226c358eff43d0c0",
+    "passwordSalt": "bcaaea4b6ab607971e114ce1091001fd",
+    "role": "officer",
+    "totpSecret": "DFF5A2CDA91149763092",
+    "mfaActive": false,
+    "createdAt": "2026-06-13T07:01:53.686Z"
+  },
+  {
+    "id": "user-1781334149350",
+    "badgeNumber": "12345",
+    "name": "vraj",
+    "passwordHash": "411b7144c991d5d46c10ce59e743a92a364db14ab9aad7fcd5bdcc77ea761c87",
+    "passwordSalt": "f90c7c849941d02ce41a1f15042c4ce5",
+    "role": "officer",
+    "totpSecret": "3313551485E3E408750A",
+    "mfaActive": true,
+    "createdAt": "2026-06-13T07:02:29.350Z"
+  },
+  {
+    "id": "user-1781334307786",
+    "badgeNumber": "BADGE-TEST-6826",
+    "name": "Inspector Test Security",
+    "passwordHash": "abb85ed2c2f3824d6c1f745e6ee81f9ac86ae382cbeac039ce680fb1ea1735d0",
+    "passwordSalt": "843e0eb08fb5bf204c2e03fcadb31485",
+    "role": "supervisor",
+    "totpSecret": "708B05A637A83AB786FA",
+    "mfaActive": true,
+    "createdAt": "2026-06-13T07:05:07.786Z"
+  },
+  {
+    "id": "user-1781334307822",
+    "badgeNumber": "BADGE-TEST-6826-OFF",
+    "name": "Officer Junior Test",
+    "passwordHash": "b45d77b7270791891b78462f88d1892b4b4f759b17b51a295036cb3324180a0b",
+    "passwordSalt": "9e3d219eb6a5252204586bb6d1913a53",
+    "role": "officer",
+    "totpSecret": "CEA1BB012E47DA064A94",
+    "mfaActive": true,
+    "createdAt": "2026-06-13T07:05:07.822Z"
+  },
+  {
+    "id": "user-1781336386853",
+    "badgeNumber": "BADGE-TEST-9999",
+    "name": "Agent Test",
+    "passwordHash": "4eaa8d10807306eec5f9d0c0cc0d27e8affe0f9cb167ea9ddb29a11c2b8322b8",
+    "passwordSalt": "0780cf3917298718afba5b0c1d452a73",
+    "role": "supervisor",
+    "totpSecret": "6687D9868BD120A87210",
+    "mfaActive": true,
+    "createdAt": "2026-06-13T07:39:46.853Z"
+  },
+  {
+    "id": "user-1781338721270",
+    "badgeNumber": "234",
+    "name": "vraj12",
+    "passwordHash": "c2e9df8f3d9f52cc9c1c38ccb0af7f74d7d7d3751fa75c7e77bf1afa7da6a9a5",
+    "passwordSalt": "6547299db0c3efca7c6497d002d9953a",
+    "role": "officer",
+    "totpSecret": "9E4E9659A78EB512FFFC",
+    "mfaActive": false,
+    "createdAt": "2026-06-13T08:18:41.270Z"
+  },
+  {
+    "id": "user-1781338762030",
+    "badgeNumber": "123445",
+    "name": "vraj123",
+    "passwordHash": "dde974d50b398014d386e563620ca32147a738530ebfd554af9d91a57458c83d",
+    "passwordSalt": "23accbd3e720d11d9aa9747556c4a5d7",
+    "role": "officer",
+    "totpSecret": "6D7144109897F11D63AF",
+    "mfaActive": false,
+    "createdAt": "2026-06-13T08:19:22.030Z"
   }
 ]

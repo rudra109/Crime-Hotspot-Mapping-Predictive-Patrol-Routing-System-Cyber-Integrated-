@@ -1,5 +1,24 @@
 [
   {
+    "id": "INC-SEC-TEST",
+    "type": "assault",
+    "source": "fir",
+    "source_id": "INC-SEC-TEST",
+    "reconciled_id": "INC-SEC-TEST",
+    "reconciliation_status": "duplicate",
+    "severity": 9,
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        72.5714,
+        23.0225
+      ]
+    },
+    "location_address": "Secured HQ Vault",
+    "timestamp": "2026-06-13T07:05:07.856Z",
+    "description": "eeeb5a41e4619ff2e250cbb7:5a222f9e3ce6970a2b7aceff20dfe354:de3165d5b09adc85d22c39edddce3003fcc2fbfc9d3bf18e0bbfa09e720e55bc8886e1a03b15f53e7171a0bbbe93d71389919558607791e878f7389bb8b8768d6dbb392ce6e4eb83a0370afafc2e192c04e8"
+  },
+  {
     "id": "INC-3180",
     "type": "assault",
     "source": "fir",

@@ -16,6 +16,7 @@ import authRoutes from './api/routes/authRoutes';
 import complianceRoutes from './api/routes/complianceRoutes';
 import anomalyRoutes from './api/routes/anomalyRoutes';
 import smartCityRoutes from './api/routes/smartCityRoutes';
+import securityRoutes from './api/routes/securityRoutes';
 import { accessAuditor } from './api/middleware/auth-middleware';
 
 const app = express();
@@ -45,6 +46,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/compliance', complianceRoutes);
 app.use('/api/v1/analytics/anomalies', anomalyRoutes);
 app.use('/api/v1/smartcity', smartCityRoutes);
+app.use('/api/v1/security', securityRoutes);
 
 // Healthcheck Route
 app.get('/health', (req, res) => {

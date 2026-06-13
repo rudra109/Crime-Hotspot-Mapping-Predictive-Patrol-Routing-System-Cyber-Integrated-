@@ -1,5 +1,17 @@
 [
   {
+    "id": "ANOM-1781334236928-953",
+    "timestamp": "2026-06-13T07:03:56.928Z",
+    "sector": "Central",
+    "metricType": "category_surge",
+    "currentValue": 3,
+    "thresholdValue": 2,
+    "deviation": 1,
+    "category": "assault",
+    "message": "Surge in crime category \"ASSAULT\" detected in Central (3 incidents in 7d).",
+    "status": "active"
+  },
+  {
     "id": "ANOM-1781244369095-637",
     "timestamp": "2026-06-12T06:06:09.095Z",
     "sector": "Central",

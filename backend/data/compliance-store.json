@@ -5,7 +5,19 @@
       "reason": "Undergoing active investigation by Vastrapur Division Inspector.",
       "markedBy": "BADGE-1111",
       "markedAt": "2026-06-09T05:25:42.993Z"
+    },
+    {
+      "incidentId": "INC-7777",
+      "reason": "Critical security audit lock",
+      "markedBy": "BADGE-TEST-9999",
+      "markedAt": "2026-06-13T07:43:15.683Z"
+    },
+    {
+      "incidentId": "INC-8888",
+      "reason": "Audit verification post-restart",
+      "markedBy": "BADGE-TEST-9999",
+      "markedAt": "2026-06-13T07:54:08.532Z"
     }
   ],
-  "retentionDays": 90
+  "retentionDays": 266
 }

@@ -493,4 +493,19 @@ export const simulateSmartCityStreetlight = async (payload: {
   return res.data;
 };
 
+// ─── Security Dashboard ──────────────────────────────────────────────────────
+
+export const fetchSecurityStatus = async (): Promise<any> => {
+  try {
+    const res = await apiClient.get('/security/status');
+    return res.data.securityPosture || null;
+  } catch { return null; }
+};
+
+export const fetchSecurityMetrics = async (): Promise<any> => {
+  try {
+    const res = await apiClient.get('/security/metrics');
+    return res.data || null;
+  } catch { return null; }
+};
 
